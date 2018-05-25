@@ -1,0 +1,42 @@
+Package linguagem ;
+
+Helpers
+	/* BASICOS */
+	digitos = ['0' .. '9'];
+	letras = ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['à' .. 'û'] | ['À' .. 'Û'];
+	nl = 10 ;
+ 
+Tokens
+	/* ID */
+	id = letras (letras | digitos);
+
+	/* DECLARACAO DOS VALORES */
+	inteiro = digitos+;
+	real = digitos+(',')(digitos)+;
+	string = '''(letras+)''';
+	
+	/* COMENTARIOS */
+	comentario_linha = '//'([0 .. 9]*[11 .. 255])*;
+	comentario_bloco = '/*'([0 .. 13] | [32 .. 255])*'*/';
+	
+	/* OPERADORES ARITMETICOS */
+	soma = '+';
+	sub = '-';
+	mult = '*';
+	div = '/';
+	
+	/* OPERADORES RELACIONAIS */
+	maior = '>';
+	menor = '<';
+	igual = '=';
+	maior_igual = '>=';
+	menor_igual = '<=';
+	
+	/* OUTROS TOKENS */
+	atribuicao = ':=';
+		
+Ignored Tokens
+	comentario_linha, comentario_bloco;
+/*
+Productions
+*/

@@ -1,10 +1,11 @@
 
 /* Create an AST, then invoke our interpreter. */
-import simpleAdder.interpret.Interpreter;
 import simpleAdder.parser.*;
 import simpleAdder.lexer.*;
 import simpleAdder.node.*;
 import java.io.*;
+
+import linguagem.interpret.Interpreter;
 
 public class Main {
 	public static void main(String[] args) {
