@@ -15,6 +15,13 @@ public class Main {
 				Lexer lexer = new Lexer(new PushbackReader(new FileReader(args[0]), 1024));
 				Token token;
 				while(!((token = lexer.next()) instanceof EOF))
+					if( token.getClass().getSimpleName().equals( "TComentarioLinha" ) ) {
+						/* Imprime apenas a classe, mas ainda precisamos ignorar o que vem depois disso. 
+						até o proximo token TNovaLinha. */ 
+						System.out.print(token.getClass().getSimpleName());
+					} else if( token.getClass().getSimpleName().equals( "TComentarioBlocoAbre" ) ) {
+						/* AQUI PRECISA TESTAR O BALANCEAMENTO DO COMENTARIO */
+					}
 					if( token.getClass().getSimpleName().equals( "TTab" ) ) {
 						System.out.print('	');
 					} else if( token.getClass().getSimpleName().equals( "TEspaco" ) ) {

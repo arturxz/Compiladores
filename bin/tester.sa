@@ -3,6 +3,7 @@ inicio
 	inteiro: _variavelInteira := 0, variavelInteira := 1;
 	real: _variavelReal := 0,0, variavelReal := 0,1;
 	caractere: _variavelCaractere := 'q', varievelCaractere[3] := 'var';
+	// COMENTARIO EM LINHA
 	/*
 		ESSE COMENTARIO PRECISA SER ACEITO.
 		"'" '' @#$%¨&*()_+[]{}´´~~``^^//??;;::.>,<\|¹²³£¢¬7890-§ªº°;.,/?°
