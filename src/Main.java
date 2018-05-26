@@ -5,7 +5,7 @@ import linguagem.lexer.*;
 import linguagem.node.*;
 import java.io.*;
 
-import linguagem.interpret.Interpreter;
+//import linguagem.interpret.Interpreter;
 
 public class Main {
 	public static void main(String[] args) {

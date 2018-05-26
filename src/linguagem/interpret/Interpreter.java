@@ -1,4 +1,4 @@
-/* An interpreter for the simple math language we all espouse. */
+/* An interpreter for the simple math language we all espouse.
 package linguagem.interpret;
 
 import linguagem.node.*;
@@ -14,3 +14,4 @@ public class Interpreter extends DepthFirstAdapter {
 		System.out.println(lhs + "+" + rhs + "=" + result);
 	}
 }
+*/

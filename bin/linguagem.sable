@@ -4,11 +4,21 @@ Helpers
 	/* BASICOS */
 	digitos = ['0' .. '9'];
 	letras 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['à' .. 'û'] | ['À' .. 'Û'];
-	esp = ' ';
- 
+	
+	/* QUEBRA DE LINHA */
+	tab = 9;
+	cr = 13;
+	lf = 10;
+	nl = (cr lf | cr | lf);
+	brancos = (' ' | tab )+;
+	
+	/* " TUDO MENOS TAL COISA " */
+	tudo = [0 .. 0xFFFF];
+	sem_nl = [tudo - [cr + lf]]*;
+	
 Tokens
 	/* ID */
-	id = letras (letras | digitos);
+	id = letras+ (letras | digitos)*;
 
 	/* DECLARACAO DOS VALORES */
 	inteiro = digitos+;
@@ -17,8 +27,9 @@ Tokens
 	booleano= 'verdadeiro' | 'falso';
 	
 	/* COMENTARIOS */
-	comentario_linha = '//'([0 .. 9]*[11 .. 255])*;
-	comentario_bloco = '/*'([0 .. 13] | [32 .. 255])*'*/';
+	comentario_linha = '//' sem_nl* nl;
+	comentario_bloco_abre = '/*';
+	comentario_bloco_fecha = '*/';
 	
 	/* OPERADORES ARITMETICOS */
 	soma 	= '+';
@@ -46,7 +57,7 @@ Tokens
 	ponto_virgula 	 = ';';
 	aspas_simples 	 = ''';
 	aspas_duplas 	 = '"';
-	nova_linha		 = '\n';
+	nova_linha 		 = nl;
 	
 /*
 Productions

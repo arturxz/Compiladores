@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TNovaLinha extends Token
 {
-    public TNovaLinha()
+    public TNovaLinha(String text)
     {
-        super.setText("\\n");
+        setText(text);
     }
 
-    public TNovaLinha(int line, int pos)
+    public TNovaLinha(String text, int line, int pos)
     {
-        super.setText("\\n");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TNovaLinha extends Token
     @Override
     public Object clone()
     {
-      return new TNovaLinha(getLine(), getPos());
+      return new TNovaLinha(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTNovaLinha(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TNovaLinha text.");
     }
 }

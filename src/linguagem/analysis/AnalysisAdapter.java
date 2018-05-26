@@ -105,7 +105,13 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTComentarioBloco(TComentarioBloco node)
+    public void caseTComentarioBlocoAbre(TComentarioBlocoAbre node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTComentarioBlocoFecha(TComentarioBlocoFecha node)
     {
         defaultCase(node);
     }
