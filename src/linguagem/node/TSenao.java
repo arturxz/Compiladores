@@ -5,16 +5,16 @@ package linguagem.node;
 import linguagem.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TFimBloco extends Token
+public final class TSenao extends Token
 {
-    public TFimBloco()
+    public TSenao()
     {
-        super.setText("fim");
+        super.setText("senao");
     }
 
-    public TFimBloco(int line, int pos)
+    public TSenao(int line, int pos)
     {
-        super.setText("fim");
+        super.setText("senao");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TFimBloco extends Token
     @Override
     public Object clone()
     {
-      return new TFimBloco(getLine(), getPos());
+      return new TSenao(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTFimBloco(this);
+        ((Analysis) sw).caseTSenao(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TFimBloco text.");
+        throw new RuntimeException("Cannot change TSenao text.");
     }
 }

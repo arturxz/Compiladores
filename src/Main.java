@@ -15,7 +15,15 @@ public class Main {
 				Lexer lexer = new Lexer(new PushbackReader(new FileReader(args[0]), 1024));
 				Token token;
 				while(!((token = lexer.next()) instanceof EOF))
-					System.out.println(token.getClass().getSimpleName() + "(" + token.getText() + ")");
+					if( token.getClass().getSimpleName().equals( "TTab" ) ) {
+						System.out.print('	');
+					} else if( token.getClass().getSimpleName().equals( "TEspaco" ) ) {
+						System.out.print(' ');
+					} else if( token.getClass().getSimpleName().equals( "TNovaLinha" ) ) {
+						System.out.println("");
+					} else {
+						System.out.print(token.getClass().getSimpleName() + "(" + token.getText() + ")");
+					}
 			}
 			catch(Exception e){
 				System.out.println(e.getMessage());

@@ -10,7 +10,21 @@ Helpers
 	cr = 13;
 	lf = 10;
 	nl = (cr lf | cr | lf);
-	brancos = (' ' | tab )+;
+	branco = (' ' | '	')+;
+	palavras_reservadas = ( 'caractere'
+						  | 'real'
+						  | 'inteiro'
+						  | 'inicio'
+						  | 'fim'
+						  | 'se'
+						  | 'senao'
+						  | 'enquanto'
+						  | 'para'
+						  | 'avalie'
+						  | 'caso'
+						  | 'verdadeiro'
+						  | 'falso'
+						  | 'booleano');
 	
 	/* " TUDO MENOS TAL COISA " */
 	tudo = [0 .. 0xFFFF];
@@ -18,13 +32,22 @@ Helpers
 	
 Tokens
 	/* ID */
-	id = letras+ (letras | digitos)*;
+	id = letras+ ((letras | digitos)*);
 
 	/* DECLARACAO DOS VALORES */
-	inteiro = digitos+;
 	real 	= digitos+(',')(digitos)+;
+	inteiro = digitos+;
 	string 	= '''(letras+)''';
 	booleano= 'verdadeiro' | 'falso';
+	
+	/* EXPRESSOES CONDICIONAIS */
+	se = 'se';
+	senao = 'senao';
+	
+	/* LOOPS */
+	enquanto = 'enquanto';
+	para = 'para';
+	caso = 'caso';
 	
 	/* COMENTARIOS */
 	comentario_linha = '//' sem_nl* nl;
@@ -43,10 +66,11 @@ Tokens
 	igual 		= '=';
 	maior_igual = '>=';
 	menor_igual = '<=';
+	diferente	= '<>';
 	
 	/* BLOCO */
-	inicio_bloco= 'INICIO';
-	fim_bloco 	= 'FIM';
+	inicio_bloco= 'inicio';
+	fim_bloco 	= 'fim';
 	
 	/* OUTROS TOKENS */
 	atribuicao 		 = ':=';
@@ -54,10 +78,18 @@ Tokens
 	fecha_parentesis = ')';
 	abre_colchetes 	 = '[';
 	fecha_colchetes  = ']';
-	ponto_virgula 	 = ';';
+	ponto			 = '.';
+	virgula			 = ',';
+	ponto_e_virgula	 = ';';
+	dois_pontos		 = ':';
 	aspas_simples 	 = ''';
 	aspas_duplas 	 = '"';
 	nova_linha 		 = nl;
+	espaco	 		 = ' ';
+	tab				 = '	';
+
+IgnoredTokens
+	comentario_linha;
 	
 /*
 Productions

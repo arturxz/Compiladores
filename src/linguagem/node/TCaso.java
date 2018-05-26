@@ -5,16 +5,16 @@ package linguagem.node;
 import linguagem.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TPontoVirgula extends Token
+public final class TCaso extends Token
 {
-    public TPontoVirgula()
+    public TCaso()
     {
-        super.setText(";");
+        super.setText("caso");
     }
 
-    public TPontoVirgula(int line, int pos)
+    public TCaso(int line, int pos)
     {
-        super.setText(";");
+        super.setText("caso");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TPontoVirgula extends Token
     @Override
     public Object clone()
     {
-      return new TPontoVirgula(getLine(), getPos());
+      return new TCaso(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTPontoVirgula(this);
+        ((Analysis) sw).caseTCaso(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TPontoVirgula text.");
+        throw new RuntimeException("Cannot change TCaso text.");
     }
 }

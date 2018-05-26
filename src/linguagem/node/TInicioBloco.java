@@ -9,12 +9,12 @@ public final class TInicioBloco extends Token
 {
     public TInicioBloco()
     {
-        super.setText("INICIO");
+        super.setText("inicio");
     }
 
     public TInicioBloco(int line, int pos)
     {
-        super.setText("INICIO");
+        super.setText("inicio");
         setLine(line);
         setPos(pos);
     }
