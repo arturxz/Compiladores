@@ -1,8 +1,8 @@
 
 /* Create an AST, then invoke our interpreter. */
-import simpleAdder.parser.*;
-import simpleAdder.lexer.*;
-import simpleAdder.node.*;
+import linguagem.parser.*;
+import linguagem.lexer.*;
+import linguagem.node.*;
 import java.io.*;
 
 import linguagem.interpret.Interpreter;
@@ -13,18 +13,13 @@ public class Main {
 			try {
 				/* Form our AST */
 				Lexer lexer = new Lexer(new PushbackReader(new FileReader(args[0]), 1024));
-				Parser parser = new Parser(lexer);
-				Start ast = parser.parse();
-
-				/* Get our Interpreter going. */
-				Interpreter interp = new Interpreter();
-				ast.apply(interp);
-			} catch (Exception e) {
-				System.out.println(e);
+				Token token;
+				while(!((token = lexer.next()) instanceof EOF))
+					System.out.println(token.getClass().getSimpleName() + "(" + token.getText() + ")");
 			}
-		} else {
-			System.err.println("usage: java simpleAdder inputFile");
-			System.exit(1);
+			catch(Exception e){
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 }

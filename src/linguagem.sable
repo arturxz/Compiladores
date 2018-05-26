@@ -3,8 +3,8 @@ Package linguagem ;
 Helpers
 	/* BASICOS */
 	digitos = ['0' .. '9'];
-	letras = ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['à' .. 'û'] | ['À' .. 'Û'];
-	nl = 10 ;
+	letras 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['à' .. 'û'] | ['À' .. 'Û'];
+	esp = ' ';
  
 Tokens
 	/* ID */
@@ -12,31 +12,42 @@ Tokens
 
 	/* DECLARACAO DOS VALORES */
 	inteiro = digitos+;
-	real = digitos+(',')(digitos)+;
-	string = '''(letras+)''';
+	real 	= digitos+(',')(digitos)+;
+	string 	= '''(letras+)''';
+	booleano= 'verdadeiro' | 'falso';
 	
 	/* COMENTARIOS */
 	comentario_linha = '//'([0 .. 9]*[11 .. 255])*;
 	comentario_bloco = '/*'([0 .. 13] | [32 .. 255])*'*/';
 	
 	/* OPERADORES ARITMETICOS */
-	soma = '+';
-	sub = '-';
-	mult = '*';
-	div = '/';
+	soma 	= '+';
+	sub 	= '-';
+	mult 	= '*';
+	div 	= '/';
 	
 	/* OPERADORES RELACIONAIS */
-	maior = '>';
-	menor = '<';
-	igual = '=';
+	maior 		= '>';
+	menor 		= '<';
+	igual 		= '=';
 	maior_igual = '>=';
 	menor_igual = '<=';
 	
+	/* BLOCO */
+	inicio_bloco= 'INICIO';
+	fim_bloco 	= 'FIM';
+	
 	/* OUTROS TOKENS */
-	atribuicao = ':=';
-		
-Ignored Tokens
-	comentario_linha, comentario_bloco;
+	atribuicao 		 = ':=';
+	abre_parentesis  = '(';
+	fecha_parentesis = ')';
+	abre_colchetes 	 = '[';
+	fecha_colchetes  = ']';
+	ponto_virgula 	 = ';';
+	aspas_simples 	 = ''';
+	aspas_duplas 	 = '"';
+	nova_linha		 = '\n';
+	
 /*
 Productions
 */

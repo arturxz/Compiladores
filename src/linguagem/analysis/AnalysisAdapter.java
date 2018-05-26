@@ -93,6 +93,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTBooleano(TBooleano node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTComentarioLinha(TComentarioLinha node)
     {
         defaultCase(node);
@@ -159,7 +165,67 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTInicioBloco(TInicioBloco node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFimBloco(TFimBloco node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTAtribuicao(TAtribuicao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAbreParentesis(TAbreParentesis node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFechaParentesis(TFechaParentesis node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAbreColchetes(TAbreColchetes node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFechaColchetes(TFechaColchetes node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTPontoVirgula(TPontoVirgula node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAspasSimples(TAspasSimples node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAspasDuplas(TAspasDuplas node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTNovaLinha(TNovaLinha node)
     {
         defaultCase(node);
     }

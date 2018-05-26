@@ -11,7 +11,8 @@ public class ComentarioAninhado extends Lexer {
 	// Definimos um filtro que reconhece comentarios aninhados
 	@Override
 	protected void filter() throws LexerException {
-		// Coloque o código aqui...
-
+		
+		
+		
 	}
 }
