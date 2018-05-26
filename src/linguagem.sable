@@ -30,7 +30,13 @@ Helpers
 	tudo = [0 .. 0xFFFF];
 	sem_nl = [tudo - [cr + lf]]*;
 	
+States
+	normal,
+	comentario;
+	
 Tokens
+
+{normal}
 	/* ID */
 	id = letras+ ((letras | digitos)*);
 
@@ -49,10 +55,6 @@ Tokens
 	para = 'para';
 	caso = 'caso';
 	
-	/* COMENTARIOS */
-	comentario_linha = '//' sem_nl* nl;
-	comentario_bloco_abre = '/*';
-	comentario_bloco_fecha = '*/';
 	
 	/* OPERADORES ARITMETICOS */
 	soma 	= '+';
@@ -87,6 +89,16 @@ Tokens
 	nova_linha 		 = nl;
 	espaco	 		 = ' ';
 	tab				 = '	';
+	
+	/* COMENTARIOS */
+	
+{normal->comentario, comentario}
+	comentario = '/*';
+		
+	
+	
+{comentario}	comentario_linha = '//' sem_nl* nl;
+{comentario}	comentario_bloco_fecha = '*/';
 
 IgnoredTokens
 	comentario_linha;
