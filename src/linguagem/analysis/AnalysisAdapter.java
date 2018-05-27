@@ -129,24 +129,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTComentarioLinha(TComentarioLinha node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTComentarioBlocoAbre(TComentarioBlocoAbre node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTComentarioBlocoFecha(TComentarioBlocoFecha node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseTSoma(TSoma node)
     {
         defaultCase(node);
@@ -298,6 +280,30 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTTab(TTab node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTComentarioLinha(TComentarioLinha node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTComentarioBlocoAbre(TComentarioBlocoAbre node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTComentarioBlocoFecha(TComentarioBlocoFecha node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTCaracteresPermitidos(TCaracteresPermitidos node)
     {
         defaultCase(node);
     }

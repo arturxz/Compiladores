@@ -4,27 +4,15 @@ Helpers
 	/* BASICOS */
 	digitos = ['0' .. '9'];
 	letras 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['à' .. 'û'] | ['À' .. 'Û'];
-	
+	palavras_reservadas = ( 'caractere' | 'real' | 'inteiro' | 'inicio'| 'fim' | 'se' | 'senao' | 'enquanto' 
+						  | 'para' | 'avalie' | 'caso' | 'verdadeiro' | 'falso' | 'booleano');
+
 	/* QUEBRA DE LINHA */
 	tab = 9;
 	cr = 13;
 	lf = 10;
 	nl = (cr lf | cr | lf);
 	branco = (' ' | '	')+;
-	palavras_reservadas = ( 'caractere'
-						  | 'real'
-						  | 'inteiro'
-						  | 'inicio'
-						  | 'fim'
-						  | 'se'
-						  | 'senao'
-						  | 'enquanto'
-						  | 'para'
-						  | 'avalie'
-						  | 'caso'
-						  | 'verdadeiro'
-						  | 'falso'
-						  | 'booleano');
 	
 	/* " TUDO MENOS TAL COISA " */
 	tudo = [0 .. 0xFFFF];
@@ -32,11 +20,11 @@ Helpers
 	
 States
 	normal,
-	comentario;
+	comentario_bloco;
 	
 Tokens
 
-{normal}
+{normal,comentario_bloco}
 	/* ID */
 	id = letras+ ((letras | digitos)*);
 
@@ -91,17 +79,11 @@ Tokens
 	tab				 = '	';
 	
 	/* COMENTARIOS */
-	
-{normal->comentario, comentario}
-	comentario = '/*';
-		
-	
-	
-{comentario}	comentario_linha = '//' sem_nl* nl;
-{comentario}	comentario_bloco_fecha = '*/';
-
-IgnoredTokens
-	comentario_linha;
+	comentario_linha = '//' sem_nl* nl;
+{normal->comentario_bloco, comentario_bloco}
+	comentario_bloco_abre = '/*';
+{comentario_bloco}	comentario_bloco_fecha = '*/';
+{comentario_bloco}	caracteres_permitidos = [tudo - ['*' + '/']];
 	
 /*
 Productions

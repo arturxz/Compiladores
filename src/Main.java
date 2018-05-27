@@ -1,5 +1,6 @@
 
 /* Create an AST, then invoke our interpreter. */
+import linguagem.interpret.*;
 import linguagem.parser.*;
 import linguagem.lexer.*;
 import linguagem.node.*;
@@ -12,7 +13,8 @@ public class Main {
 		if (args.length > 0) {
 			try {
 				/* Form our AST */
-				Lexer lexer = new Lexer(new PushbackReader(new FileReader(args[0]), 1024));
+				PushbackReader pbr = new PushbackReader(new FileReader(args[0]), 1024);
+				Lexer lexer = new Lexer(pbr);
 				Token token;
 				while(!((token = lexer.next()) instanceof EOF))
 					if( token.getClass().getSimpleName().equals( "TComentarioLinha" ) ) {
@@ -21,8 +23,9 @@ public class Main {
 						System.out.print(token.getClass().getSimpleName());
 					} else if( token.getClass().getSimpleName().equals( "TComentarioBlocoAbre" ) ) {
 						/* AQUI PRECISA TESTAR O BALANCEAMENTO DO COMENTARIO */
-					}
-					if( token.getClass().getSimpleName().equals( "TTab" ) ) {
+						ComentarioAninhado ca = new ComentarioAninhado(pbr);
+						ca.filter();
+					}else if( token.getClass().getSimpleName().equals( "TTab" ) ) {
 						System.out.print('	');
 					} else if( token.getClass().getSimpleName().equals( "TEspaco" ) ) {
 						System.out.print(' ');
