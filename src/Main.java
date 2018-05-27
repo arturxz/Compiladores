@@ -35,18 +35,20 @@ public class Main {
 								count--;
 							} else if(token instanceof EOF) {
 								System.out.print("Erro de comentario de bloco. Linha: " +token_old.getLine());
+								//System.out.print(", posicao: " +token_old.getPos() +".");
 								System.out.print(", posicao: " +token_old.getPos() +".");
+								System.out.print(", posicao: " +token.getPos() +".");
 								count = -1;
 							}
-							System.out.println("Count: " +count +" Token:" +token.getText() +" Line: " +token.getLine());
+							//System.out.println("Count: " +count +" Token:" +token.getText() +" Line: " +token.getLine());
 						}
 						
 						if(count == 0) {
 							System.out.print("TComentarioBloco");
 						}
 						
-						System.out.println("LINHA ATUAL: " +token.getLine());
-					}else if( token.getClass().getSimpleName().equals( "TcomentarioBlocoFecha" )) {
+						//System.out.println("LINHA ATUAL: " +token.getLine());
+					}else if( token.getClass().getSimpleName().equals( "TComentarioBlocoFecha" )) {
 						System.out.print("Erro de comentario de bloco. Linha: " +token.getLine());
 						System.out.print(", posicao: " +token.getPos() +". : TComentarioBlocoFimErrado");
 					}else if( token.getClass().getSimpleName().equals( "TTab" ) ) {
@@ -56,7 +58,11 @@ public class Main {
 					} else if( token.getClass().getSimpleName().equals( "TNovaLinha" ) ) {
 						System.out.println("");
 					} else {
+						//Imprime COM o conteudo do Tipo
 						System.out.print(token.getClass().getSimpleName() + "(" + token.getText() + ")");
+						
+						//Imprime SEM o conteudo do Tipo (Ainda não funciona pois, por exemplo, identifica TId(Real) em vez de TReal
+						//System.out.print(token.getClass().getSimpleName());
 					}
 			}
 			catch(Exception e){
