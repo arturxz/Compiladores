@@ -1,59 +1,9 @@
-programa teste
-inicio
-	inteiro: _variavelInteira := 0, variavelInteira := 1;
-	real: _variavelReal := 0,0, variavelReal := 0,1;
-	caractere: _variavelCaractere := 'q', varievelCaractere[3] := 'var';
-	// COMENTARIO EM LINHA
-	/*
-		ESSE COMENTARIO PRECISA SER ACEITO.
-		"'" '' @#$%¨&*()_+[]{}´´~~``^^//??;;::.>,<\|¹²³£¢¬7890-§ªº°;.,/?°
-		se senao caractere vade mecum inicio fim meio inteiro real caractere __
-		/* COMENTARIO DO COMENTARIO PRA VER SE ROLA@*/
-	*/
-	
-	//AGORA UNS COMENTARIOS DESBALANCEADOS. DESCOMENTE LINHA COM DESBALANCEAMENTO QUE VC QUISER TESTAR
-	// /* /* /* */
-	// */ 
-	// /*
-	// /* /* */
-	// */ */ /*
-	// /* /* /* */ */ */ */
-	
-	_variavelInteira + variavelInteira
-	_variavelReal + variavelReal
-	10 + 20
-	2,3 - 2,6
-	40 / 10
-	30 * 40
-	40 + verdadeiro - falso * _variavelCaractere
-	
-	se( _variavelReal < 10 )
-	entao
-		_variavelReal = _variavelReal + 0,1;
-	senao
-		_variavelReal = _variavelReal - 0,1;
-	fim se;
-	
-	enquanto ( _variavelReal < 20 )
-	faca
-		_variavelReal = _variavelReal + 1;
-	fim enquanto;
-	
-	repita
-		escreva('Ola mundo');
-		_variavelInteira = _variavelInteira + 1;
-	ate( _variavelInteira > 10 );
-	
-	para variavelInteira de 0 ate 10
-	faca
-		_variavelInteira = _variavelInteira + 1;
-	fim para
-	
-	0 >= 1
-	0 <= 1
-	0 <> 1
-	0 > 1
-	0 < 1
-	0 = 1
 
-fim
+/* // */
+
+/*  */
+
+/*
+
+*/
+*/

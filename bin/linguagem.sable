@@ -79,12 +79,12 @@ Tokens
 	tab				 = '	';
 	
 	/* COMENTARIOS */
-	comentario_linha = '//' sem_nl* nl;
 {normal->comentario_bloco, comentario_bloco}
 	comentario_bloco_abre = '/*';
-{comentario_bloco}	comentario_bloco_fecha = '*/';
+
 {comentario_bloco}	caracteres_permitidos = [tudo - ['*' + '/']];
+
+{comentario_bloco->normal, normal}
+	comentario_bloco_fecha = '*/';
 	
-/*
-Productions
-*/
+{normal}	comentario_linha = '//' sem_nl* nl;

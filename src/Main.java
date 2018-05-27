@@ -20,11 +20,35 @@ public class Main {
 					if( token.getClass().getSimpleName().equals( "TComentarioLinha" ) ) {
 						/* Imprime apenas a classe, mas ainda precisamos ignorar o que vem depois disso. 
 						até o proximo token TNovaLinha. */ 
-						System.out.print(token.getClass().getSimpleName());
+						System.out.println(token.getClass().getSimpleName());
 					} else if( token.getClass().getSimpleName().equals( "TComentarioBlocoAbre" ) ) {
-						/* AQUI PRECISA TESTAR O BALANCEAMENTO DO COMENTARIO */
-						ComentarioAninhado ca = new ComentarioAninhado(pbr);
-						ca.filter();
+
+						int count = 1;
+						Token token_old = token;
+						while(count > 0) {
+							token = lexer.next();
+							if(token instanceof TComentarioBlocoAbre) {
+								token_old = token;
+								count++;
+							} else if(token instanceof TComentarioBlocoFecha) {
+								token_old = token;
+								count--;
+							} else if(token instanceof EOF) {
+								System.out.print("Erro de comentario de bloco. Linha: " +token_old.getLine());
+								System.out.print(", posicao: " +token_old.getPos() +".");
+								count = -1;
+							}
+							System.out.println("Count: " +count +" Token:" +token.getText() +" Line: " +token.getLine());
+						}
+						
+						if(count == 0) {
+							System.out.print("TComentarioBloco");
+						}
+						
+						System.out.println("LINHA ATUAL: " +token.getLine());
+					}else if( token.getClass().getSimpleName().equals( "TcomentarioBlocoFecha" )) {
+						System.out.print("Erro de comentario de bloco. Linha: " +token.getLine());
+						System.out.print(", posicao: " +token.getPos() +". : TComentarioBlocoFimErrado");
 					}else if( token.getClass().getSimpleName().equals( "TTab" ) ) {
 						System.out.print('	');
 					} else if( token.getClass().getSimpleName().equals( "TEspaco" ) ) {

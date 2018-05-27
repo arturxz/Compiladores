@@ -285,13 +285,13 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTComentarioLinha(TComentarioLinha node)
+    public void caseTComentarioBlocoAbre(TComentarioBlocoAbre node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseTComentarioBlocoAbre(TComentarioBlocoAbre node)
+    public void caseTCaracteresPermitidos(TCaracteresPermitidos node)
     {
         defaultCase(node);
     }
@@ -303,7 +303,7 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTCaracteresPermitidos(TCaracteresPermitidos node)
+    public void caseTComentarioLinha(TComentarioLinha node)
     {
         defaultCase(node);
     }
