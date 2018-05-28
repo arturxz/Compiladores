@@ -261,12 +261,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTAtrib(TAtrib node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseTAbreParentesis(TAbreParentesis node)
     {
         defaultCase(node);

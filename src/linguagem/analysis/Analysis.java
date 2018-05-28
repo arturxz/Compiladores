@@ -43,7 +43,6 @@ public interface Analysis extends Switch
     void caseTE(TE node);
     void caseTOu(TOu node);
     void caseTAtribuicao(TAtribuicao node);
-    void caseTAtrib(TAtrib node);
     void caseTAbreParentesis(TAbreParentesis node);
     void caseTFechaParentesis(TFechaParentesis node);
     void caseTAbreColchetes(TAbreColchetes node);

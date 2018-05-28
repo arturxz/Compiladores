@@ -79,8 +79,7 @@ Tokens
 	ou 	= 'ou';
 	
 	/* OUTROS TOKENS */
-	atribuicao 		= ':=';
-	atrib			= '<-';
+	atribuicao		= '<-';
 	abre_parentesis = '(';
 	fecha_parentesis= ')';
 	abre_colchetes 	= '[';
