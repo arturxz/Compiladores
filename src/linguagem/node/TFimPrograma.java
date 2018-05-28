@@ -5,16 +5,16 @@ package linguagem.node;
 import linguagem.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TString extends Token
+public final class TFimPrograma extends Token
 {
-    public TString()
+    public TFimPrograma()
     {
-        super.setText("caractere");
+        super.setText("fim.");
     }
 
-    public TString(int line, int pos)
+    public TFimPrograma(int line, int pos)
     {
-        super.setText("caractere");
+        super.setText("fim.");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TString extends Token
     @Override
     public Object clone()
     {
-      return new TString(getLine(), getPos());
+      return new TFimPrograma(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTString(this);
+        ((Analysis) sw).caseTFimPrograma(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TString text.");
+        throw new RuntimeException("Cannot change TFimPrograma text.");
     }
 }

@@ -4,8 +4,6 @@ Helpers
 	/* BASICOS */
 	digitos = ['0' .. '9'];
 	letras 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['à' .. 'û'] | ['À' .. 'Û'];
-	palavras_reservadas = ( 'caractere' | 'real' | 'inteiro' | 'inicio'| 'fim' | 'se' | 'senao' | 'enquanto' 
-						  | 'para' | 'avalie' | 'caso' | 'verdadeiro' | 'falso' | 'booleano');
 
 	/* QUEBRA DE LINHA */
 	tab = 9;
@@ -18,6 +16,9 @@ Helpers
 	tudo = [0 .. 0xFFFF];
 	sem_nl = [tudo - [cr + lf]]*;
 	
+	/* IDS POSSIVEIS */
+	ids_possiveis = letras+ ((letras | digitos)*);
+	
 States
 	normal,
 	comentario_bloco;
@@ -25,24 +26,38 @@ States
 Tokens
 
 {normal,comentario_bloco}
-	/* ID */
-	id = letras+ ((letras | digitos)*);
-
-	/* DECLARACAO DOS VALORES */
+	
+	/* PALAVRAS RESERVADAS DO PROGRAMA */
+	programa 	= 'programa';
+	inicio		= 'inicio';
+	fim		 	= 'fim';
+	fim_programa= 'fim.';
+	string		= 'caractere';
+	inteiro		= 'inteiro';
+	real		= 'real';
+	booleano	= 'booleano';
+	verdadeiro	= 'verdadeiro';
+	falso		= 'falso';
+	leia		= 'leia';
+	escreva		= 'escreva';
+	
+	/* DECLARACAO DOS VALORES 
+	   ISSO AQUI NÃO É LÉXICO
 	real 	= digitos+(',')(digitos)+;
 	inteiro = digitos+;
 	string 	= '''(letras+)''';
 	booleano= 'verdadeiro' | 'falso';
+	*/
 	
 	/* EXPRESSOES CONDICIONAIS */
-	se = 'se';
-	senao = 'senao';
+	se 		= 'se';
+	senao 	= 'senao';
+	caso 	= 'caso';
+	avalie 	= 'avalie';
 	
 	/* LOOPS */
-	enquanto = 'enquanto';
-	para = 'para';
-	caso = 'caso';
-	
+	enquanto= 'enquanto';
+	para 	= 'para';
 	
 	/* OPERADORES ARITMETICOS */
 	soma 	= '+';
@@ -58,26 +73,32 @@ Tokens
 	menor_igual = '<=';
 	diferente	= '<>';
 	
-	/* BLOCO */
-	inicio_bloco= 'inicio';
-	fim_bloco 	= 'fim';
+	/* OPERADORES LOGICOS */
+	nao = 'nao';
+	e	= 'e';
+	ou 	= 'ou';
 	
 	/* OUTROS TOKENS */
-	atribuicao 		 = ':=';
-	abre_parentesis  = '(';
-	fecha_parentesis = ')';
-	abre_colchetes 	 = '[';
-	fecha_colchetes  = ']';
-	ponto			 = '.';
-	virgula			 = ',';
-	ponto_e_virgula	 = ';';
-	dois_pontos		 = ':';
-	aspas_simples 	 = ''';
-	aspas_duplas 	 = '"';
-	nova_linha 		 = nl;
-	espaco	 		 = ' ';
-	tab				 = '	';
-	
+	atribuicao 		= ':=';
+	atrib			= '<-';
+	abre_parentesis = '(';
+	fecha_parentesis= ')';
+	abre_colchetes 	= '[';
+	fecha_colchetes = ']';
+	ponto			= '.';
+	virgula			= ',';
+	ponto_e_virgula	= ';';
+	dois_pontos		= ':';
+	aspas_simples 	= ''';
+	aspas_duplas 	= '"';
+	nova_linha 		= nl;
+	espaco	 		= ' ';
+	tab				=  '	';
+
+	/* ID */
+	numero = digitos;
+	id = ids_possiveis;
+
 	/* COMENTARIOS */
 {normal->comentario_bloco, comentario_bloco}
 	comentario_bloco_abre = '/*';

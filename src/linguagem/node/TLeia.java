@@ -5,16 +5,16 @@ package linguagem.node;
 import linguagem.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TInicioBloco extends Token
+public final class TLeia extends Token
 {
-    public TInicioBloco()
+    public TLeia()
     {
-        super.setText("inicio");
+        super.setText("leia");
     }
 
-    public TInicioBloco(int line, int pos)
+    public TLeia(int line, int pos)
     {
-        super.setText("inicio");
+        super.setText("leia");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TInicioBloco extends Token
     @Override
     public Object clone()
     {
-      return new TInicioBloco(getLine(), getPos());
+      return new TLeia(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTInicioBloco(this);
+        ((Analysis) sw).caseTLeia(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TInicioBloco text.");
+        throw new RuntimeException("Cannot change TLeia text.");
     }
 }

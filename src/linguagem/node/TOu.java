@@ -5,16 +5,16 @@ package linguagem.node;
 import linguagem.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TString extends Token
+public final class TOu extends Token
 {
-    public TString()
+    public TOu()
     {
-        super.setText("caractere");
+        super.setText("ou");
     }
 
-    public TString(int line, int pos)
+    public TOu(int line, int pos)
     {
-        super.setText("caractere");
+        super.setText("ou");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TString extends Token
     @Override
     public Object clone()
     {
-      return new TString(getLine(), getPos());
+      return new TOu(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTString(this);
+        ((Analysis) sw).caseTOu(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TString text.");
+        throw new RuntimeException("Cannot change TOu text.");
     }
 }
