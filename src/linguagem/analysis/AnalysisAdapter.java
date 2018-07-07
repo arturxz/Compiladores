@@ -93,6 +93,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTCaractere(TCaractere node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTString(TString node)
     {
         defaultCase(node);

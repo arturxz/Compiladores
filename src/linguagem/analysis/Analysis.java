@@ -15,6 +15,7 @@ public interface Analysis extends Switch
     void caseTInicio(TInicio node);
     void caseTFim(TFim node);
     void caseTFimPrograma(TFimPrograma node);
+    void caseTCaractere(TCaractere node);
     void caseTString(TString node);
     void caseTInteiro(TInteiro node);
     void caseTReal(TReal node);

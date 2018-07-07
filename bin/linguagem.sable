@@ -4,6 +4,8 @@ Helpers
 	/* BASICOS */
 	digitos = ['0' .. '9'];
 	letras 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['à' .. 'û'] | ['À' .. 'Û'];
+	caracteres = ['a' .. 'z'] | ['A' .. 'Z'];
+
 
 	/* QUEBRA DE LINHA */
 	tab = 9;
@@ -32,7 +34,8 @@ Tokens
 	inicio		= 'inicio';
 	fim		 	= 'fim';
 	fim_programa= 'fim.';
-	string		= 'caractere';
+	caractere	= letras;
+	string		= caracteres+;
 	inteiro		= 'inteiro';
 	real		= 'real';
 	booleano	= 'booleano';
@@ -42,7 +45,7 @@ Tokens
 	escreva		= 'escreva';
 	
 	/* DECLARACAO DOS VALORES 
-	   ISSO AQUI NÃO É LÉXICO
+	   ISSO AQUI NAO E LEXICO
 	real 	= digitos+(',')(digitos)+;
 	inteiro = digitos+;
 	string 	= '''(letras+)''';
@@ -79,8 +82,7 @@ Tokens
 	ou 	= 'ou';
 	
 	/* OUTROS TOKENS */
-	atribuicao 		= ':=';
-	atrib			= '<-';
+	atribuicao		= '<-';
 	abre_parentesis = '(';
 	fecha_parentesis= ')';
 	abre_colchetes 	= '[';

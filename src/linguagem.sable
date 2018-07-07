@@ -3,7 +3,8 @@ Package linguagem ;
 Helpers
 	/* BASICOS */
 	digitos = ['0' .. '9'];
-	letras 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['Ã ' .. 'Ã»'] | ['Ã€' .. 'Ã›'];
+	letras 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['à' .. 'û'] | ['À' .. 'Û'];
+	caracteres = ['a' .. 'z'] | ['A' .. 'Z'];
 
 
 	/* QUEBRA DE LINHA */
