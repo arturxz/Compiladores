@@ -1,4 +1,4 @@
-SableCC Language to Compiler discipline
+SableCC Language to Compilers discipline
 
 As it is, you need just to:
 1: Clone the repositor. 
@@ -21,4 +21,4 @@ As it is, you need just to:
 	
 	b) Follow the "Creating a SableCC Tool" Section to automate the SableCC compilation Process.
 	
-	This site have a test on the SableCC. If you do not know how to prototype a language in SableCC, follow all the steps is recommended.	
+	This site have a test on the SableCC. If you do not know how to prototype a language in SableCC, follow all the steps is recommended.
