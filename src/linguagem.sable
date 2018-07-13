@@ -34,23 +34,8 @@ Tokens
 	inicio		= 'inicio';
 	fim		 	= 'fim';
 	fim_programa= 'fim.';
-	caractere	= letras;
-	string		= caracteres+;
-	inteiro		= 'inteiro';
-	real		= 'real';
-	booleano	= 'booleano';
-	verdadeiro	= 'verdadeiro';
-	falso		= 'falso';
 	leia		= 'leia';
 	escreva		= 'escreva';
-	
-	/* DECLARACAO DOS VALORES 
-	   ISSO AQUI NAO E LEXICO
-	real 	= digitos+(',')(digitos)+;
-	inteiro = digitos+;
-	string 	= '''(letras+)''';
-	booleano= 'verdadeiro' | 'falso';
-	*/
 	
 	/* EXPRESSOES CONDICIONAIS */
 	se 		= 'se';
@@ -109,5 +94,7 @@ Tokens
 
 {comentario_bloco->normal, normal}
 	comentario_bloco_fecha = '*/';
+	comentario_linha = '//' sem_nl* nl;
 	
-{normal}	comentario_linha = '//' sem_nl* nl;
+Productions
+	real
