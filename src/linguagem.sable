@@ -3,8 +3,8 @@ Package linguagem ;
 Helpers
 	/* BASICOS */
 	digitos = ['0' .. '9'];
-	letras 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_' | ['à' .. 'û'] | ['À' .. 'Û'];
-	caracteres = ['a' .. 'z'] | ['A' .. 'Z'];
+	caracteres 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_';
+	letras = ['a' .. 'z'] | ['A' .. 'Z'];
 
 
 	/* QUEBRA DE LINHA */
@@ -30,12 +30,23 @@ Tokens
 {normal,comentario_bloco}
 	
 	/* PALAVRAS RESERVADAS DO PROGRAMA */
-	programa 	= 'programa';
-	inicio		= 'inicio';
-	fim		 	= 'fim';
+	inicio 		= 'inicio' nl?;
+	fim 		= 'fim' nl?;
+	se 			= 'se';
+	senao 		= 'senao';
+	enquanto 	= 'enquanto';
+	para 		= 'para';
+	avalie 		= 'avalie';
+	caso 		= 'caso';
+	verdadeiro 	= 'verdadeiro';
+	falso 		= 'falso';
+	string 		= aspasimples (letra | num | vazio)+ aspasimples ;
+	programa 	= 'programa' nl? ;
+	leia 		= 'leia' ;
+	escreva 	= 'escreva';
+	constante 	= 'constante';
+
 	fim_programa= 'fim.';
-	leia		= 'leia';
-	escreva		= 'escreva';
 	
 	/* EXPRESSOES CONDICIONAIS */
 	se 		= 'se';
@@ -97,4 +108,11 @@ Tokens
 	comentario_linha = '//' sem_nl* nl;
 	
 Productions
-	real
+	cabecalho = 
+		programa 
+		id;
+	
+	string =
+		aspas_simples
+		caracteres+
+		aspas_simples
