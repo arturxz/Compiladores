@@ -5,7 +5,12 @@ Helpers
 	digitos = ['0' .. '9'];
 	caracteres 	= ['a' .. 'z'] | ['A' .. 'Z'] | '_';
 	letras = ['a' .. 'z'] | ['A' .. 'Z'];
-
+	
+	/* CARACTERES ESPECIAIS */
+	aspasimples	= ''';
+	aspadupla	= '"';
+	underline	= '_';
+	virgula		= ',';
 
 	/* QUEBRA DE LINHA */
 	tab = 9;
@@ -14,13 +19,14 @@ Helpers
 	nl = (cr lf | cr | lf);
 	branco = (' ' | '	')+;
 	
-	/* " TUDO MENOS TAL COISA " */
-	tudo = [0 .. 0xFFFF];
-	sem_nl = [tudo - [cr + lf]]*;
-	
-	/* IDS POSSIVEIS */
-	ids_possiveis = letras+ ((letras | digitos)*);
-	
+	/* PARA COMBINACOES */
+	menorque='<';
+	maiorque='>';
+	iguala	='=';
+	e		='e';
+	ou		='ou';
+	nao		='nao';
+		
 States
 	normal,
 	comentario_bloco;
@@ -32,6 +38,7 @@ Tokens
 	/* PALAVRAS RESERVADAS DO PROGRAMA */
 	inicio 		= 'inicio' nl?;
 	fim 		= 'fim' nl?;
+	fim_programa= 'fim.';
 	se 			= 'se';
 	senao 		= 'senao';
 	enquanto 	= 'enquanto';
@@ -45,8 +52,6 @@ Tokens
 	leia 		= 'leia' ;
 	escreva 	= 'escreva';
 	constante 	= 'constante';
-
-	fim_programa= 'fim.';
 	
 	/* EXPRESSOES CONDICIONAIS */
 	se 		= 'se';
@@ -65,14 +70,14 @@ Tokens
 	div 	= '/';
 	
 	/* OPERADORES RELACIONAIS */
-	maior 		= '>';
-	menor 		= '<';
-	igual 		= '=';
-	maior_igual = '>=';
-	menor_igual = '<=';
-	diferente	= '<>';
+	maior 		= maiorque;
+	menor 		= menorque;
+	igual 		= iguala;
+	maior_igual = maiorque iguala;
+	menor_igual = menorque iguala;
+	diferente	= menorque maiorque;
 	
-	/* OPERADORES LOGICOS */
+	/* OPERADORES BOOLEANOS */
 	nao = 'nao';
 	e	= 'e';
 	ou 	= 'ou';
