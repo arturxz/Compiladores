@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TMaiorIgual extends Token
 {
-    public TMaiorIgual()
+    public TMaiorIgual(String text)
     {
-        super.setText(">=");
+        setText(text);
     }
 
-    public TMaiorIgual(int line, int pos)
+    public TMaiorIgual(String text, int line, int pos)
     {
-        super.setText(">=");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TMaiorIgual extends Token
     @Override
     public Object clone()
     {
-      return new TMaiorIgual(getLine(), getPos());
+      return new TMaiorIgual(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTMaiorIgual(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TMaiorIgual text.");
     }
 }

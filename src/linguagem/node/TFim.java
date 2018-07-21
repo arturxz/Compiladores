@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TFim extends Token
 {
-    public TFim()
+    public TFim(String text)
     {
-        super.setText("fim");
+        setText(text);
     }
 
-    public TFim(int line, int pos)
+    public TFim(String text, int line, int pos)
     {
-        super.setText("fim");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TFim extends Token
     @Override
     public Object clone()
     {
-      return new TFim(getLine(), getPos());
+      return new TFim(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTFim(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TFim text.");
     }
 }

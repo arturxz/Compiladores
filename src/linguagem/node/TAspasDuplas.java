@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TAspasDuplas extends Token
 {
-    public TAspasDuplas()
+    public TAspasDuplas(String text)
     {
-        super.setText("\"");
+        setText(text);
     }
 
-    public TAspasDuplas(int line, int pos)
+    public TAspasDuplas(String text, int line, int pos)
     {
-        super.setText("\"");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TAspasDuplas extends Token
     @Override
     public Object clone()
     {
-      return new TAspasDuplas(getLine(), getPos());
+      return new TAspasDuplas(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTAspasDuplas(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TAspasDuplas text.");
     }
 }

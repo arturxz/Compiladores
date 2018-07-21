@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TInicio extends Token
 {
-    public TInicio()
+    public TInicio(String text)
     {
-        super.setText("inicio");
+        setText(text);
     }
 
-    public TInicio(int line, int pos)
+    public TInicio(String text, int line, int pos)
     {
-        super.setText("inicio");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TInicio extends Token
     @Override
     public Object clone()
     {
-      return new TInicio(getLine(), getPos());
+      return new TInicio(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTInicio(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TInicio text.");
     }
 }

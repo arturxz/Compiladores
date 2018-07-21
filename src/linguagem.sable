@@ -38,7 +38,7 @@ Tokens
 	inicio 		= 'inicio' nl?;
 	fim 		= 'fim' nl?;
 	fim_programa= 'fim.';
-	string 		= aspasimples (letra | num | vazio)+ aspasimples ;
+	string 		= aspasimples (letras | digitos | branco)+ aspasimples;
 	leia 		= 'leia';
 	escreva 	= 'escreva';
 	constante 	= 'constante';
@@ -94,28 +94,16 @@ Tokens
 	atribuicao			= doispontos iguala;
 	aspas_simples		= aspasimples;
 	aspas_duplas		= aspadupla;
+	nova_linha			= nl;
+	tab					= '	';
+	espaco				= ' ';
 	
 	/* ID */
 	inteiro	= digitos+;
 	real	= digitos+ virgula digitos+;
-	id		= (letras | undeline) (letras | underline | digitos)+;
+	id		= (letras | underline) (letras | underline | digitos)+;
 
 	/* COMENTARIOS */
-{normal->comentario_bloco, comentario_bloco}
-	comentario_bloco_abre = '/*';
-
-{comentario_bloco}	caracteres_permitidos = [tudo - ['*' + '/']];
-
-{comentario_bloco->normal, normal}
+	comentario_linha = '//';
+	comentario_bloco_abre = '/*';	
 	comentario_bloco_fecha = '*/';
-	comentario_linha = '//' sem_nl* nl;
-	
-Productions
-	cabecalho = 
-		programa 
-		id;
-	
-	string =
-		aspas_simples
-		caracteres+
-		aspas_simples

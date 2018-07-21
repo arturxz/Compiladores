@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TMenorIgual extends Token
 {
-    public TMenorIgual()
+    public TMenorIgual(String text)
     {
-        super.setText("<=");
+        setText(text);
     }
 
-    public TMenorIgual(int line, int pos)
+    public TMenorIgual(String text, int line, int pos)
     {
-        super.setText("<=");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TMenorIgual extends Token
     @Override
     public Object clone()
     {
-      return new TMenorIgual(getLine(), getPos());
+      return new TMenorIgual(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTMenorIgual(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TMenorIgual text.");
     }
 }

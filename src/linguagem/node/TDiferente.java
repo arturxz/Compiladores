@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TDiferente extends Token
 {
-    public TDiferente()
+    public TDiferente(String text)
     {
-        super.setText("<>");
+        setText(text);
     }
 
-    public TDiferente(int line, int pos)
+    public TDiferente(String text, int line, int pos)
     {
-        super.setText("<>");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TDiferente extends Token
     @Override
     public Object clone()
     {
-      return new TDiferente(getLine(), getPos());
+      return new TDiferente(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTDiferente(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TDiferente text.");
     }
 }

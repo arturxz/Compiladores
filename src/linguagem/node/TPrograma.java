@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TPrograma extends Token
 {
-    public TPrograma()
+    public TPrograma(String text)
     {
-        super.setText("programa");
+        setText(text);
     }
 
-    public TPrograma(int line, int pos)
+    public TPrograma(String text, int line, int pos)
     {
-        super.setText("programa");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TPrograma extends Token
     @Override
     public Object clone()
     {
-      return new TPrograma(getLine(), getPos());
+      return new TPrograma(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTPrograma(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TPrograma text.");
     }
 }

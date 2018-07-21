@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TAtribuicao extends Token
 {
-    public TAtribuicao()
+    public TAtribuicao(String text)
     {
-        super.setText("<-");
+        setText(text);
     }
 
-    public TAtribuicao(int line, int pos)
+    public TAtribuicao(String text, int line, int pos)
     {
-        super.setText("<-");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TAtribuicao extends Token
     @Override
     public Object clone()
     {
-      return new TAtribuicao(getLine(), getPos());
+      return new TAtribuicao(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTAtribuicao(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TAtribuicao text.");
     }
 }

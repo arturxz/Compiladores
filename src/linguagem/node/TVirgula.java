@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TVirgula extends Token
 {
-    public TVirgula()
+    public TVirgula(String text)
     {
-        super.setText(",");
+        setText(text);
     }
 
-    public TVirgula(int line, int pos)
+    public TVirgula(String text, int line, int pos)
     {
-        super.setText(",");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TVirgula extends Token
     @Override
     public Object clone()
     {
-      return new TVirgula(getLine(), getPos());
+      return new TVirgula(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTVirgula(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TVirgula text.");
     }
 }

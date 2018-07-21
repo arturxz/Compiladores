@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TIgual extends Token
 {
-    public TIgual()
+    public TIgual(String text)
     {
-        super.setText("=");
+        setText(text);
     }
 
-    public TIgual(int line, int pos)
+    public TIgual(String text, int line, int pos)
     {
-        super.setText("=");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TIgual extends Token
     @Override
     public Object clone()
     {
-      return new TIgual(getLine(), getPos());
+      return new TIgual(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTIgual(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TIgual text.");
     }
 }

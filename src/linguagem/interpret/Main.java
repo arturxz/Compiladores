@@ -23,6 +23,10 @@ public class Main {
 		try {
 			while (!((token = lexer.next()) instanceof EOF))
 				if (token instanceof TComentarioLinha) {
+					// CONTINUA LENDO ATÉ ENCONTRAR NOVALINHA OU EOF
+					while (!(token instanceof EOF) || !(token instanceof TNovaLinha)) {
+						lexer.next();
+					}
 					System.out.println(token.getClass().getSimpleName());
 				} else if (token instanceof TComentarioBlocoAbre) {
 					// PILHA DE TRATAMENTO DE COMENTARIOS EM BLOCO

@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TMenor extends Token
 {
-    public TMenor()
+    public TMenor(String text)
     {
-        super.setText("<");
+        setText(text);
     }
 
-    public TMenor(int line, int pos)
+    public TMenor(String text, int line, int pos)
     {
-        super.setText("<");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,12 @@ public final class TMenor extends Token
     @Override
     public Object clone()
     {
-      return new TMenor(getLine(), getPos());
+      return new TMenor(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTMenor(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TMenor text.");
     }
 }
