@@ -107,3 +107,13 @@ Tokens
 	comentario_linha = '//';
 	comentario_bloco_abre = '/*';	
 	comentario_bloco_fecha = '*/';
+
+Productions
+
+	/* ESTRUTURA GERAL DO PROGRAMA */
+	program = {inicio} programa id declaracoes comandos fim_programa;
+	
+	/****************************** DECLARACOES ******************************/
+	
+	
+	/****************************** COMANDOS ******************************/
