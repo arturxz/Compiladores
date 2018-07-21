@@ -42,7 +42,7 @@ public interface Analysis extends Switch
     void caseTFalso(TFalso node);
     void caseTTipoInteiro(TTipoInteiro node);
     void caseTTipoReal(TTipoReal node);
-    void caseTTipoCaractere(TTipoCaractere node);
+    void caseTTipoString(TTipoString node);
     void caseTTipoBooleano(TTipoBooleano node);
     void caseTVirgula(TVirgula node);
     void caseTPonto(TPonto node);

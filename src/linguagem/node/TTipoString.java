@@ -5,14 +5,14 @@ package linguagem.node;
 import linguagem.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TTipoCaractere extends Token
+public final class TTipoString extends Token
 {
-    public TTipoCaractere()
+    public TTipoString()
     {
         super.setText("caractere");
     }
 
-    public TTipoCaractere(int line, int pos)
+    public TTipoString(int line, int pos)
     {
         super.setText("caractere");
         setLine(line);
@@ -22,18 +22,18 @@ public final class TTipoCaractere extends Token
     @Override
     public Object clone()
     {
-      return new TTipoCaractere(getLine(), getPos());
+      return new TTipoString(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTTipoCaractere(this);
+        ((Analysis) sw).caseTTipoString(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TTipoCaractere text.");
+        throw new RuntimeException("Cannot change TTipoString text.");
     }
 }

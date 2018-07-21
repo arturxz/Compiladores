@@ -34,9 +34,9 @@ States
 Tokens
 	
 	/* PALAVRAS RESERVADAS DO PROGRAMA */
-	programa 	= 'programa' nl? ;
-	inicio 		= 'inicio' nl?;
-	fim 		= 'fim' nl?;
+	programa 	= 'programa';
+	inicio 		= 'inicio';
+	fim 		= 'fim';
 	fim_programa= 'fim.';
 	string 		= aspasimples (letras | digitos | branco)+ aspasimples;
 	leia 		= 'leia';
@@ -79,13 +79,13 @@ Tokens
 	/* TIPOS */
 	tipo_inteiro	= 'inteiro';
 	tipo_real		= 'real';
-	tipo_caractere	= 'caractere';
+	tipo_string		= 'caractere';
 	tipo_booleano	= 'booeano';
 	
 	/* OUTROS TOKENS */
 	virgula				= virgula;
 	ponto				= '.';
-	ponto_virgula		= ';' nl?;
+	ponto_virgula		= ';';
 	dois_pontos			= doispontos;
 	abre_parentesis		= '(';
 	fecha_parentesis	= ')';
@@ -101,7 +101,7 @@ Tokens
 	/* ID */
 	inteiro	= digitos+;
 	real	= digitos+ virgula digitos+;
-	id		= (letras | underline) (letras | underline | digitos)+;
+	id		= (letras | underline) (letras | underline | digitos)*;
 
 	/* COMENTARIOS */
 	comentario_linha = '//';

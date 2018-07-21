@@ -7,14 +7,14 @@ import linguagem.analysis.*;
 @SuppressWarnings("nls")
 public final class TPontoVirgula extends Token
 {
-    public TPontoVirgula(String text)
+    public TPontoVirgula()
     {
-        setText(text);
+        super.setText(";");
     }
 
-    public TPontoVirgula(String text, int line, int pos)
+    public TPontoVirgula(int line, int pos)
     {
-        setText(text);
+        super.setText(";");
         setLine(line);
         setPos(pos);
     }
@@ -22,12 +22,18 @@ public final class TPontoVirgula extends Token
     @Override
     public Object clone()
     {
-      return new TPontoVirgula(getText(), getLine(), getPos());
+      return new TPontoVirgula(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTPontoVirgula(this);
+    }
+
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
+    {
+        throw new RuntimeException("Cannot change TPontoVirgula text.");
     }
 }

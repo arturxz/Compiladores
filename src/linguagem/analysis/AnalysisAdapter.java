@@ -255,7 +255,7 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTTipoCaractere(TTipoCaractere node)
+    public void caseTTipoString(TTipoString node)
     {
         defaultCase(node);
     }

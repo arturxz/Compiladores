@@ -37,3 +37,23 @@ TPontoevirg
 	TId TMenorq TId TMais TIdTPontoevirg
 	TEscrevaTAParenteseTIdTFParenteseTPontoevirg
 TFimprograma
+
+Saída nosso:
+
+TPrograma TId
+TInicio
+	TTipoInteiro TDoisPontos TId TVirgula TId TVirgula TId TPontoVirgula
+	TTipoReal TDoisPontos TId  TVirgula  TId  TVirgula  TId 
+TPontoVirgula
+	TTipoStringTDoisPontos TId
+TVirgula TId
+TVirgula TId
+TPontoVirgula
+	TSeTAbreParentesisTIdTIgualTId TE TNaoTAbreParentesisTIdTIgualTIdTFechaParentesis TOu TId TDiferente TIdTFechaParentesis[10,30] Unknown token: {
+		TLeiaTAbreParentesisTIdTFechaParentesis     TPontoVirgula
+	[12,2] Unknown token: }
+	TId TMenorTSub TInteiroTPontoVirgula
+	TId TMenorTSub TInteiroTPontoVirgula
+	TId TMenor TId TSoma TIdTPontoVirgula
+	TEscrevaTAbreParentesisTIdTFechaParentesisTPontoVirgula
+TFimPrograma
