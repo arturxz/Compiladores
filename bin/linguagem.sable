@@ -113,7 +113,7 @@ Productions
 		programa
 		id
 		inicio
-		[decl] [comm]
+		decl* comm*
 		fim_programa;
 	
 	/********************************* DECLARACOES *********************************/
@@ -122,9 +122,9 @@ Productions
 	comm = inteiro;
 	
 	exp 
-		= {fat} fat
+		= {fator} fator
 		| {soma} exp soma fator
-		| {sub} exp sub fat;
+		| {sub} exp sub fator;
 		
 	fator
 		= {terminal} terminal
@@ -134,6 +134,6 @@ Productions
 	terminal 
 			= {inteiro} inteiro
 			| {real} real
-			| abre_parentesis exp fecha_parentesis exp*;
+			| {exp} abre_parentesis exp fecha_parentesis;
 	
 	/****************************** COMANDOS ******************************/
