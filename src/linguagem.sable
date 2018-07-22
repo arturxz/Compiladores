@@ -26,7 +26,7 @@ Helpers
 	ou			='ou';
 	nao			='nao';
 	doispontos	= ':';
-		
+	val_bool 	= 'verdadeiro' | 'falso';	
 States
 	normal,
 	comentario_bloco;
@@ -38,7 +38,6 @@ Tokens
 	inicio 		= 'inicio';
 	fim 		= 'fim';
 	fim_programa= 'fim.';
-	string 		= aspasimples (letras | digitos | branco)+ aspasimples;
 	leia 		= 'leia';
 	escreva 	= 'escreva';
 	constante 	= 'constante';
@@ -71,16 +70,12 @@ Tokens
 	nao = 'nao';
 	e	= 'e';
 	ou 	= 'ou';
-	
-	/* VALORES BOOLEANOS */
-	verdadeiro 	= 'verdadeiro';
-	falso 		= 'falso';
-	
+		
 	/* TIPOS */
 	tipo_inteiro	= 'inteiro';
 	tipo_real		= 'real';
 	tipo_string		= 'caractere';
-	tipo_booleano	= 'booeano';
+	tipo_booleano	= 'bool';
 	
 	/* OUTROS TOKENS */
 	virgula				= virgula;
@@ -98,9 +93,11 @@ Tokens
 	tab					= '	';
 	espaco				= ' ';
 	
-	/* ID */
+	/* ID E VALORES */
 	inteiro	= digitos+;
 	real	= digitos+ virgula digitos+;
+	string	= aspasimples (letras | digitos | branco)+ aspasimples;
+	booleano= val_bool;
 	id		= (letras | underline) (letras | underline | digitos)*;
 
 	/* COMENTARIOS */
@@ -108,12 +105,35 @@ Tokens
 	comentario_bloco_abre = '/*';	
 	comentario_bloco_fecha = '*/';
 
-Productions
+Ignored Tokens
+	tab, espaco, nova_linha;
 
-	/* ESTRUTURA GERAL DO PROGRAMA */
-	program = {inicio} programa id declaracoes comandos fim_programa;
+Productions
+	pgr = 
+		programa
+		id
+		inicio
+		[decl] [comm]
+		fim_programa;
 	
-	/****************************** DECLARACOES ******************************/
+	/********************************* DECLARACOES *********************************/
 	
+	decl = booleano;
+	comm = inteiro;
+	
+	exp 
+		= {fat} fat
+		| {soma} exp soma fator
+		| {sub} exp sub fat;
+		
+	fator
+		= {terminal} terminal
+		| {mult} fator mult terminal
+		| {div} fator div terminal;
+	
+	terminal 
+			= {inteiro} inteiro
+			| {real} real
+			| abre_parentesis exp fecha_parentesis exp*;
 	
 	/****************************** COMANDOS ******************************/
