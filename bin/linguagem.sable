@@ -118,7 +118,25 @@ Productions
 	
 	/********************************* DECLARACOES *********************************/
 	
-	decl = booleano;
+	decl 
+		= tipo dois_pontos (var virgula)* var ponto_virgula;
+		| constante id valor ponto_virgula;
+	
+	tipo
+		= tipo_real
+		| tipo_inteiro
+		| tipo_string;
+	
+	var
+		= id
+		| abre_colchetes inteiro echa_colchetes;
+	
+	valor
+		= string 
+		| inteiro 
+		| real;
+	
+	/****************************** COMANDOS ******************************/
 	comm = inteiro;
 	
 	exp 
@@ -135,5 +153,3 @@ Productions
 			= {inteiro} inteiro
 			| {real} real
 			| {exp} abre_parentesis exp fecha_parentesis;
-	
-	/****************************** COMANDOS ******************************/
