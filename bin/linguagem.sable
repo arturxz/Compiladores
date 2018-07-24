@@ -149,29 +149,38 @@ Productions
 	/****************************** COMANDOS ******************************/
 
 	comm
-		= var atribuicao exp ponto_virgula
-		| leia abre_parentesis pos_decl fecha_parentesis ponto_virgula
-		| escreva abre_parentesis pos_exp fecha_parentesis ponto_virgula
-		| se abre_parentesis exp_logica fecha_parentesis 
-				entao comm* comm
-				(senao comm* comm)?
-				fim se ponto_virgula
-		| avalie abre_parentesis exp fecha_parentesis
-			pos_avalie
-			(senao dois_pontos comm* comm)?
-			fim_avalie
-		| enquanto abre_parentesis exp_logica fecha_parentesis faca
+		= {comando_normal} var atribuicao exp ponto_virgula
+		| {comando_leia} leia abre_parentesis pos_decl fecha_parentesis ponto_virgula
+		| {comando_escreva} escreva abre_parentesis pos_exp fecha_parentesis ponto_virgula
+		| {comando_se} se abre_parentesis exp_logica fecha_parentesis 
+				se_senao
+			fim se ponto_virgula
+		| {comando_avalie} avalie abre_parentesis exp fecha_parentesis
+			avalie_senao
+		  fim_avalie
+		| {comando_enquanto} enquanto abre_parentesis exp_logica fecha_parentesis faca
 			comm* comm
 		  fim enquanto ponto_virgula
-		| repita
+		| {comando_repita} repita
 			comm* comm
 		  ate abre_parentesis exp_logica fecha_parentesis ponto_virgula
-		| para var de tipo_inteiro ate tipo_inteiro faca 
+		| {comando_para_um} para var de tipo_inteiro ate tipo_inteiro faca 
 			comm* comm 
 		  fim para ponto_virgula
-		| para var de tipo_inteiro passo tipo_inteiro ate tipo_inteiro faca
+		| {comando_para_dois} para var de tipo_inteiro passo tipo_inteiro ate tipo_inteiro faca
 			comm* comm
 		  fim para ponto_virgula;
+	
+	se_senao
+		= entao comm* comm
+		| entao comm* comm senao comm* comm;
+
+	pos_avalie
+		= caso valor dois_pontos comm* comm;
+		
+	avalie_senao
+		= pos_avalie
+		| pos_avalie senao dois_pontos comm* comm;
 	
 	exp
 		= valor
