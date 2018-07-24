@@ -109,6 +109,7 @@ Ignored Tokens
 	tab, espaco, nova_linha;
 
 Productions
+	
 	pgr = 
 		programa
 		id
@@ -119,22 +120,26 @@ Productions
 	/********************************* DECLARACOES *********************************/
 	
 	decl 
-		= tipo dois_pontos (var virgula)* var ponto_virgula;
-		| constante id valor ponto_virgula;
+		= {variavel} tipo dois_pontos pos_decl ponto_virgula
+		| {constante} constante id valor ponto_virgula;
+	
+	pos_decl 
+		= {com_virgula} var virgula pos_decl
+		| {sem_virgula} var;
 	
 	tipo
-		= tipo_real
-		| tipo_inteiro
-		| tipo_string;
+		= {real} tipo_real
+		| {inteiro} tipo_inteiro
+		| {string} tipo_string;
 	
 	var
-		= id
-		| abre_colchetes inteiro echa_colchetes;
+		= {normal} id
+		| {array} abre_colchetes inteiro fecha_colchetes;
 	
 	valor
-		= string 
-		| inteiro 
-		| real;
+		= {string} string 
+		| {inteiro} inteiro 
+		| {real} real;
 	
 	/****************************** COMANDOS ******************************/
 	comm = inteiro;

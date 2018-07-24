@@ -5,46 +5,46 @@ package linguagem.node;
 import linguagem.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ADecl extends PDecl
+public final class AStringValor extends PValor
 {
-    private TBooleano _booleano_;
+    private TString _string_;
 
-    public ADecl()
+    public AStringValor()
     {
         // Constructor
     }
 
-    public ADecl(
-        @SuppressWarnings("hiding") TBooleano _booleano_)
+    public AStringValor(
+        @SuppressWarnings("hiding") TString _string_)
     {
         // Constructor
-        setBooleano(_booleano_);
+        setString(_string_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ADecl(
-            cloneNode(this._booleano_));
+        return new AStringValor(
+            cloneNode(this._string_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseADecl(this);
+        ((Analysis) sw).caseAStringValor(this);
     }
 
-    public TBooleano getBooleano()
+    public TString getString()
     {
-        return this._booleano_;
+        return this._string_;
     }
 
-    public void setBooleano(TBooleano node)
+    public void setString(TString node)
     {
-        if(this._booleano_ != null)
+        if(this._string_ != null)
         {
-            this._booleano_.parent(null);
+            this._string_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ADecl extends PDecl
             node.parent(this);
         }
 
-        this._booleano_ = node;
+        this._string_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._booleano_);
+            + toString(this._string_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._booleano_ == child)
+        if(this._string_ == child)
         {
-            this._booleano_ = null;
+            this._string_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ADecl extends PDecl
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._booleano_ == oldChild)
+        if(this._string_ == oldChild)
         {
-            setBooleano((TBooleano) newChild);
+            setString((TString) newChild);
             return;
         }
 

@@ -13,7 +13,18 @@ public interface Analysis extends Switch
 
     void caseStart(Start node);
     void caseAPgr(APgr node);
-    void caseADecl(ADecl node);
+    void caseAVariavelDecl(AVariavelDecl node);
+    void caseAConstanteDecl(AConstanteDecl node);
+    void caseAComVirgulaPosDecl(AComVirgulaPosDecl node);
+    void caseASemVirgulaPosDecl(ASemVirgulaPosDecl node);
+    void caseARealTipo(ARealTipo node);
+    void caseAInteiroTipo(AInteiroTipo node);
+    void caseAStringTipo(AStringTipo node);
+    void caseANormalVar(ANormalVar node);
+    void caseAArrayVar(AArrayVar node);
+    void caseAStringValor(AStringValor node);
+    void caseAInteiroValor(AInteiroValor node);
+    void caseARealValor(ARealValor node);
     void caseAComm(AComm node);
     void caseAFatorExp(AFatorExp node);
     void caseASomaExp(ASomaExp node);
