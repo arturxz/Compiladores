@@ -41,7 +41,9 @@ Tokens
 	leia 		= 'leia';
 	escreva 	= 'escreva';
 	constante 	= 'constante';
+	faca		= 'faca';
 	ate			= 'ate';
+	de 			= 'de';
 	
 	/* EXPRESSOES CONDICIONAIS */
 	se 		= 'se';
@@ -72,6 +74,7 @@ Tokens
 	nao = 'nao';
 	e	= 'e';
 	ou 	= 'ou';
+	xor	= 'xor';
 		
 	/* TIPOS */
 	tipo_inteiro	= 'inteiro';
@@ -116,7 +119,7 @@ Productions
 		programa
 		id
 		inicio
-		//decl* comm*
+		decl* comm*
 		fim_programa;
 	
 	/********************************* DECLARACOES *********************************/
@@ -144,7 +147,7 @@ Productions
 		| {real} real;
 	
 	/****************************** COMANDOS ******************************/
-	/*
+
 	comm
 		= var atribuicao exp ponto_virgula
 		| leia abre_parentesis pos_decl fecha_parentesis ponto_virgula
@@ -163,13 +166,39 @@ Productions
 		| repita
 			comm* comm
 		  ate abre_parentesis exp_logica fecha_parentesis ponto_virgula
-		| para
+		| para var de tipo_inteiro ate tipo_inteiro faca 
+			comm* comm 
+		  fim para ponto_virgula
+		| para var de tipo_inteiro passo tipo_inteiro ate tipo_inteiro faca
+			comm* comm
+		  fim para ponto_virgula;
 	
+	exp
+		= valor
+		| abre_parentesis exp fecha_parentesis
+		| sub exp
+		| exp soma exp
+		| exp sub exp
+		| exp mul exp
+		| exp div exp
+		| exp_logica;
+	
+	exp_logica
+		= abre_parentesis exp_logica fecha_parentesis
+		| exp iguala exp
+		| exp diferente exp
+		| exp menor_igual exp
+		| exp maior_igual exp
+		| exp menor exp
+		| exp maior exp
+		| nao exp_logica
+		| exp_logica e exp_logica
+		| exp_logica ou exp_logica
+		| exp_logica xor exp_logica;
 		
 	pos_exp 
 		= {com_virgula} exp virgula pos_exp
 		| {sem_virgula} exp;
-	*/	
 		
 		
 		
