@@ -1,4 +1,4 @@
-Package linguagem ;
+Package jah ;
 
 Helpers
 	/* BASICOS */
@@ -41,6 +41,7 @@ Tokens
 	leia 		= 'leia';
 	escreva 	= 'escreva';
 	constante 	= 'constante';
+	ate			= 'ate';
 	
 	/* EXPRESSOES CONDICIONAIS */
 	se 		= 'se';
@@ -51,6 +52,7 @@ Tokens
 	/* LOOPS */
 	enquanto= 'enquanto';
 	para 	= 'para';
+	repita	= 'repita';
 	
 	/* OPERADORES ARITMETICOS */
 	soma 	= '+';
@@ -114,7 +116,7 @@ Productions
 		programa
 		id
 		inicio
-		decl* comm*
+		//decl* comm*
 		fim_programa;
 	
 	/********************************* DECLARACOES *********************************/
@@ -142,19 +144,43 @@ Productions
 		| {real} real;
 	
 	/****************************** COMANDOS ******************************/
-	comm = inteiro;
+	/*
+	comm
+		= var atribuicao exp ponto_virgula
+		| leia abre_parentesis pos_decl fecha_parentesis ponto_virgula
+		| escreva abre_parentesis pos_exp fecha_parentesis ponto_virgula
+		| se abre_parentesis exp_logica fecha_parentesis 
+				entao comm* comm
+				(senao comm* comm)?
+				fim se ponto_virgula
+		| avalie abre_parentesis exp fecha_parentesis
+			pos_avalie
+			(senao dois_pontos comm* comm)?
+			fim_avalie
+		| enquanto abre_parentesis exp_logica fecha_parentesis faca
+			comm* comm
+		  fim enquanto ponto_virgula
+		| repita
+			comm* comm
+		  ate abre_parentesis exp_logica fecha_parentesis ponto_virgula
+		| para
 	
-	exp 
-		= {fator} fator
-		| {soma} exp soma fator
-		| {sub} exp sub fator;
 		
-	fator
-		= {terminal} terminal
-		| {mult} fator mult terminal
-		| {div} fator div terminal;
-	
-	terminal 
-			= {inteiro} inteiro
-			| {real} real
-			| {exp} abre_parentesis exp fecha_parentesis;
+	pos_exp 
+		= {com_virgula} exp virgula pos_exp
+		| {sem_virgula} exp;
+	*/	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
