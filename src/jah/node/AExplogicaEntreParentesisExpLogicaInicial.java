@@ -5,26 +5,26 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpEntreParentesisExp extends PExp
+public final class AExplogicaEntreParentesisExpLogicaInicial extends PExpLogicaInicial
 {
     private TAbreParentesis _abreParentesis_;
-    private PExp _exp_;
+    private PExpLogicaInicial _expLogicaInicial_;
     private TFechaParentesis _fechaParentesis_;
 
-    public AExpEntreParentesisExp()
+    public AExplogicaEntreParentesisExpLogicaInicial()
     {
         // Constructor
     }
 
-    public AExpEntreParentesisExp(
+    public AExplogicaEntreParentesisExpLogicaInicial(
         @SuppressWarnings("hiding") TAbreParentesis _abreParentesis_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExpLogicaInicial _expLogicaInicial_,
         @SuppressWarnings("hiding") TFechaParentesis _fechaParentesis_)
     {
         // Constructor
         setAbreParentesis(_abreParentesis_);
 
-        setExp(_exp_);
+        setExpLogicaInicial(_expLogicaInicial_);
 
         setFechaParentesis(_fechaParentesis_);
 
@@ -33,16 +33,16 @@ public final class AExpEntreParentesisExp extends PExp
     @Override
     public Object clone()
     {
-        return new AExpEntreParentesisExp(
+        return new AExplogicaEntreParentesisExpLogicaInicial(
             cloneNode(this._abreParentesis_),
-            cloneNode(this._exp_),
+            cloneNode(this._expLogicaInicial_),
             cloneNode(this._fechaParentesis_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpEntreParentesisExp(this);
+        ((Analysis) sw).caseAExplogicaEntreParentesisExpLogicaInicial(this);
     }
 
     public TAbreParentesis getAbreParentesis()
@@ -70,16 +70,16 @@ public final class AExpEntreParentesisExp extends PExp
         this._abreParentesis_ = node;
     }
 
-    public PExp getExp()
+    public PExpLogicaInicial getExpLogicaInicial()
     {
-        return this._exp_;
+        return this._expLogicaInicial_;
     }
 
-    public void setExp(PExp node)
+    public void setExpLogicaInicial(PExpLogicaInicial node)
     {
-        if(this._exp_ != null)
+        if(this._expLogicaInicial_ != null)
         {
-            this._exp_.parent(null);
+            this._expLogicaInicial_.parent(null);
         }
 
         if(node != null)
@@ -92,7 +92,7 @@ public final class AExpEntreParentesisExp extends PExp
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._expLogicaInicial_ = node;
     }
 
     public TFechaParentesis getFechaParentesis()
@@ -125,7 +125,7 @@ public final class AExpEntreParentesisExp extends PExp
     {
         return ""
             + toString(this._abreParentesis_)
-            + toString(this._exp_)
+            + toString(this._expLogicaInicial_)
             + toString(this._fechaParentesis_);
     }
 
@@ -139,9 +139,9 @@ public final class AExpEntreParentesisExp extends PExp
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._expLogicaInicial_ == child)
         {
-            this._exp_ = null;
+            this._expLogicaInicial_ = null;
             return;
         }
 
@@ -164,9 +164,9 @@ public final class AExpEntreParentesisExp extends PExp
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._expLogicaInicial_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExpLogicaInicial((PExpLogicaInicial) newChild);
             return;
         }
 

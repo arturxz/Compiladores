@@ -5,44 +5,44 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpDivExpExp extends PExp
+public final class AExpIgualaExpExplogicaIguala extends PExplogicaIguala
 {
     private PExp _exp_;
-    private TDiv _div_;
-    private PPosExp _posExp_;
+    private TIgual _igual_;
+    private PExplogicaDiff _explogicaDiff_;
 
-    public AExpDivExpExp()
+    public AExpIgualaExpExplogicaIguala()
     {
         // Constructor
     }
 
-    public AExpDivExpExp(
+    public AExpIgualaExpExplogicaIguala(
         @SuppressWarnings("hiding") PExp _exp_,
-        @SuppressWarnings("hiding") TDiv _div_,
-        @SuppressWarnings("hiding") PPosExp _posExp_)
+        @SuppressWarnings("hiding") TIgual _igual_,
+        @SuppressWarnings("hiding") PExplogicaDiff _explogicaDiff_)
     {
         // Constructor
         setExp(_exp_);
 
-        setDiv(_div_);
+        setIgual(_igual_);
 
-        setPosExp(_posExp_);
+        setExplogicaDiff(_explogicaDiff_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExpDivExpExp(
+        return new AExpIgualaExpExplogicaIguala(
             cloneNode(this._exp_),
-            cloneNode(this._div_),
-            cloneNode(this._posExp_));
+            cloneNode(this._igual_),
+            cloneNode(this._explogicaDiff_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpDivExpExp(this);
+        ((Analysis) sw).caseAExpIgualaExpExplogicaIguala(this);
     }
 
     public PExp getExp()
@@ -70,16 +70,16 @@ public final class AExpDivExpExp extends PExp
         this._exp_ = node;
     }
 
-    public TDiv getDiv()
+    public TIgual getIgual()
     {
-        return this._div_;
+        return this._igual_;
     }
 
-    public void setDiv(TDiv node)
+    public void setIgual(TIgual node)
     {
-        if(this._div_ != null)
+        if(this._igual_ != null)
         {
-            this._div_.parent(null);
+            this._igual_.parent(null);
         }
 
         if(node != null)
@@ -92,19 +92,19 @@ public final class AExpDivExpExp extends PExp
             node.parent(this);
         }
 
-        this._div_ = node;
+        this._igual_ = node;
     }
 
-    public PPosExp getPosExp()
+    public PExplogicaDiff getExplogicaDiff()
     {
-        return this._posExp_;
+        return this._explogicaDiff_;
     }
 
-    public void setPosExp(PPosExp node)
+    public void setExplogicaDiff(PExplogicaDiff node)
     {
-        if(this._posExp_ != null)
+        if(this._explogicaDiff_ != null)
         {
-            this._posExp_.parent(null);
+            this._explogicaDiff_.parent(null);
         }
 
         if(node != null)
@@ -117,7 +117,7 @@ public final class AExpDivExpExp extends PExp
             node.parent(this);
         }
 
-        this._posExp_ = node;
+        this._explogicaDiff_ = node;
     }
 
     @Override
@@ -125,8 +125,8 @@ public final class AExpDivExpExp extends PExp
     {
         return ""
             + toString(this._exp_)
-            + toString(this._div_)
-            + toString(this._posExp_);
+            + toString(this._igual_)
+            + toString(this._explogicaDiff_);
     }
 
     @Override
@@ -139,15 +139,15 @@ public final class AExpDivExpExp extends PExp
             return;
         }
 
-        if(this._div_ == child)
+        if(this._igual_ == child)
         {
-            this._div_ = null;
+            this._igual_ = null;
             return;
         }
 
-        if(this._posExp_ == child)
+        if(this._explogicaDiff_ == child)
         {
-            this._posExp_ = null;
+            this._explogicaDiff_ = null;
             return;
         }
 
@@ -164,15 +164,15 @@ public final class AExpDivExpExp extends PExp
             return;
         }
 
-        if(this._div_ == oldChild)
+        if(this._igual_ == oldChild)
         {
-            setDiv((TDiv) newChild);
+            setIgual((TIgual) newChild);
             return;
         }
 
-        if(this._posExp_ == oldChild)
+        if(this._explogicaDiff_ == oldChild)
         {
-            setPosExp((PPosExp) newChild);
+            setExplogicaDiff((PExplogicaDiff) newChild);
             return;
         }
 

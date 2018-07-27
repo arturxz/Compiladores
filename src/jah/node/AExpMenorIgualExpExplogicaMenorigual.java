@@ -5,44 +5,44 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpMulExpExp extends PExp
+public final class AExpMenorIgualExpExplogicaMenorigual extends PExplogicaMenorigual
 {
     private PExp _exp_;
-    private TMult _mult_;
-    private PPosExp _posExp_;
+    private TMenorIgual _menorIgual_;
+    private PExplogicaMaior _explogicaMaior_;
 
-    public AExpMulExpExp()
+    public AExpMenorIgualExpExplogicaMenorigual()
     {
         // Constructor
     }
 
-    public AExpMulExpExp(
+    public AExpMenorIgualExpExplogicaMenorigual(
         @SuppressWarnings("hiding") PExp _exp_,
-        @SuppressWarnings("hiding") TMult _mult_,
-        @SuppressWarnings("hiding") PPosExp _posExp_)
+        @SuppressWarnings("hiding") TMenorIgual _menorIgual_,
+        @SuppressWarnings("hiding") PExplogicaMaior _explogicaMaior_)
     {
         // Constructor
         setExp(_exp_);
 
-        setMult(_mult_);
+        setMenorIgual(_menorIgual_);
 
-        setPosExp(_posExp_);
+        setExplogicaMaior(_explogicaMaior_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExpMulExpExp(
+        return new AExpMenorIgualExpExplogicaMenorigual(
             cloneNode(this._exp_),
-            cloneNode(this._mult_),
-            cloneNode(this._posExp_));
+            cloneNode(this._menorIgual_),
+            cloneNode(this._explogicaMaior_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpMulExpExp(this);
+        ((Analysis) sw).caseAExpMenorIgualExpExplogicaMenorigual(this);
     }
 
     public PExp getExp()
@@ -70,16 +70,16 @@ public final class AExpMulExpExp extends PExp
         this._exp_ = node;
     }
 
-    public TMult getMult()
+    public TMenorIgual getMenorIgual()
     {
-        return this._mult_;
+        return this._menorIgual_;
     }
 
-    public void setMult(TMult node)
+    public void setMenorIgual(TMenorIgual node)
     {
-        if(this._mult_ != null)
+        if(this._menorIgual_ != null)
         {
-            this._mult_.parent(null);
+            this._menorIgual_.parent(null);
         }
 
         if(node != null)
@@ -92,19 +92,19 @@ public final class AExpMulExpExp extends PExp
             node.parent(this);
         }
 
-        this._mult_ = node;
+        this._menorIgual_ = node;
     }
 
-    public PPosExp getPosExp()
+    public PExplogicaMaior getExplogicaMaior()
     {
-        return this._posExp_;
+        return this._explogicaMaior_;
     }
 
-    public void setPosExp(PPosExp node)
+    public void setExplogicaMaior(PExplogicaMaior node)
     {
-        if(this._posExp_ != null)
+        if(this._explogicaMaior_ != null)
         {
-            this._posExp_.parent(null);
+            this._explogicaMaior_.parent(null);
         }
 
         if(node != null)
@@ -117,7 +117,7 @@ public final class AExpMulExpExp extends PExp
             node.parent(this);
         }
 
-        this._posExp_ = node;
+        this._explogicaMaior_ = node;
     }
 
     @Override
@@ -125,8 +125,8 @@ public final class AExpMulExpExp extends PExp
     {
         return ""
             + toString(this._exp_)
-            + toString(this._mult_)
-            + toString(this._posExp_);
+            + toString(this._menorIgual_)
+            + toString(this._explogicaMaior_);
     }
 
     @Override
@@ -139,15 +139,15 @@ public final class AExpMulExpExp extends PExp
             return;
         }
 
-        if(this._mult_ == child)
+        if(this._menorIgual_ == child)
         {
-            this._mult_ = null;
+            this._menorIgual_ = null;
             return;
         }
 
-        if(this._posExp_ == child)
+        if(this._explogicaMaior_ == child)
         {
-            this._posExp_ = null;
+            this._explogicaMaior_ = null;
             return;
         }
 
@@ -164,15 +164,15 @@ public final class AExpMulExpExp extends PExp
             return;
         }
 
-        if(this._mult_ == oldChild)
+        if(this._menorIgual_ == oldChild)
         {
-            setMult((TMult) newChild);
+            setMenorIgual((TMenorIgual) newChild);
             return;
         }
 
-        if(this._posExp_ == oldChild)
+        if(this._explogicaMaior_ == oldChild)
         {
-            setPosExp((PPosExp) newChild);
+            setExplogicaMaior((PExplogicaMaior) newChild);
             return;
         }
 

@@ -9,7 +9,7 @@ public final class AComandoEnquantoComm extends PComm
 {
     private TEnquanto _enquanto_;
     private TAbreParentesis _abreParentesis_;
-    private PExpLogica _expLogica_;
+    private PExpLogicaInicial _expLogicaInicial_;
     private TFechaParentesis _fechaParentesis_;
     private TFaca _faca_;
     private PMultiplosComm _multiplosComm_;
@@ -24,7 +24,7 @@ public final class AComandoEnquantoComm extends PComm
     public AComandoEnquantoComm(
         @SuppressWarnings("hiding") TEnquanto _enquanto_,
         @SuppressWarnings("hiding") TAbreParentesis _abreParentesis_,
-        @SuppressWarnings("hiding") PExpLogica _expLogica_,
+        @SuppressWarnings("hiding") PExpLogicaInicial _expLogicaInicial_,
         @SuppressWarnings("hiding") TFechaParentesis _fechaParentesis_,
         @SuppressWarnings("hiding") TFaca _faca_,
         @SuppressWarnings("hiding") PMultiplosComm _multiplosComm_,
@@ -36,7 +36,7 @@ public final class AComandoEnquantoComm extends PComm
 
         setAbreParentesis(_abreParentesis_);
 
-        setExpLogica(_expLogica_);
+        setExpLogicaInicial(_expLogicaInicial_);
 
         setFechaParentesis(_fechaParentesis_);
 
@@ -56,7 +56,7 @@ public final class AComandoEnquantoComm extends PComm
         return new AComandoEnquantoComm(
             cloneNode(this._enquanto_),
             cloneNode(this._abreParentesis_),
-            cloneNode(this._expLogica_),
+            cloneNode(this._expLogicaInicial_),
             cloneNode(this._fechaParentesis_),
             cloneNode(this._faca_),
             cloneNode(this._multiplosComm_),
@@ -120,16 +120,16 @@ public final class AComandoEnquantoComm extends PComm
         this._abreParentesis_ = node;
     }
 
-    public PExpLogica getExpLogica()
+    public PExpLogicaInicial getExpLogicaInicial()
     {
-        return this._expLogica_;
+        return this._expLogicaInicial_;
     }
 
-    public void setExpLogica(PExpLogica node)
+    public void setExpLogicaInicial(PExpLogicaInicial node)
     {
-        if(this._expLogica_ != null)
+        if(this._expLogicaInicial_ != null)
         {
-            this._expLogica_.parent(null);
+            this._expLogicaInicial_.parent(null);
         }
 
         if(node != null)
@@ -142,7 +142,7 @@ public final class AComandoEnquantoComm extends PComm
             node.parent(this);
         }
 
-        this._expLogica_ = node;
+        this._expLogicaInicial_ = node;
     }
 
     public TFechaParentesis getFechaParentesis()
@@ -276,7 +276,7 @@ public final class AComandoEnquantoComm extends PComm
         return ""
             + toString(this._enquanto_)
             + toString(this._abreParentesis_)
-            + toString(this._expLogica_)
+            + toString(this._expLogicaInicial_)
             + toString(this._fechaParentesis_)
             + toString(this._faca_)
             + toString(this._multiplosComm_)
@@ -300,9 +300,9 @@ public final class AComandoEnquantoComm extends PComm
             return;
         }
 
-        if(this._expLogica_ == child)
+        if(this._expLogicaInicial_ == child)
         {
-            this._expLogica_ = null;
+            this._expLogicaInicial_ = null;
             return;
         }
 
@@ -355,9 +355,9 @@ public final class AComandoEnquantoComm extends PComm
             return;
         }
 
-        if(this._expLogica_ == oldChild)
+        if(this._expLogicaInicial_ == oldChild)
         {
-            setExpLogica((PExpLogica) newChild);
+            setExpLogicaInicial((PExpLogicaInicial) newChild);
             return;
         }
 

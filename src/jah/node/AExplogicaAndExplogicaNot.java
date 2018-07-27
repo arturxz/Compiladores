@@ -5,46 +5,46 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AValorExp extends PExp
+public final class AExplogicaAndExplogicaNot extends PExplogicaNot
 {
-    private PValor _valor_;
+    private PExplogicaAnd _explogicaAnd_;
 
-    public AValorExp()
+    public AExplogicaAndExplogicaNot()
     {
         // Constructor
     }
 
-    public AValorExp(
-        @SuppressWarnings("hiding") PValor _valor_)
+    public AExplogicaAndExplogicaNot(
+        @SuppressWarnings("hiding") PExplogicaAnd _explogicaAnd_)
     {
         // Constructor
-        setValor(_valor_);
+        setExplogicaAnd(_explogicaAnd_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AValorExp(
-            cloneNode(this._valor_));
+        return new AExplogicaAndExplogicaNot(
+            cloneNode(this._explogicaAnd_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAValorExp(this);
+        ((Analysis) sw).caseAExplogicaAndExplogicaNot(this);
     }
 
-    public PValor getValor()
+    public PExplogicaAnd getExplogicaAnd()
     {
-        return this._valor_;
+        return this._explogicaAnd_;
     }
 
-    public void setValor(PValor node)
+    public void setExplogicaAnd(PExplogicaAnd node)
     {
-        if(this._valor_ != null)
+        if(this._explogicaAnd_ != null)
         {
-            this._valor_.parent(null);
+            this._explogicaAnd_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AValorExp extends PExp
             node.parent(this);
         }
 
-        this._valor_ = node;
+        this._explogicaAnd_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._valor_);
+            + toString(this._explogicaAnd_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._valor_ == child)
+        if(this._explogicaAnd_ == child)
         {
-            this._valor_ = null;
+            this._explogicaAnd_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AValorExp extends PExp
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._valor_ == oldChild)
+        if(this._explogicaAnd_ == oldChild)
         {
-            setValor((PValor) newChild);
+            setExplogicaAnd((PExplogicaAnd) newChild);
             return;
         }
 

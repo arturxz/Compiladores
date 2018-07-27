@@ -121,6 +121,13 @@ Productions
 		decl* comm*
 		fim_programa;
 	
+	zero_ou_mais_decl
+		= {um_decl} decl zero_ou_mais_decl
+		| {zr_decl} ;
+	zero_ou_mais_comm
+		= {um_comm} comm zero_ou_mais_comm
+		| {zr_comm} ;
+	
 	/********************************* DECLARACOES *********************************/
 	
 	decl 
@@ -155,12 +162,16 @@ Productions
 		= {comando_normal} var atribuicao exp ponto_virgula
 		| {comando_leia} leia abre_parentesis pos_decl fecha_parentesis ponto_virgula
 		| {comando_escreva} escreva abre_parentesis pos_exp_comm fecha_parentesis ponto_virgula
-		| {comando_se} se abre_parentesis exp_logica fecha_parentesis entao se_senao fim_se ponto_virgula
+		| {comando_se} se abre_parentesis exp_logica_inicial fecha_parentesis entao se_senao fim_se ponto_virgula
 		| {comando_avalie} avalie abre_parentesis exp fecha_parentesis avalie_senao fim_avalie
-		| {comando_enquanto} enquanto abre_parentesis exp_logica fecha_parentesis faca multiplos_comm fim_enquanto ponto_virgula
-		| {comando_repita} repita multiplos_comm ate abre_parentesis exp_logica fecha_parentesis ponto_virgula
+		| {comando_enquanto} enquanto abre_parentesis exp_logica_inicial fecha_parentesis faca multiplos_comm fim_enquanto ponto_virgula
+		| {comando_repita} repita multiplos_comm ate abre_parentesis exp_logica_inicial fecha_parentesis ponto_virgula
 		| {comando_para_itera} inicio_para ate inteiro faca multiplos_comm fim_para ponto_virgula
 		| {comando_para_passa} inicio_para passo_para ate inteiro faca multiplos_comm fim_para ponto_virgula;
+	
+	pos_exp_comm
+		= {com_virgula} exp virgula pos_exp
+		| {sem_virgula} exp;
 	
 	fim_se
 		= fim se;
@@ -194,32 +205,76 @@ Productions
 		
 	pos_exp
 		= exp;
+		
 	pos_explogica
-		= exp_logica;
+		= exp_logica_inicial;
 	
 	exp
+		= {exp_aritmetica_inicial} exp_aritmetica_inicial
+		| {exp_logica} exp_logica_inicial;
+	
+	exp_aritmetica_inicial
 		= {valor} valor
 		| {exp_entre_parentesis} abre_parentesis exp fecha_parentesis
-//		| {sub_exp} sub exp
-		| {exp_soma_exp} exp soma pos_exp
-		| {exp_sub_exp} exp sub pos_exp
-		| {exp_mul_exp} exp mult pos_exp
-		| {exp_div_exp} exp div pos_exp
-		| {explogica} exp_logica;
+		| {arit_soma} arit_soma;
 	
-	exp_logica
-		= {explogica_entre_parentesis} abre_parentesis exp_logica fecha_parentesis
-		| {exp_iguala_exp} exp igual pos_exp
-		| {exp_diferente_exp} exp diferente pos_exp
-		| {exp_menor_igual_exp} exp menor_igual pos_exp
-		| {exp_maior_igual_exp} exp maior_igual pos_exp
-		| {exp_menor_exp} exp menor pos_exp
-		| {exp_maior_exp} exp maior pos_exp
-		| {nao_explogica} nao exp_logica
-		| {explogica_e_explogica} exp_logica e pos_explogica
-		| {explogica_ou_explogica} exp_logica ou pos_explogica
-		| {explogica_xor_explogica} exp_logica xor pos_explogica;
+	arit_soma
+		= {exp_soma_exp} exp soma arit_sub
+		| {arit_sub} arit_sub;
+	
+	arit_sub
+		= {exp_sub_exp} exp sub arit_mult
+		| {arit_mult} arit_mult;
+	
+	arit_mult
+		= {exp_mul_exp} exp mult arit_div
+		| {arit_div} arit_div;
+	
+	arit_div
+		= {exp_div_exp} exp div pos_exp
+		| {pos_exp} pos_exp;
 		
-	pos_exp_comm
-		= {com_virgula} exp virgula pos_exp
-		| {sem_virgula} exp;
+	exp_logica_inicial
+		= {explogica_entre_parentesis} abre_parentesis exp_logica_inicial fecha_parentesis
+		| {explogica_iguala} explogica_iguala;
+	
+	explogica_iguala
+		= {exp_iguala_exp} exp igual explogica_diff
+		| {explogica_diff} explogica_diff;
+	
+	explogica_diff
+		= {exp_diferente_exp} exp diferente explogica_menor
+		| {explogica_menor} explogica_menor;
+	
+	explogica_menor
+		= {exp_menor_exp} exp menor explogica_menorigual
+		| {explogica_menorigual} explogica_menorigual;
+	
+	explogica_menorigual
+		= {exp_menor_igual_exp} exp menor_igual explogica_maior
+		| {explogica_maior} explogica_maior;
+	
+	explogica_maior
+		= {exp_maior_exp} exp maior explogica_maiorigual
+		| {explogica_maior_igual} explogica_maiorigual;
+	
+	explogica_maiorigual
+		= {exp_maior_igual_exp} exp maior_igual explogica_maiorigual
+		| {explogica_not} explogica_not
+		| {pos_exp} pos_exp;
+	
+	explogica_not
+		= {nao_explogica} nao exp_logica_inicial
+		| {explogica_and} explogica_and;
+	
+	explogica_and
+		= {explogica_e_explogica} exp_logica_inicial e explogica_or
+		| {explogica_or} explogica_or;
+		
+	explogica_or
+		= {explogica_ou_explogica} exp_logica_inicial ou explogica_xor
+		| {explogica_xor} explogica_xor;
+		
+	explogica_xor
+		= {explogica_xor_explogica} exp_logica_inicial xor pos_explogica
+		| pos_explogica;

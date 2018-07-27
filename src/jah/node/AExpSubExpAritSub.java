@@ -5,44 +5,44 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpSomaExpExp extends PExp
+public final class AExpSubExpAritSub extends PAritSub
 {
     private PExp _exp_;
-    private TSoma _soma_;
-    private PPosExp _posExp_;
+    private TSub _sub_;
+    private PAritMult _aritMult_;
 
-    public AExpSomaExpExp()
+    public AExpSubExpAritSub()
     {
         // Constructor
     }
 
-    public AExpSomaExpExp(
+    public AExpSubExpAritSub(
         @SuppressWarnings("hiding") PExp _exp_,
-        @SuppressWarnings("hiding") TSoma _soma_,
-        @SuppressWarnings("hiding") PPosExp _posExp_)
+        @SuppressWarnings("hiding") TSub _sub_,
+        @SuppressWarnings("hiding") PAritMult _aritMult_)
     {
         // Constructor
         setExp(_exp_);
 
-        setSoma(_soma_);
+        setSub(_sub_);
 
-        setPosExp(_posExp_);
+        setAritMult(_aritMult_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExpSomaExpExp(
+        return new AExpSubExpAritSub(
             cloneNode(this._exp_),
-            cloneNode(this._soma_),
-            cloneNode(this._posExp_));
+            cloneNode(this._sub_),
+            cloneNode(this._aritMult_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpSomaExpExp(this);
+        ((Analysis) sw).caseAExpSubExpAritSub(this);
     }
 
     public PExp getExp()
@@ -70,16 +70,16 @@ public final class AExpSomaExpExp extends PExp
         this._exp_ = node;
     }
 
-    public TSoma getSoma()
+    public TSub getSub()
     {
-        return this._soma_;
+        return this._sub_;
     }
 
-    public void setSoma(TSoma node)
+    public void setSub(TSub node)
     {
-        if(this._soma_ != null)
+        if(this._sub_ != null)
         {
-            this._soma_.parent(null);
+            this._sub_.parent(null);
         }
 
         if(node != null)
@@ -92,19 +92,19 @@ public final class AExpSomaExpExp extends PExp
             node.parent(this);
         }
 
-        this._soma_ = node;
+        this._sub_ = node;
     }
 
-    public PPosExp getPosExp()
+    public PAritMult getAritMult()
     {
-        return this._posExp_;
+        return this._aritMult_;
     }
 
-    public void setPosExp(PPosExp node)
+    public void setAritMult(PAritMult node)
     {
-        if(this._posExp_ != null)
+        if(this._aritMult_ != null)
         {
-            this._posExp_.parent(null);
+            this._aritMult_.parent(null);
         }
 
         if(node != null)
@@ -117,7 +117,7 @@ public final class AExpSomaExpExp extends PExp
             node.parent(this);
         }
 
-        this._posExp_ = node;
+        this._aritMult_ = node;
     }
 
     @Override
@@ -125,8 +125,8 @@ public final class AExpSomaExpExp extends PExp
     {
         return ""
             + toString(this._exp_)
-            + toString(this._soma_)
-            + toString(this._posExp_);
+            + toString(this._sub_)
+            + toString(this._aritMult_);
     }
 
     @Override
@@ -139,15 +139,15 @@ public final class AExpSomaExpExp extends PExp
             return;
         }
 
-        if(this._soma_ == child)
+        if(this._sub_ == child)
         {
-            this._soma_ = null;
+            this._sub_ = null;
             return;
         }
 
-        if(this._posExp_ == child)
+        if(this._aritMult_ == child)
         {
-            this._posExp_ = null;
+            this._aritMult_ = null;
             return;
         }
 
@@ -164,15 +164,15 @@ public final class AExpSomaExpExp extends PExp
             return;
         }
 
-        if(this._soma_ == oldChild)
+        if(this._sub_ == oldChild)
         {
-            setSoma((TSoma) newChild);
+            setSub((TSub) newChild);
             return;
         }
 
-        if(this._posExp_ == oldChild)
+        if(this._aritMult_ == oldChild)
         {
-            setPosExp((PPosExp) newChild);
+            setAritMult((PAritMult) newChild);
             return;
         }
 

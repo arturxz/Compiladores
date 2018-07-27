@@ -5,46 +5,46 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class APosExplogica extends PPosExplogica
+public final class AAritSomaExpAritmeticaInicial extends PExpAritmeticaInicial
 {
-    private PExpLogicaInicial _expLogicaInicial_;
+    private PAritSoma _aritSoma_;
 
-    public APosExplogica()
+    public AAritSomaExpAritmeticaInicial()
     {
         // Constructor
     }
 
-    public APosExplogica(
-        @SuppressWarnings("hiding") PExpLogicaInicial _expLogicaInicial_)
+    public AAritSomaExpAritmeticaInicial(
+        @SuppressWarnings("hiding") PAritSoma _aritSoma_)
     {
         // Constructor
-        setExpLogicaInicial(_expLogicaInicial_);
+        setAritSoma(_aritSoma_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new APosExplogica(
-            cloneNode(this._expLogicaInicial_));
+        return new AAritSomaExpAritmeticaInicial(
+            cloneNode(this._aritSoma_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAPosExplogica(this);
+        ((Analysis) sw).caseAAritSomaExpAritmeticaInicial(this);
     }
 
-    public PExpLogicaInicial getExpLogicaInicial()
+    public PAritSoma getAritSoma()
     {
-        return this._expLogicaInicial_;
+        return this._aritSoma_;
     }
 
-    public void setExpLogicaInicial(PExpLogicaInicial node)
+    public void setAritSoma(PAritSoma node)
     {
-        if(this._expLogicaInicial_ != null)
+        if(this._aritSoma_ != null)
         {
-            this._expLogicaInicial_.parent(null);
+            this._aritSoma_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class APosExplogica extends PPosExplogica
             node.parent(this);
         }
 
-        this._expLogicaInicial_ = node;
+        this._aritSoma_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogicaInicial_);
+            + toString(this._aritSoma_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogicaInicial_ == child)
+        if(this._aritSoma_ == child)
         {
-            this._expLogicaInicial_ = null;
+            this._aritSoma_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class APosExplogica extends PPosExplogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogicaInicial_ == oldChild)
+        if(this._aritSoma_ == oldChild)
         {
-            setExpLogicaInicial((PExpLogicaInicial) newChild);
+            setAritSoma((PAritSoma) newChild);
             return;
         }
 

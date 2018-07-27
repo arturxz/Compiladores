@@ -81,6 +81,30 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAUmDeclZeroOuMaisDecl(AUmDeclZeroOuMaisDecl node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAZrDeclZeroOuMaisDecl(AZrDeclZeroOuMaisDecl node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAUmCommZeroOuMaisComm(AUmCommZeroOuMaisComm node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAZrCommZeroOuMaisComm(AZrCommZeroOuMaisComm node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseAVariavelDecl(AVariavelDecl node)
     {
         defaultCase(node);
@@ -219,6 +243,18 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAComVirgulaPosExpComm(AComVirgulaPosExpComm node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseASemVirgulaPosExpComm(ASemVirgulaPosExpComm node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseAFimSe(AFimSe node)
     {
         defaultCase(node);
@@ -303,121 +339,217 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAValorExp(AValorExp node)
+    public void caseAExpAritmeticaInicialExp(AExpAritmeticaInicialExp node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpEntreParentesisExp(AExpEntreParentesisExp node)
+    public void caseAExpLogicaExp(AExpLogicaExp node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpSomaExpExp(AExpSomaExpExp node)
+    public void caseAValorExpAritmeticaInicial(AValorExpAritmeticaInicial node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpSubExpExp(AExpSubExpExp node)
+    public void caseAExpEntreParentesisExpAritmeticaInicial(AExpEntreParentesisExpAritmeticaInicial node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpMulExpExp(AExpMulExpExp node)
+    public void caseAAritSomaExpAritmeticaInicial(AAritSomaExpAritmeticaInicial node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpDivExpExp(AExpDivExpExp node)
+    public void caseAExpSomaExpAritSoma(AExpSomaExpAritSoma node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExplogicaExp(AExplogicaExp node)
+    public void caseAAritSubAritSoma(AAritSubAritSoma node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExplogicaEntreParentesisExpLogica(AExplogicaEntreParentesisExpLogica node)
+    public void caseAExpSubExpAritSub(AExpSubExpAritSub node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpIgualaExpExpLogica(AExpIgualaExpExpLogica node)
+    public void caseAAritMultAritSub(AAritMultAritSub node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpDiferenteExpExpLogica(AExpDiferenteExpExpLogica node)
+    public void caseAExpMulExpAritMult(AExpMulExpAritMult node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpMenorIgualExpExpLogica(AExpMenorIgualExpExpLogica node)
+    public void caseAAritDivAritMult(AAritDivAritMult node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpMaiorIgualExpExpLogica(AExpMaiorIgualExpExpLogica node)
+    public void caseAExpDivExpAritDiv(AExpDivExpAritDiv node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpMenorExpExpLogica(AExpMenorExpExpLogica node)
+    public void caseAPosExpAritDiv(APosExpAritDiv node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpMaiorExpExpLogica(AExpMaiorExpExpLogica node)
+    public void caseAExplogicaEntreParentesisExpLogicaInicial(AExplogicaEntreParentesisExpLogicaInicial node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseANaoExplogicaExpLogica(ANaoExplogicaExpLogica node)
+    public void caseAExplogicaIgualaExpLogicaInicial(AExplogicaIgualaExpLogicaInicial node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExplogicaEExplogicaExpLogica(AExplogicaEExplogicaExpLogica node)
+    public void caseAExpIgualaExpExplogicaIguala(AExpIgualaExpExplogicaIguala node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExplogicaOuExplogicaExpLogica(AExplogicaOuExplogicaExpLogica node)
+    public void caseAExplogicaDiffExplogicaIguala(AExplogicaDiffExplogicaIguala node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExplogicaXorExplogicaExpLogica(AExplogicaXorExplogicaExpLogica node)
+    public void caseAExpDiferenteExpExplogicaDiff(AExpDiferenteExpExplogicaDiff node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAComVirgulaPosExpComm(AComVirgulaPosExpComm node)
+    public void caseAExplogicaMenorExplogicaDiff(AExplogicaMenorExplogicaDiff node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseASemVirgulaPosExpComm(ASemVirgulaPosExpComm node)
+    public void caseAExpMenorExpExplogicaMenor(AExpMenorExpExplogicaMenor node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaMenorigualExplogicaMenor(AExplogicaMenorigualExplogicaMenor node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpMenorIgualExpExplogicaMenorigual(AExpMenorIgualExpExplogicaMenorigual node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaMaiorExplogicaMenorigual(AExplogicaMaiorExplogicaMenorigual node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpMaiorExpExplogicaMaior(AExpMaiorExpExplogicaMaior node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaMaiorIgualExplogicaMaior(AExplogicaMaiorIgualExplogicaMaior node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpMaiorIgualExpExplogicaMaiorigual(AExpMaiorIgualExpExplogicaMaiorigual node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaNotExplogicaMaiorigual(AExplogicaNotExplogicaMaiorigual node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAPosExpExplogicaMaiorigual(APosExpExplogicaMaiorigual node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseANaoExplogicaExplogicaNot(ANaoExplogicaExplogicaNot node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaAndExplogicaNot(AExplogicaAndExplogicaNot node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaEExplogicaExplogicaAnd(AExplogicaEExplogicaExplogicaAnd node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaOrExplogicaAnd(AExplogicaOrExplogicaAnd node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaOuExplogicaExplogicaOr(AExplogicaOuExplogicaExplogicaOr node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaXorExplogicaOr(AExplogicaXorExplogicaOr node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaXorExplogicaExplogicaXor(AExplogicaXorExplogicaExplogicaXor node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExplogicaXor(AExplogicaXor node)
     {
         defaultCase(node);
     }

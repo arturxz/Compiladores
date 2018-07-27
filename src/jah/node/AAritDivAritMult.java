@@ -5,46 +5,46 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class APosExplogica extends PPosExplogica
+public final class AAritDivAritMult extends PAritMult
 {
-    private PExpLogicaInicial _expLogicaInicial_;
+    private PAritDiv _aritDiv_;
 
-    public APosExplogica()
+    public AAritDivAritMult()
     {
         // Constructor
     }
 
-    public APosExplogica(
-        @SuppressWarnings("hiding") PExpLogicaInicial _expLogicaInicial_)
+    public AAritDivAritMult(
+        @SuppressWarnings("hiding") PAritDiv _aritDiv_)
     {
         // Constructor
-        setExpLogicaInicial(_expLogicaInicial_);
+        setAritDiv(_aritDiv_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new APosExplogica(
-            cloneNode(this._expLogicaInicial_));
+        return new AAritDivAritMult(
+            cloneNode(this._aritDiv_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAPosExplogica(this);
+        ((Analysis) sw).caseAAritDivAritMult(this);
     }
 
-    public PExpLogicaInicial getExpLogicaInicial()
+    public PAritDiv getAritDiv()
     {
-        return this._expLogicaInicial_;
+        return this._aritDiv_;
     }
 
-    public void setExpLogicaInicial(PExpLogicaInicial node)
+    public void setAritDiv(PAritDiv node)
     {
-        if(this._expLogicaInicial_ != null)
+        if(this._aritDiv_ != null)
         {
-            this._expLogicaInicial_.parent(null);
+            this._aritDiv_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class APosExplogica extends PPosExplogica
             node.parent(this);
         }
 
-        this._expLogicaInicial_ = node;
+        this._aritDiv_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogicaInicial_);
+            + toString(this._aritDiv_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogicaInicial_ == child)
+        if(this._aritDiv_ == child)
         {
-            this._expLogicaInicial_ = null;
+            this._aritDiv_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class APosExplogica extends PPosExplogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogicaInicial_ == oldChild)
+        if(this._aritDiv_ == oldChild)
         {
-            setExpLogicaInicial((PExpLogicaInicial) newChild);
+            setAritDiv((PAritDiv) newChild);
             return;
         }
 

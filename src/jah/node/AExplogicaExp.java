@@ -5,46 +5,46 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExplogicaExp extends PExp
+public final class AExpLogicaExp extends PExp
 {
-    private PExpLogica _expLogica_;
+    private PExpLogicaInicial _expLogicaInicial_;
 
-    public AExplogicaExp()
+    public AExpLogicaExp()
     {
         // Constructor
     }
 
-    public AExplogicaExp(
-        @SuppressWarnings("hiding") PExpLogica _expLogica_)
+    public AExpLogicaExp(
+        @SuppressWarnings("hiding") PExpLogicaInicial _expLogicaInicial_)
     {
         // Constructor
-        setExpLogica(_expLogica_);
+        setExpLogicaInicial(_expLogicaInicial_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExplogicaExp(
-            cloneNode(this._expLogica_));
+        return new AExpLogicaExp(
+            cloneNode(this._expLogicaInicial_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExplogicaExp(this);
+        ((Analysis) sw).caseAExpLogicaExp(this);
     }
 
-    public PExpLogica getExpLogica()
+    public PExpLogicaInicial getExpLogicaInicial()
     {
-        return this._expLogica_;
+        return this._expLogicaInicial_;
     }
 
-    public void setExpLogica(PExpLogica node)
+    public void setExpLogicaInicial(PExpLogicaInicial node)
     {
-        if(this._expLogica_ != null)
+        if(this._expLogicaInicial_ != null)
         {
-            this._expLogica_.parent(null);
+            this._expLogicaInicial_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AExplogicaExp extends PExp
             node.parent(this);
         }
 
-        this._expLogica_ = node;
+        this._expLogicaInicial_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogica_);
+            + toString(this._expLogicaInicial_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogica_ == child)
+        if(this._expLogicaInicial_ == child)
         {
-            this._expLogica_ = null;
+            this._expLogicaInicial_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AExplogicaExp extends PExp
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogica_ == oldChild)
+        if(this._expLogicaInicial_ == oldChild)
         {
-            setExpLogica((PExpLogica) newChild);
+            setExpLogicaInicial((PExpLogicaInicial) newChild);
             return;
         }
 

@@ -5,19 +5,23 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class APosExplogica extends PPosExplogica
+public final class ANaoExplogicaExplogicaNot extends PExplogicaNot
 {
+    private TNao _nao_;
     private PExpLogicaInicial _expLogicaInicial_;
 
-    public APosExplogica()
+    public ANaoExplogicaExplogicaNot()
     {
         // Constructor
     }
 
-    public APosExplogica(
+    public ANaoExplogicaExplogicaNot(
+        @SuppressWarnings("hiding") TNao _nao_,
         @SuppressWarnings("hiding") PExpLogicaInicial _expLogicaInicial_)
     {
         // Constructor
+        setNao(_nao_);
+
         setExpLogicaInicial(_expLogicaInicial_);
 
     }
@@ -25,14 +29,40 @@ public final class APosExplogica extends PPosExplogica
     @Override
     public Object clone()
     {
-        return new APosExplogica(
+        return new ANaoExplogicaExplogicaNot(
+            cloneNode(this._nao_),
             cloneNode(this._expLogicaInicial_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAPosExplogica(this);
+        ((Analysis) sw).caseANaoExplogicaExplogicaNot(this);
+    }
+
+    public TNao getNao()
+    {
+        return this._nao_;
+    }
+
+    public void setNao(TNao node)
+    {
+        if(this._nao_ != null)
+        {
+            this._nao_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._nao_ = node;
     }
 
     public PExpLogicaInicial getExpLogicaInicial()
@@ -64,6 +94,7 @@ public final class APosExplogica extends PPosExplogica
     public String toString()
     {
         return ""
+            + toString(this._nao_)
             + toString(this._expLogicaInicial_);
     }
 
@@ -71,6 +102,12 @@ public final class APosExplogica extends PPosExplogica
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._nao_ == child)
+        {
+            this._nao_ = null;
+            return;
+        }
+
         if(this._expLogicaInicial_ == child)
         {
             this._expLogicaInicial_ = null;
@@ -84,6 +121,12 @@ public final class APosExplogica extends PPosExplogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._nao_ == oldChild)
+        {
+            setNao((TNao) newChild);
+            return;
+        }
+
         if(this._expLogicaInicial_ == oldChild)
         {
             setExpLogicaInicial((PExpLogicaInicial) newChild);

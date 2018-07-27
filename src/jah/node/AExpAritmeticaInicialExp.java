@@ -5,46 +5,46 @@ package jah.node;
 import jah.analysis.*;
 
 @SuppressWarnings("nls")
-public final class APosExplogica extends PPosExplogica
+public final class AExpAritmeticaInicialExp extends PExp
 {
-    private PExpLogicaInicial _expLogicaInicial_;
+    private PExpAritmeticaInicial _expAritmeticaInicial_;
 
-    public APosExplogica()
+    public AExpAritmeticaInicialExp()
     {
         // Constructor
     }
 
-    public APosExplogica(
-        @SuppressWarnings("hiding") PExpLogicaInicial _expLogicaInicial_)
+    public AExpAritmeticaInicialExp(
+        @SuppressWarnings("hiding") PExpAritmeticaInicial _expAritmeticaInicial_)
     {
         // Constructor
-        setExpLogicaInicial(_expLogicaInicial_);
+        setExpAritmeticaInicial(_expAritmeticaInicial_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new APosExplogica(
-            cloneNode(this._expLogicaInicial_));
+        return new AExpAritmeticaInicialExp(
+            cloneNode(this._expAritmeticaInicial_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAPosExplogica(this);
+        ((Analysis) sw).caseAExpAritmeticaInicialExp(this);
     }
 
-    public PExpLogicaInicial getExpLogicaInicial()
+    public PExpAritmeticaInicial getExpAritmeticaInicial()
     {
-        return this._expLogicaInicial_;
+        return this._expAritmeticaInicial_;
     }
 
-    public void setExpLogicaInicial(PExpLogicaInicial node)
+    public void setExpAritmeticaInicial(PExpAritmeticaInicial node)
     {
-        if(this._expLogicaInicial_ != null)
+        if(this._expAritmeticaInicial_ != null)
         {
-            this._expLogicaInicial_.parent(null);
+            this._expAritmeticaInicial_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class APosExplogica extends PPosExplogica
             node.parent(this);
         }
 
-        this._expLogicaInicial_ = node;
+        this._expAritmeticaInicial_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogicaInicial_);
+            + toString(this._expAritmeticaInicial_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogicaInicial_ == child)
+        if(this._expAritmeticaInicial_ == child)
         {
-            this._expLogicaInicial_ = null;
+            this._expAritmeticaInicial_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class APosExplogica extends PPosExplogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogicaInicial_ == oldChild)
+        if(this._expAritmeticaInicial_ == oldChild)
         {
-            setExpLogicaInicial((PExpLogicaInicial) newChild);
+            setExpAritmeticaInicial((PExpAritmeticaInicial) newChild);
             return;
         }
 
