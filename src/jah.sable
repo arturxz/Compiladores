@@ -27,9 +27,6 @@ Helpers
 	nao			='nao';
 	doispontos	= ':';
 	val_bool 	= 'verdadeiro' | 'falso';	
-States
-	normal,
-	comentario_bloco;
 	
 Tokens
 	
@@ -44,11 +41,12 @@ Tokens
 	faca		= 'faca';
 	ate			= 'ate';
 	de 			= 'de';
+	passo		= 'passo';
+	senao		= 'senao';
+	entao		= 'entao';
 	
 	/* EXPRESSOES CONDICIONAIS */
 	se 		= 'se';
-	senao 	= 'senao';
-	entao	= 'entao';
 	caso 	= 'caso';
 	avalie 	= 'avalie';
 	
@@ -179,6 +177,10 @@ Productions
 	fim_para
 		= fim para;
 	
+	fim_avalie
+		= {fim_simples} fim avalie
+		| {sennao_fim} senao dois_pontos multiplos_comm fim avalie;
+	
 	se_senao
 		= {dentro_se_simples} multiplos_comm
 		| {dentro_se_senao} comm senao multiplos_comm;
@@ -201,13 +203,13 @@ Productions
 //		| {sub_exp} sub exp
 		| {exp_soma_exp} exp soma pos_exp
 		| {exp_sub_exp} exp sub pos_exp
-		| {exp_mul_exp} exp mul pos_exp
+		| {exp_mul_exp} exp mult pos_exp
 		| {exp_div_exp} exp div pos_exp
 		| {explogica} exp_logica;
 	
 	exp_logica
 		= {explogica_entre_parentesis} abre_parentesis exp_logica fecha_parentesis
-		| {exp_iguala_exp} exp iguala pos_exp
+		| {exp_iguala_exp} exp igual pos_exp
 		| {exp_diferente_exp} exp diferente pos_exp
 		| {exp_menor_igual_exp} exp menor_igual pos_exp
 		| {exp_maior_igual_exp} exp maior_igual pos_exp
