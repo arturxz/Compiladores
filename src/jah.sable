@@ -169,9 +169,12 @@ Productions
 		| {comando_para_itera} inicio_para ate inteiro faca multiplos_comm fim_para ponto_virgula
 		| {comando_para_passa} inicio_para passo_para ate inteiro faca multiplos_comm fim_para ponto_virgula;
 	
+	chama_exp
+		= exp;
+	
 	pos_exp_comm
-		= {com_virgula} exp virgula pos_exp
-		| {sem_virgula} exp;
+		= {com_virgula} exp virgula pos_exp_comm
+		| {sem_virgula} chama_exp;
 	
 	fim_se
 		= fim se;
@@ -203,9 +206,6 @@ Productions
 		= {avalie_simples} pos_avalie
 		| {avalie_senao} pos_avalie senao dois_pontos multiplos_comm;
 		
-	pos_exp
-		= exp;
-		
 	pos_explogica
 		= exp_logica_inicial;
 	
@@ -231,8 +231,8 @@ Productions
 		| {arit_div} arit_div;
 	
 	arit_div
-		= {exp_div_exp} exp div pos_exp
-		| {pos_exp} pos_exp;
+		= {exp_div_exp} exp div arit_div
+		| {pos_exp} chama_exp;
 		
 	exp_logica_inicial
 		= {explogica_entre_parentesis} abre_parentesis exp_logica_inicial fecha_parentesis
@@ -261,7 +261,7 @@ Productions
 	explogica_maiorigual
 		= {exp_maior_igual_exp} exp maior_igual explogica_maiorigual
 		| {explogica_not} explogica_not
-		| {pos_exp} pos_exp;
+		| {pos_exp} chama_exp;
 	
 	explogica_not
 		= {nao_explogica} nao exp_logica_inicial

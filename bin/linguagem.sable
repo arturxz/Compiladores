@@ -114,12 +114,20 @@ Ignored Tokens
 	tab, espaco, nova_linha;
 
 Productions
+
+	mult_comm_ou_zr
+		= {um} comm mult_comm_ou_zr
+		| {zr} ;
 	
+	mult_decl_ou_zr
+		= {um} decl mult_decl_ou_zr
+		| {zr} decl;
+
 	pgr = 
 		programa
 		id
 		inicio
-		decl* comm*
+		mult_decl_ou_zr mult_comm_ou_zr
 		fim_programa;
 	
 	/********************************* DECLARACOES *********************************/
@@ -159,28 +167,28 @@ Productions
 			avalie_senao
 		  fim_avalie
 		| {comando_enquanto} enquanto abre_parentesis exp_logica fecha_parentesis faca
-			comm* comm
+			mult_comm_ou_zr comm
 		  fim enquanto ponto_virgula
 		| {comando_repita} repita
-			comm* comm
+			mult_comm_ou_zr comm
 		  ate abre_parentesis exp_logica fecha_parentesis ponto_virgula
 		| {comando_para_um} para var de tipo_inteiro ate tipo_inteiro faca 
-			comm* comm 
+			mult_comm_ou_zr comm 
 		  fim para ponto_virgula
 		| {comando_para_dois} para var de tipo_inteiro passo tipo_inteiro ate tipo_inteiro faca
-			comm* comm
+			mult_comm_ou_zr comm
 		  fim para ponto_virgula;
 	
 	se_senao
-		= entao comm* comm
-		| entao comm* comm senao comm* comm;
+		= entao mult_comm_ou_zr comm
+		| entao mult_comm_ou_zr comm senao mult_comm_ou_zr comm;
 
 	pos_avalie
-		= caso valor dois_pontos comm* comm;
+		= caso valor dois_pontos mult_comm_ou_zr comm;
 		
 	avalie_senao
 		= pos_avalie
-		| pos_avalie senao dois_pontos comm* comm;
+		| pos_avalie senao dois_pontos mult_comm_ou_zr comm;
 	
 	exp
 		= valor
