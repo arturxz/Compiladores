@@ -200,9 +200,48 @@ Productions
 	comm_para_meio = faca comandos comm_para_fim;
 	comm_para_fim = fim para ponto_virgula;
 	
-	
-	exp
-		= valor soma;
+	// #################### EXPRESSOES
+	exp	
+		= {operacao} termo exp_arit_pri_um exp
+		| {proximo} termo;
+	termo
+		= {operacao} fator exp_arit_pri_dois termo
+		| {proximo} fator;
+	fator
+		= {parentesis} abre_parentesis exp fecha_parentesis
+		| {substitui} var;
 	
 	exp_logica
-		= valor nao;
+		= {faz_comp} des_logica exp_log_pri_um exp_logica
+		| {desigual} des_logica;
+	des_logica
+		= {faz_des} opr_logica exp_log_pri_dois des_logica
+		| {oprs} opr_logica;
+	opr_logica
+		= {op_logico} fim_logica exp_log_pri_tres opr_logica
+		| {finaliza} fim_logica;
+	fim_logica
+		= {parentesis} abre_parentesis exp_logica fecha_parentesis
+		| {substitui} var; 
+	
+	exp_arit_pri_um
+		= {soma} soma
+		| {subtracao} sub;
+	exp_arit_pri_dois
+		= {multiplicacao} mult
+		| {divisao} div
+		| {logico} exp_logica;
+	
+	exp_log_pri_um
+		= {igual} igual
+		| {diferente} diferente;
+	exp_log_pri_dois
+		= {menor} menor
+		| {menorigual} menor_igual
+		| {maior} maior
+		| {maiorigual} maior_igual;
+	exp_log_pri_tres
+		= {not} nao
+		| {and} e
+		| {or} ou
+		| {xor} xor;
