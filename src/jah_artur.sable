@@ -136,7 +136,7 @@ Productions
 	
 	var
 		= {normal} id
-		| {array} abre_colchetes inteiro fecha_colchetes;
+		| {array} id abre_colchetes inteiro fecha_colchetes;
 	
 	valor
 		= {string} string 
@@ -173,7 +173,7 @@ Productions
 	// ########## COMANDO SE
 	comm_se = se abre_parentesis exp_logica fecha_parentesis entao comandos comm_se_senao comm_se_fim;
 	comm_se_senao = senao comandos;
-	comm_se_fim = fim se;
+	comm_se_fim = fim se ponto_virgula;
 
 	// ########## COMANDO AVALIE
 	comm_avalie = abre_parentesis exp fecha_parentesis comm_avalie_caso_parte;
@@ -192,7 +192,7 @@ Productions
 	// ########## COMANDO REPITA
 	comm_repita = repita comandos ate abre_parentesis exp_logica fecha_parentesis ponto_virgula;
 
-	// ########## COMANDO REPITA
+	// ########## COMANDO PARA
 	comm_para = var de inteiro comm_para_passa;
 	comm_para_passa 
 		= {com_passo} passo inteiro comm_para_meio
@@ -209,7 +209,8 @@ Productions
 		| {proximo} fator;
 	fator
 		= {parentesis} abre_parentesis exp fecha_parentesis
-		| {substitui} var;
+		| {substitui_id} var
+		| {substitui_valor} valor;
 	
 	exp_logica
 		= {faz_comp} des_logica exp_log_pri_um exp_logica
@@ -222,7 +223,8 @@ Productions
 		| {finaliza} fim_logica;
 	fim_logica
 		= {parentesis} abre_parentesis exp_logica fecha_parentesis
-		| {substitui} var; 
+		| {substitui_var} var
+		| {substitui_valor} valor; 
 	
 	exp_arit_pri_um
 		= {soma} soma
