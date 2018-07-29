@@ -154,6 +154,7 @@ Productions
 		| {se} comm_se
 		| {avalie} comm_avalie
 		| {enquanto} comm_enquanto
+		| {repita} comm_repita
 		| {para} comm_para;
 	
 	// ########## COMANDO LEIA
@@ -190,10 +191,12 @@ Productions
 	comm_enquanto_fim = fim enquanto ponto_virgula;
 	
 	// ########## COMANDO REPITA
-	comm_repita = repita comandos ate abre_parentesis exp_logica fecha_parentesis ponto_virgula;
-
+	comm_repita = repita comm_repita_comandos_parte;
+	comm_repita_comandos_parte = comandos ate comm_repita_condicao_parte;
+	comm_repita_condicao_parte = abre_parentesis exp_logica fecha_parentesis ponto_virgula;
+	
 	// ########## COMANDO PARA
-	comm_para = var de inteiro comm_para_passa;
+	comm_para = para var de inteiro comm_para_passa;
 	comm_para_passa 
 		= {com_passo} passo inteiro comm_para_meio
 		| {sem_passo} comm_para_meio;
