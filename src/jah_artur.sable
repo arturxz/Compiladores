@@ -37,7 +37,7 @@ Tokens
 	fim_programa= 'fim.';
 	leia 		= 'leia';
 	escreva 	= 'escreva';
-	constante 	= 'constante';
+	constante 	= 'const';
 	faca		= 'faca';
 	ate			= 'ate';
 	de 			= 'de';
@@ -171,7 +171,7 @@ Productions
 	comm_escreva_terceira_parte = fecha_parentesis ponto_virgula;
 
 	// ########## COMANDO SE
-	comm_se = se abre_parentesis exp_logica fecha_parentesis entao comandos comm_se_senao comm_se_fim;
+	comm_se = se abre_parentesis exp_logica fecha_parentesis entao comandos comm_se_senao? comm_se_fim;
 	comm_se_senao = senao comandos;
 	comm_se_fim = fim se ponto_virgula;
 
