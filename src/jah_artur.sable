@@ -176,7 +176,7 @@ Productions
 	comm_se_fim = fim se ponto_virgula;
 
 	// ########## COMANDO AVALIE
-	comm_avalie = abre_parentesis exp fecha_parentesis comm_avalie_caso_parte;
+	comm_avalie = avalie abre_parentesis exp fecha_parentesis comm_avalie_caso_parte;
 	comm_avalie_caso_parte 
 		= {com_caso} caso valor dois_pontos comandos comm_avalie_caso_parte
 		| {sem_caso} comm_avalie_senao_parte;
