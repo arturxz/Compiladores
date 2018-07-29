@@ -10,7 +10,7 @@ import jah.lexer.*;
 class Main2 {
 	public static void main(String[] args) {
 		try {
-			String arquivo = "exemplo.sa";
+			String arquivo = "C:\\Users\\artur\\eclipse-workspace\\compiladores\\src\\sintatico.sa";
 			Lexer lexer = 
 					new Lexer(
 							new PushbackReader(
