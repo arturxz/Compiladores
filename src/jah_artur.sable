@@ -198,8 +198,9 @@ Productions
 	// ########## COMANDO PARA
 	comm_para = para var de inteiro comm_para_passa;
 	comm_para_passa 
-		= {com_passo} passo inteiro comm_para_meio
-		| {sem_passo} comm_para_meio;
+		= {com_passo} passo inteiro comm_para_ate
+		| {sem_passo} comm_para_ate;
+	comm_para_ate = ate inteiro comm_para_meio;
 	comm_para_meio = faca comandos comm_para_fim;
 	comm_para_fim = fim para ponto_virgula;
 	
