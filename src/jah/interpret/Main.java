@@ -7,7 +7,6 @@ import java.io.*;
 
 import jah.interpret.*;
 
-//import linguagem.interpret.Interpreter;
 
 public class Main {
 	public static void main(String[] args) throws FileNotFoundException {
@@ -23,9 +22,10 @@ public class Main {
 		try {
 			while (!((token = lexer.next()) instanceof EOF)) {
 				if (token instanceof TComentarioLinha) {
-					// PRINTA O TOKEN DE COMENTARIO EM LINHA E CONTINUA LENDO ATÉ ENCONTRAR NOVALINHA OU EOF
+					// PRINTA O TOKEN DE COMENTARIO EM LINHA E CONTINUA LENDO ATÉ ENCONTRAR
+					// NOVALINHA OU EOF
 					System.out.println(token.getClass().getSimpleName());
-					while (!(token instanceof EOF) && !(token instanceof TNovaLinha)  ) {
+					while (!(token instanceof EOF) && !(token instanceof TNovaLinha)) {
 						token = lexer.next();
 					}
 				} else if (token instanceof TComentarioBlocoAbre) {

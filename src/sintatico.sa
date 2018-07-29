@@ -46,4 +46,6 @@ inicio
 	para a de 20 passo 40 ate 2 faca
 		a := a + 98798;
 	fim para;
+	
+	a :=  (1 + (1*1) / (1 - 1));
 fim.
