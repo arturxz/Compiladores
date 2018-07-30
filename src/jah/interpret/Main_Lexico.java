@@ -8,7 +8,7 @@ import java.io.*;
 import jah.interpret.*;
 
 
-public class Main {
+public class Main_Lexico {
 	public static void main(String[] args) throws FileNotFoundException {
 		if (args.length > 0) {
 			PushbackReader pbr = new PushbackReader(new FileReader(args[0]), 1024);

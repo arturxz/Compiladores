@@ -6,7 +6,7 @@ import jah.node.*;
 import java.io.*;
 import jah.lexer.*;
 
-class Main2 {
+class Main_Sintatico {
 	
 	public static void main(String[] args) throws LexerException, IOException {
 		Token token = null;
@@ -16,9 +16,9 @@ class Main2 {
 			PushbackReader pbr = new PushbackReader(new FileReader(arquivo), 1024);
 			lexer = new Lexer(pbr);
 			Parser parser = new Parser(lexer);
-			parser.parse();
-			//Start ast = parser.parse();
-			//System.out.println(ast.toString());
+			//parser.parse();
+			Start ast = parser.parse();
+			System.out.println(ast.toString());
 			
 		} catch (LexerException le) {
 			token = lexer.next();
