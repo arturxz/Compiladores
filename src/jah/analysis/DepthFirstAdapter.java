@@ -517,6 +517,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAComandoVazioComandos(AComandoVazioComandos node)
     {
         inAComandoVazioComandos(node);
+        if(node.getComm() != null)
+        {
+            node.getComm().apply(this);
+        }
         outAComandoVazioComandos(node);
     }
 

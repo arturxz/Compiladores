@@ -146,7 +146,7 @@ Productions
 	/****************************** COMANDOS ******************************/
 	comandos
 		= {mais_comandos} comm comandos
-		| {comando_vazio} ;
+		| {comando_vazio} comm;
 	comm
 		= {simples} var atribuicao exp ponto_virgula
 		| {leia} comm_leia

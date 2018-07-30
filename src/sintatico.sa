@@ -15,9 +15,9 @@ inicio
 	
 	escreva(a);
 	escreva(a, 12);
-	
+		
 	se(n < 9) entao
-		str := 'y';
+		a := 9;
 	fim se;
 	
 	se (a < c[0]) entao
@@ -43,11 +43,16 @@ inicio
 		a := 44;
 	fim para;
 	
+	se (a < b) entao
+		leia(a);
+	fim se;
+	
 	para a de 20 passo 40 ate 2 faca
 		a := a + 98798;
 	fim para;
 	
 	a :=  (1 + (1*1) / (1 - 1));
 	se( ( a > b ) e (b > c) ) entao
+		escreva(b);
 	fim se;
 fim.
