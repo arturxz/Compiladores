@@ -79,7 +79,7 @@ Tokens
 	tipo_inteiro	= 'inteiro';
 	tipo_real		= 'real';
 	tipo_string		= 'caractere';
-	tipo_booleano	= 'bool';
+	tipo_booleano	= 'booleano';
 	
 	/* OUTROS TOKENS */
 	virgula				= virgula;
@@ -167,8 +167,8 @@ Productions
 	// ########## COMANDO ESCREVA
 	comm_escreva = escreva abre_parentesis comm_escreva_segunda_parte;
 	comm_escreva_segunda_parte 
-		= {varios_exp} exp virgula comm_escreva_segunda_parte 
-		| {um_exp} exp comm_escreva_terceira_parte;
+		= {varios_exp} exp_ou_exp_logica virgula comm_escreva_segunda_parte 
+		| {um_exp} exp_ou_exp_logica comm_escreva_terceira_parte;
 	comm_escreva_terceira_parte = fecha_parentesis ponto_virgula;
 
 	// ########## COMANDO SE
@@ -177,7 +177,7 @@ Productions
 	comm_se_fim = fim se ponto_virgula;
 
 	// ########## COMANDO AVALIE
-	comm_avalie = avalie abre_parentesis exp fecha_parentesis comm_avalie_caso_parte;
+	comm_avalie = avalie abre_parentesis exp_ou_exp_logica fecha_parentesis comm_avalie_caso_parte;
 	comm_avalie_caso_parte 
 		= {com_caso} caso valor dois_pontos comandos comm_avalie_caso_parte
 		| {sem_caso} comm_avalie_senao_parte;
@@ -205,49 +205,48 @@ Productions
 	comm_para_fim = fim para ponto_virgula;
 	
 	// #################### EXPRESSOES
-	exp	
-		= {operacao} termo exp_arit_pri_um exp
-		| {proximo} termo;
-	termo
-		= {operacao} fator exp_arit_pri_dois termo
-		| {proximo} fator;
-	fator
-		= {parentesis} abre_parentesis exp fecha_parentesis
-		| {substitui_id} var
-		| {substitui_valor} valor;
+	exp_ou_exp_logica
+		= {ari} exp
+		| {log} exp_logica;
+
+	exp 
+		= {soma} exp soma termo 
+		| {subt} exp sub termo
+		| {term} termo;
+			
+	termo 
+		= {mult} termo mult exp_final 
+		| {divi} termo div exp_final
+		| {fim} exp_final;
 	
-	exp_logica
-		= {faz_comp} des_logica exp_log_pri_um exp_logica
-		| {desigual} des_logica;
-	des_logica
-		= {faz_des} opr_logica exp_log_pri_dois des_logica
-		| {oprs} opr_logica;
-	opr_logica
-		= {op_logico} fim_logica exp_log_pri_tres opr_logica
-		| {finaliza} fim_logica;
-	fim_logica
-		= {parentesis} abre_parentesis exp_logica fecha_parentesis
-		| {substitui_var} var
-		| {substitui_valor} valor; 
-	
-	exp_arit_pri_um
-		= {soma} soma
-		| {subtracao} sub;
-	exp_arit_pri_dois
-		= {multiplicacao} mult
-		| {divisao} div
-		| {logico} exp_logica;
-	
-	exp_log_pri_um
-		= {igual} igual
-		| {diferente} diferente;
-	exp_log_pri_dois
-		= {menor} menor
-		| {menorigual} menor_igual
-		| {maior} maior
-		| {maiorigual} maior_igual;
-	exp_log_pri_tres
-		= {not} nao
-		| {and} e
-		| {or} ou
-		| {xor} xor;
+	exp_final 
+		= {parentesis} abre_parentesis exp fecha_parentesis  
+		| {negativa_exp} sub exp_final
+		| {substituir_var} var
+		| {substituir_val} valor;
+					   		  
+	exp_logica 
+		= {and} exp_logica e log_prec_um
+		| {ou}  exp_logica ou log_prec_um
+		| {xor} exp_logica xor log_prec_um
+		| {not} nao log_prec_um
+		| {prx} log_prec_um;
+
+	log_prec_um 
+		= {diferente} exp diferente termo
+		| {igual} exp igual termo
+		| {fator} log_prec_dois;
+		
+	log_prec_dois 
+		= {maior} exp maior termo
+		| {menor} exp menor termo
+		| {maiorq} exp maior_igual termo
+		| {menorq} exp menor_igual termo
+		| {par} abre_parentesis exp_logica fecha_parentesis;
+
+
+/*
+**
+** FIM DA PARTE SINTATICA
+**
+*/

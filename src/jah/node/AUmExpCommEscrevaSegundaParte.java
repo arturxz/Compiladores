@@ -7,7 +7,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class AUmExpCommEscrevaSegundaParte extends PCommEscrevaSegundaParte
 {
-    private PExp _exp_;
+    private PExpOuExpLogica _expOuExpLogica_;
     private PCommEscrevaTerceiraParte _commEscrevaTerceiraParte_;
 
     public AUmExpCommEscrevaSegundaParte()
@@ -16,11 +16,11 @@ public final class AUmExpCommEscrevaSegundaParte extends PCommEscrevaSegundaPart
     }
 
     public AUmExpCommEscrevaSegundaParte(
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExpOuExpLogica _expOuExpLogica_,
         @SuppressWarnings("hiding") PCommEscrevaTerceiraParte _commEscrevaTerceiraParte_)
     {
         // Constructor
-        setExp(_exp_);
+        setExpOuExpLogica(_expOuExpLogica_);
 
         setCommEscrevaTerceiraParte(_commEscrevaTerceiraParte_);
 
@@ -30,7 +30,7 @@ public final class AUmExpCommEscrevaSegundaParte extends PCommEscrevaSegundaPart
     public Object clone()
     {
         return new AUmExpCommEscrevaSegundaParte(
-            cloneNode(this._exp_),
+            cloneNode(this._expOuExpLogica_),
             cloneNode(this._commEscrevaTerceiraParte_));
     }
 
@@ -40,16 +40,16 @@ public final class AUmExpCommEscrevaSegundaParte extends PCommEscrevaSegundaPart
         ((Analysis) sw).caseAUmExpCommEscrevaSegundaParte(this);
     }
 
-    public PExp getExp()
+    public PExpOuExpLogica getExpOuExpLogica()
     {
-        return this._exp_;
+        return this._expOuExpLogica_;
     }
 
-    public void setExp(PExp node)
+    public void setExpOuExpLogica(PExpOuExpLogica node)
     {
-        if(this._exp_ != null)
+        if(this._expOuExpLogica_ != null)
         {
-            this._exp_.parent(null);
+            this._expOuExpLogica_.parent(null);
         }
 
         if(node != null)
@@ -62,7 +62,7 @@ public final class AUmExpCommEscrevaSegundaParte extends PCommEscrevaSegundaPart
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._expOuExpLogica_ = node;
     }
 
     public PCommEscrevaTerceiraParte getCommEscrevaTerceiraParte()
@@ -94,7 +94,7 @@ public final class AUmExpCommEscrevaSegundaParte extends PCommEscrevaSegundaPart
     public String toString()
     {
         return ""
-            + toString(this._exp_)
+            + toString(this._expOuExpLogica_)
             + toString(this._commEscrevaTerceiraParte_);
     }
 
@@ -102,9 +102,9 @@ public final class AUmExpCommEscrevaSegundaParte extends PCommEscrevaSegundaPart
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._exp_ == child)
+        if(this._expOuExpLogica_ == child)
         {
-            this._exp_ = null;
+            this._expOuExpLogica_ = null;
             return;
         }
 
@@ -121,9 +121,9 @@ public final class AUmExpCommEscrevaSegundaParte extends PCommEscrevaSegundaPart
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._exp_ == oldChild)
+        if(this._expOuExpLogica_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExpOuExpLogica((PExpOuExpLogica) newChild);
             return;
         }
 

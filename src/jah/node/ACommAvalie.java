@@ -9,7 +9,7 @@ public final class ACommAvalie extends PCommAvalie
 {
     private TAvalie _avalie_;
     private TAbreParentesis _abreParentesis_;
-    private PExp _exp_;
+    private PExpOuExpLogica _expOuExpLogica_;
     private TFechaParentesis _fechaParentesis_;
     private PCommAvalieCasoParte _commAvalieCasoParte_;
 
@@ -21,7 +21,7 @@ public final class ACommAvalie extends PCommAvalie
     public ACommAvalie(
         @SuppressWarnings("hiding") TAvalie _avalie_,
         @SuppressWarnings("hiding") TAbreParentesis _abreParentesis_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExpOuExpLogica _expOuExpLogica_,
         @SuppressWarnings("hiding") TFechaParentesis _fechaParentesis_,
         @SuppressWarnings("hiding") PCommAvalieCasoParte _commAvalieCasoParte_)
     {
@@ -30,7 +30,7 @@ public final class ACommAvalie extends PCommAvalie
 
         setAbreParentesis(_abreParentesis_);
 
-        setExp(_exp_);
+        setExpOuExpLogica(_expOuExpLogica_);
 
         setFechaParentesis(_fechaParentesis_);
 
@@ -44,7 +44,7 @@ public final class ACommAvalie extends PCommAvalie
         return new ACommAvalie(
             cloneNode(this._avalie_),
             cloneNode(this._abreParentesis_),
-            cloneNode(this._exp_),
+            cloneNode(this._expOuExpLogica_),
             cloneNode(this._fechaParentesis_),
             cloneNode(this._commAvalieCasoParte_));
     }
@@ -105,16 +105,16 @@ public final class ACommAvalie extends PCommAvalie
         this._abreParentesis_ = node;
     }
 
-    public PExp getExp()
+    public PExpOuExpLogica getExpOuExpLogica()
     {
-        return this._exp_;
+        return this._expOuExpLogica_;
     }
 
-    public void setExp(PExp node)
+    public void setExpOuExpLogica(PExpOuExpLogica node)
     {
-        if(this._exp_ != null)
+        if(this._expOuExpLogica_ != null)
         {
-            this._exp_.parent(null);
+            this._expOuExpLogica_.parent(null);
         }
 
         if(node != null)
@@ -127,7 +127,7 @@ public final class ACommAvalie extends PCommAvalie
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._expOuExpLogica_ = node;
     }
 
     public TFechaParentesis getFechaParentesis()
@@ -186,7 +186,7 @@ public final class ACommAvalie extends PCommAvalie
         return ""
             + toString(this._avalie_)
             + toString(this._abreParentesis_)
-            + toString(this._exp_)
+            + toString(this._expOuExpLogica_)
             + toString(this._fechaParentesis_)
             + toString(this._commAvalieCasoParte_);
     }
@@ -207,9 +207,9 @@ public final class ACommAvalie extends PCommAvalie
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._expOuExpLogica_ == child)
         {
-            this._exp_ = null;
+            this._expOuExpLogica_ = null;
             return;
         }
 
@@ -244,9 +244,9 @@ public final class ACommAvalie extends PCommAvalie
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._expOuExpLogica_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExpOuExpLogica((PExpOuExpLogica) newChild);
             return;
         }
 

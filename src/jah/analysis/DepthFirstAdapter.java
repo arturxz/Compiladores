@@ -851,9 +851,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAVariosExpCommEscrevaSegundaParte(AVariosExpCommEscrevaSegundaParte node)
     {
         inAVariosExpCommEscrevaSegundaParte(node);
-        if(node.getExp() != null)
+        if(node.getExpOuExpLogica() != null)
         {
-            node.getExp().apply(this);
+            node.getExpOuExpLogica().apply(this);
         }
         if(node.getVirgula() != null)
         {
@@ -880,9 +880,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAUmExpCommEscrevaSegundaParte(AUmExpCommEscrevaSegundaParte node)
     {
         inAUmExpCommEscrevaSegundaParte(node);
-        if(node.getExp() != null)
+        if(node.getExpOuExpLogica() != null)
         {
-            node.getExp().apply(this);
+            node.getExpOuExpLogica().apply(this);
         }
         if(node.getCommEscrevaTerceiraParte() != null)
         {
@@ -1041,9 +1041,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getAbreParentesis().apply(this);
         }
-        if(node.getExp() != null)
+        if(node.getExpOuExpLogica() != null)
         {
-            node.getExp().apply(this);
+            node.getExpOuExpLogica().apply(this);
         }
         if(node.getFechaParentesis() != null)
         {
@@ -1532,710 +1532,656 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outACommParaFim(node);
     }
 
-    public void inAOperacaoExp(AOperacaoExp node)
+    public void inAAriExpOuExpLogica(AAriExpOuExpLogica node)
     {
         defaultIn(node);
     }
 
-    public void outAOperacaoExp(AOperacaoExp node)
+    public void outAAriExpOuExpLogica(AAriExpOuExpLogica node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAOperacaoExp(AOperacaoExp node)
+    public void caseAAriExpOuExpLogica(AAriExpOuExpLogica node)
     {
-        inAOperacaoExp(node);
-        if(node.getTermo() != null)
-        {
-            node.getTermo().apply(this);
-        }
-        if(node.getExpAritPriUm() != null)
-        {
-            node.getExpAritPriUm().apply(this);
-        }
+        inAAriExpOuExpLogica(node);
         if(node.getExp() != null)
         {
             node.getExp().apply(this);
         }
-        outAOperacaoExp(node);
+        outAAriExpOuExpLogica(node);
     }
 
-    public void inAProximoExp(AProximoExp node)
+    public void inALogExpOuExpLogica(ALogExpOuExpLogica node)
     {
         defaultIn(node);
     }
 
-    public void outAProximoExp(AProximoExp node)
+    public void outALogExpOuExpLogica(ALogExpOuExpLogica node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAProximoExp(AProximoExp node)
+    public void caseALogExpOuExpLogica(ALogExpOuExpLogica node)
     {
-        inAProximoExp(node);
-        if(node.getTermo() != null)
+        inALogExpOuExpLogica(node);
+        if(node.getExpLogica() != null)
         {
-            node.getTermo().apply(this);
+            node.getExpLogica().apply(this);
         }
-        outAProximoExp(node);
+        outALogExpOuExpLogica(node);
     }
 
-    public void inAOperacaoTermo(AOperacaoTermo node)
+    public void inASomaExp(ASomaExp node)
     {
         defaultIn(node);
     }
 
-    public void outAOperacaoTermo(AOperacaoTermo node)
+    public void outASomaExp(ASomaExp node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAOperacaoTermo(AOperacaoTermo node)
+    public void caseASomaExp(ASomaExp node)
     {
-        inAOperacaoTermo(node);
-        if(node.getFator() != null)
-        {
-            node.getFator().apply(this);
-        }
-        if(node.getExpAritPriDois() != null)
-        {
-            node.getExpAritPriDois().apply(this);
-        }
-        if(node.getTermo() != null)
-        {
-            node.getTermo().apply(this);
-        }
-        outAOperacaoTermo(node);
-    }
-
-    public void inAProximoTermo(AProximoTermo node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAProximoTermo(AProximoTermo node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAProximoTermo(AProximoTermo node)
-    {
-        inAProximoTermo(node);
-        if(node.getFator() != null)
-        {
-            node.getFator().apply(this);
-        }
-        outAProximoTermo(node);
-    }
-
-    public void inAParentesisFator(AParentesisFator node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAParentesisFator(AParentesisFator node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAParentesisFator(AParentesisFator node)
-    {
-        inAParentesisFator(node);
-        if(node.getAbreParentesis() != null)
-        {
-            node.getAbreParentesis().apply(this);
-        }
+        inASomaExp(node);
         if(node.getExp() != null)
         {
             node.getExp().apply(this);
         }
-        if(node.getFechaParentesis() != null)
-        {
-            node.getFechaParentesis().apply(this);
-        }
-        outAParentesisFator(node);
-    }
-
-    public void inASubstituiIdFator(ASubstituiIdFator node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASubstituiIdFator(ASubstituiIdFator node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASubstituiIdFator(ASubstituiIdFator node)
-    {
-        inASubstituiIdFator(node);
-        if(node.getVar() != null)
-        {
-            node.getVar().apply(this);
-        }
-        outASubstituiIdFator(node);
-    }
-
-    public void inASubstituiValorFator(ASubstituiValorFator node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASubstituiValorFator(ASubstituiValorFator node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASubstituiValorFator(ASubstituiValorFator node)
-    {
-        inASubstituiValorFator(node);
-        if(node.getValor() != null)
-        {
-            node.getValor().apply(this);
-        }
-        outASubstituiValorFator(node);
-    }
-
-    public void inAFazCompExpLogica(AFazCompExpLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAFazCompExpLogica(AFazCompExpLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAFazCompExpLogica(AFazCompExpLogica node)
-    {
-        inAFazCompExpLogica(node);
-        if(node.getDesLogica() != null)
-        {
-            node.getDesLogica().apply(this);
-        }
-        if(node.getExpLogPriUm() != null)
-        {
-            node.getExpLogPriUm().apply(this);
-        }
-        if(node.getExpLogica() != null)
-        {
-            node.getExpLogica().apply(this);
-        }
-        outAFazCompExpLogica(node);
-    }
-
-    public void inADesigualExpLogica(ADesigualExpLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outADesigualExpLogica(ADesigualExpLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseADesigualExpLogica(ADesigualExpLogica node)
-    {
-        inADesigualExpLogica(node);
-        if(node.getDesLogica() != null)
-        {
-            node.getDesLogica().apply(this);
-        }
-        outADesigualExpLogica(node);
-    }
-
-    public void inAFazDesDesLogica(AFazDesDesLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAFazDesDesLogica(AFazDesDesLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAFazDesDesLogica(AFazDesDesLogica node)
-    {
-        inAFazDesDesLogica(node);
-        if(node.getOprLogica() != null)
-        {
-            node.getOprLogica().apply(this);
-        }
-        if(node.getExpLogPriDois() != null)
-        {
-            node.getExpLogPriDois().apply(this);
-        }
-        if(node.getDesLogica() != null)
-        {
-            node.getDesLogica().apply(this);
-        }
-        outAFazDesDesLogica(node);
-    }
-
-    public void inAOprsDesLogica(AOprsDesLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAOprsDesLogica(AOprsDesLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAOprsDesLogica(AOprsDesLogica node)
-    {
-        inAOprsDesLogica(node);
-        if(node.getOprLogica() != null)
-        {
-            node.getOprLogica().apply(this);
-        }
-        outAOprsDesLogica(node);
-    }
-
-    public void inAOpLogicoOprLogica(AOpLogicoOprLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAOpLogicoOprLogica(AOpLogicoOprLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAOpLogicoOprLogica(AOpLogicoOprLogica node)
-    {
-        inAOpLogicoOprLogica(node);
-        if(node.getFimLogica() != null)
-        {
-            node.getFimLogica().apply(this);
-        }
-        if(node.getExpLogPriTres() != null)
-        {
-            node.getExpLogPriTres().apply(this);
-        }
-        if(node.getOprLogica() != null)
-        {
-            node.getOprLogica().apply(this);
-        }
-        outAOpLogicoOprLogica(node);
-    }
-
-    public void inAFinalizaOprLogica(AFinalizaOprLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAFinalizaOprLogica(AFinalizaOprLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAFinalizaOprLogica(AFinalizaOprLogica node)
-    {
-        inAFinalizaOprLogica(node);
-        if(node.getFimLogica() != null)
-        {
-            node.getFimLogica().apply(this);
-        }
-        outAFinalizaOprLogica(node);
-    }
-
-    public void inAParentesisFimLogica(AParentesisFimLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAParentesisFimLogica(AParentesisFimLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAParentesisFimLogica(AParentesisFimLogica node)
-    {
-        inAParentesisFimLogica(node);
-        if(node.getAbreParentesis() != null)
-        {
-            node.getAbreParentesis().apply(this);
-        }
-        if(node.getExpLogica() != null)
-        {
-            node.getExpLogica().apply(this);
-        }
-        if(node.getFechaParentesis() != null)
-        {
-            node.getFechaParentesis().apply(this);
-        }
-        outAParentesisFimLogica(node);
-    }
-
-    public void inASubstituiVarFimLogica(ASubstituiVarFimLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASubstituiVarFimLogica(ASubstituiVarFimLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASubstituiVarFimLogica(ASubstituiVarFimLogica node)
-    {
-        inASubstituiVarFimLogica(node);
-        if(node.getVar() != null)
-        {
-            node.getVar().apply(this);
-        }
-        outASubstituiVarFimLogica(node);
-    }
-
-    public void inASubstituiValorFimLogica(ASubstituiValorFimLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASubstituiValorFimLogica(ASubstituiValorFimLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASubstituiValorFimLogica(ASubstituiValorFimLogica node)
-    {
-        inASubstituiValorFimLogica(node);
-        if(node.getValor() != null)
-        {
-            node.getValor().apply(this);
-        }
-        outASubstituiValorFimLogica(node);
-    }
-
-    public void inASomaExpAritPriUm(ASomaExpAritPriUm node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASomaExpAritPriUm(ASomaExpAritPriUm node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASomaExpAritPriUm(ASomaExpAritPriUm node)
-    {
-        inASomaExpAritPriUm(node);
         if(node.getSoma() != null)
         {
             node.getSoma().apply(this);
         }
-        outASomaExpAritPriUm(node);
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
+        outASomaExp(node);
     }
 
-    public void inASubtracaoExpAritPriUm(ASubtracaoExpAritPriUm node)
+    public void inASubtExp(ASubtExp node)
     {
         defaultIn(node);
     }
 
-    public void outASubtracaoExpAritPriUm(ASubtracaoExpAritPriUm node)
+    public void outASubtExp(ASubtExp node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseASubtracaoExpAritPriUm(ASubtracaoExpAritPriUm node)
+    public void caseASubtExp(ASubtExp node)
     {
-        inASubtracaoExpAritPriUm(node);
+        inASubtExp(node);
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
         if(node.getSub() != null)
         {
             node.getSub().apply(this);
         }
-        outASubtracaoExpAritPriUm(node);
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
+        outASubtExp(node);
     }
 
-    public void inAMultiplicacaoExpAritPriDois(AMultiplicacaoExpAritPriDois node)
+    public void inATermExp(ATermExp node)
     {
         defaultIn(node);
     }
 
-    public void outAMultiplicacaoExpAritPriDois(AMultiplicacaoExpAritPriDois node)
+    public void outATermExp(ATermExp node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMultiplicacaoExpAritPriDois(AMultiplicacaoExpAritPriDois node)
+    public void caseATermExp(ATermExp node)
     {
-        inAMultiplicacaoExpAritPriDois(node);
+        inATermExp(node);
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
+        outATermExp(node);
+    }
+
+    public void inAMultTermo(AMultTermo node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMultTermo(AMultTermo node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMultTermo(AMultTermo node)
+    {
+        inAMultTermo(node);
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
         if(node.getMult() != null)
         {
             node.getMult().apply(this);
         }
-        outAMultiplicacaoExpAritPriDois(node);
+        if(node.getExpFinal() != null)
+        {
+            node.getExpFinal().apply(this);
+        }
+        outAMultTermo(node);
     }
 
-    public void inADivisaoExpAritPriDois(ADivisaoExpAritPriDois node)
+    public void inADiviTermo(ADiviTermo node)
     {
         defaultIn(node);
     }
 
-    public void outADivisaoExpAritPriDois(ADivisaoExpAritPriDois node)
+    public void outADiviTermo(ADiviTermo node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseADivisaoExpAritPriDois(ADivisaoExpAritPriDois node)
+    public void caseADiviTermo(ADiviTermo node)
     {
-        inADivisaoExpAritPriDois(node);
+        inADiviTermo(node);
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
         if(node.getDiv() != null)
         {
             node.getDiv().apply(this);
         }
-        outADivisaoExpAritPriDois(node);
+        if(node.getExpFinal() != null)
+        {
+            node.getExpFinal().apply(this);
+        }
+        outADiviTermo(node);
     }
 
-    public void inALogicoExpAritPriDois(ALogicoExpAritPriDois node)
+    public void inAFimTermo(AFimTermo node)
     {
         defaultIn(node);
     }
 
-    public void outALogicoExpAritPriDois(ALogicoExpAritPriDois node)
+    public void outAFimTermo(AFimTermo node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseALogicoExpAritPriDois(ALogicoExpAritPriDois node)
+    public void caseAFimTermo(AFimTermo node)
     {
-        inALogicoExpAritPriDois(node);
+        inAFimTermo(node);
+        if(node.getExpFinal() != null)
+        {
+            node.getExpFinal().apply(this);
+        }
+        outAFimTermo(node);
+    }
+
+    public void inAParentesisExpFinal(AParentesisExpFinal node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAParentesisExpFinal(AParentesisExpFinal node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAParentesisExpFinal(AParentesisExpFinal node)
+    {
+        inAParentesisExpFinal(node);
+        if(node.getAbreParentesis() != null)
+        {
+            node.getAbreParentesis().apply(this);
+        }
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
+        if(node.getFechaParentesis() != null)
+        {
+            node.getFechaParentesis().apply(this);
+        }
+        outAParentesisExpFinal(node);
+    }
+
+    public void inANegativaExpExpFinal(ANegativaExpExpFinal node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANegativaExpExpFinal(ANegativaExpExpFinal node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANegativaExpExpFinal(ANegativaExpExpFinal node)
+    {
+        inANegativaExpExpFinal(node);
+        if(node.getSub() != null)
+        {
+            node.getSub().apply(this);
+        }
+        if(node.getExpFinal() != null)
+        {
+            node.getExpFinal().apply(this);
+        }
+        outANegativaExpExpFinal(node);
+    }
+
+    public void inASubstituirVarExpFinal(ASubstituirVarExpFinal node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASubstituirVarExpFinal(ASubstituirVarExpFinal node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASubstituirVarExpFinal(ASubstituirVarExpFinal node)
+    {
+        inASubstituirVarExpFinal(node);
+        if(node.getVar() != null)
+        {
+            node.getVar().apply(this);
+        }
+        outASubstituirVarExpFinal(node);
+    }
+
+    public void inASubstituirValExpFinal(ASubstituirValExpFinal node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASubstituirValExpFinal(ASubstituirValExpFinal node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASubstituirValExpFinal(ASubstituirValExpFinal node)
+    {
+        inASubstituirValExpFinal(node);
+        if(node.getValor() != null)
+        {
+            node.getValor().apply(this);
+        }
+        outASubstituirValExpFinal(node);
+    }
+
+    public void inAAndExpLogica(AAndExpLogica node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAndExpLogica(AAndExpLogica node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAndExpLogica(AAndExpLogica node)
+    {
+        inAAndExpLogica(node);
         if(node.getExpLogica() != null)
         {
             node.getExpLogica().apply(this);
         }
-        outALogicoExpAritPriDois(node);
-    }
-
-    public void inAIgualExpLogPriUm(AIgualExpLogPriUm node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAIgualExpLogPriUm(AIgualExpLogPriUm node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAIgualExpLogPriUm(AIgualExpLogPriUm node)
-    {
-        inAIgualExpLogPriUm(node);
-        if(node.getIgual() != null)
-        {
-            node.getIgual().apply(this);
-        }
-        outAIgualExpLogPriUm(node);
-    }
-
-    public void inADiferenteExpLogPriUm(ADiferenteExpLogPriUm node)
-    {
-        defaultIn(node);
-    }
-
-    public void outADiferenteExpLogPriUm(ADiferenteExpLogPriUm node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseADiferenteExpLogPriUm(ADiferenteExpLogPriUm node)
-    {
-        inADiferenteExpLogPriUm(node);
-        if(node.getDiferente() != null)
-        {
-            node.getDiferente().apply(this);
-        }
-        outADiferenteExpLogPriUm(node);
-    }
-
-    public void inAMenorExpLogPriDois(AMenorExpLogPriDois node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAMenorExpLogPriDois(AMenorExpLogPriDois node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAMenorExpLogPriDois(AMenorExpLogPriDois node)
-    {
-        inAMenorExpLogPriDois(node);
-        if(node.getMenor() != null)
-        {
-            node.getMenor().apply(this);
-        }
-        outAMenorExpLogPriDois(node);
-    }
-
-    public void inAMenorigualExpLogPriDois(AMenorigualExpLogPriDois node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAMenorigualExpLogPriDois(AMenorigualExpLogPriDois node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAMenorigualExpLogPriDois(AMenorigualExpLogPriDois node)
-    {
-        inAMenorigualExpLogPriDois(node);
-        if(node.getMenorIgual() != null)
-        {
-            node.getMenorIgual().apply(this);
-        }
-        outAMenorigualExpLogPriDois(node);
-    }
-
-    public void inAMaiorExpLogPriDois(AMaiorExpLogPriDois node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAMaiorExpLogPriDois(AMaiorExpLogPriDois node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAMaiorExpLogPriDois(AMaiorExpLogPriDois node)
-    {
-        inAMaiorExpLogPriDois(node);
-        if(node.getMaior() != null)
-        {
-            node.getMaior().apply(this);
-        }
-        outAMaiorExpLogPriDois(node);
-    }
-
-    public void inAMaiorigualExpLogPriDois(AMaiorigualExpLogPriDois node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAMaiorigualExpLogPriDois(AMaiorigualExpLogPriDois node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAMaiorigualExpLogPriDois(AMaiorigualExpLogPriDois node)
-    {
-        inAMaiorigualExpLogPriDois(node);
-        if(node.getMaiorIgual() != null)
-        {
-            node.getMaiorIgual().apply(this);
-        }
-        outAMaiorigualExpLogPriDois(node);
-    }
-
-    public void inANotExpLogPriTres(ANotExpLogPriTres node)
-    {
-        defaultIn(node);
-    }
-
-    public void outANotExpLogPriTres(ANotExpLogPriTres node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseANotExpLogPriTres(ANotExpLogPriTres node)
-    {
-        inANotExpLogPriTres(node);
-        if(node.getNao() != null)
-        {
-            node.getNao().apply(this);
-        }
-        outANotExpLogPriTres(node);
-    }
-
-    public void inAAndExpLogPriTres(AAndExpLogPriTres node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAAndExpLogPriTres(AAndExpLogPriTres node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAAndExpLogPriTres(AAndExpLogPriTres node)
-    {
-        inAAndExpLogPriTres(node);
         if(node.getE() != null)
         {
             node.getE().apply(this);
         }
-        outAAndExpLogPriTres(node);
+        if(node.getLogPrecUm() != null)
+        {
+            node.getLogPrecUm().apply(this);
+        }
+        outAAndExpLogica(node);
     }
 
-    public void inAOrExpLogPriTres(AOrExpLogPriTres node)
+    public void inAOuExpLogica(AOuExpLogica node)
     {
         defaultIn(node);
     }
 
-    public void outAOrExpLogPriTres(AOrExpLogPriTres node)
+    public void outAOuExpLogica(AOuExpLogica node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAOrExpLogPriTres(AOrExpLogPriTres node)
+    public void caseAOuExpLogica(AOuExpLogica node)
     {
-        inAOrExpLogPriTres(node);
+        inAOuExpLogica(node);
+        if(node.getExpLogica() != null)
+        {
+            node.getExpLogica().apply(this);
+        }
         if(node.getOu() != null)
         {
             node.getOu().apply(this);
         }
-        outAOrExpLogPriTres(node);
+        if(node.getLogPrecUm() != null)
+        {
+            node.getLogPrecUm().apply(this);
+        }
+        outAOuExpLogica(node);
     }
 
-    public void inAXorExpLogPriTres(AXorExpLogPriTres node)
+    public void inAXorExpLogica(AXorExpLogica node)
     {
         defaultIn(node);
     }
 
-    public void outAXorExpLogPriTres(AXorExpLogPriTres node)
+    public void outAXorExpLogica(AXorExpLogica node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAXorExpLogPriTres(AXorExpLogPriTres node)
+    public void caseAXorExpLogica(AXorExpLogica node)
     {
-        inAXorExpLogPriTres(node);
+        inAXorExpLogica(node);
+        if(node.getExpLogica() != null)
+        {
+            node.getExpLogica().apply(this);
+        }
         if(node.getXor() != null)
         {
             node.getXor().apply(this);
         }
-        outAXorExpLogPriTres(node);
+        if(node.getLogPrecUm() != null)
+        {
+            node.getLogPrecUm().apply(this);
+        }
+        outAXorExpLogica(node);
+    }
+
+    public void inANotExpLogica(ANotExpLogica node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANotExpLogica(ANotExpLogica node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANotExpLogica(ANotExpLogica node)
+    {
+        inANotExpLogica(node);
+        if(node.getNao() != null)
+        {
+            node.getNao().apply(this);
+        }
+        if(node.getLogPrecUm() != null)
+        {
+            node.getLogPrecUm().apply(this);
+        }
+        outANotExpLogica(node);
+    }
+
+    public void inAPrxExpLogica(APrxExpLogica node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAPrxExpLogica(APrxExpLogica node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAPrxExpLogica(APrxExpLogica node)
+    {
+        inAPrxExpLogica(node);
+        if(node.getLogPrecUm() != null)
+        {
+            node.getLogPrecUm().apply(this);
+        }
+        outAPrxExpLogica(node);
+    }
+
+    public void inADiferenteLogPrecUm(ADiferenteLogPrecUm node)
+    {
+        defaultIn(node);
+    }
+
+    public void outADiferenteLogPrecUm(ADiferenteLogPrecUm node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseADiferenteLogPrecUm(ADiferenteLogPrecUm node)
+    {
+        inADiferenteLogPrecUm(node);
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
+        if(node.getDiferente() != null)
+        {
+            node.getDiferente().apply(this);
+        }
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
+        outADiferenteLogPrecUm(node);
+    }
+
+    public void inAIgualLogPrecUm(AIgualLogPrecUm node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAIgualLogPrecUm(AIgualLogPrecUm node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAIgualLogPrecUm(AIgualLogPrecUm node)
+    {
+        inAIgualLogPrecUm(node);
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
+        if(node.getIgual() != null)
+        {
+            node.getIgual().apply(this);
+        }
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
+        outAIgualLogPrecUm(node);
+    }
+
+    public void inAFatorLogPrecUm(AFatorLogPrecUm node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAFatorLogPrecUm(AFatorLogPrecUm node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAFatorLogPrecUm(AFatorLogPrecUm node)
+    {
+        inAFatorLogPrecUm(node);
+        if(node.getLogPrecDois() != null)
+        {
+            node.getLogPrecDois().apply(this);
+        }
+        outAFatorLogPrecUm(node);
+    }
+
+    public void inAMaiorLogPrecDois(AMaiorLogPrecDois node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMaiorLogPrecDois(AMaiorLogPrecDois node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMaiorLogPrecDois(AMaiorLogPrecDois node)
+    {
+        inAMaiorLogPrecDois(node);
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
+        if(node.getMaior() != null)
+        {
+            node.getMaior().apply(this);
+        }
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
+        outAMaiorLogPrecDois(node);
+    }
+
+    public void inAMenorLogPrecDois(AMenorLogPrecDois node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMenorLogPrecDois(AMenorLogPrecDois node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMenorLogPrecDois(AMenorLogPrecDois node)
+    {
+        inAMenorLogPrecDois(node);
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
+        if(node.getMenor() != null)
+        {
+            node.getMenor().apply(this);
+        }
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
+        outAMenorLogPrecDois(node);
+    }
+
+    public void inAMaiorqLogPrecDois(AMaiorqLogPrecDois node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMaiorqLogPrecDois(AMaiorqLogPrecDois node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMaiorqLogPrecDois(AMaiorqLogPrecDois node)
+    {
+        inAMaiorqLogPrecDois(node);
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
+        if(node.getMaiorIgual() != null)
+        {
+            node.getMaiorIgual().apply(this);
+        }
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
+        outAMaiorqLogPrecDois(node);
+    }
+
+    public void inAMenorqLogPrecDois(AMenorqLogPrecDois node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMenorqLogPrecDois(AMenorqLogPrecDois node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMenorqLogPrecDois(AMenorqLogPrecDois node)
+    {
+        inAMenorqLogPrecDois(node);
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
+        if(node.getMenorIgual() != null)
+        {
+            node.getMenorIgual().apply(this);
+        }
+        if(node.getTermo() != null)
+        {
+            node.getTermo().apply(this);
+        }
+        outAMenorqLogPrecDois(node);
+    }
+
+    public void inAParLogPrecDois(AParLogPrecDois node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAParLogPrecDois(AParLogPrecDois node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAParLogPrecDois(AParLogPrecDois node)
+    {
+        inAParLogPrecDois(node);
+        if(node.getAbreParentesis() != null)
+        {
+            node.getAbreParentesis().apply(this);
+        }
+        if(node.getExpLogica() != null)
+        {
+            node.getExpLogica().apply(this);
+        }
+        if(node.getFechaParentesis() != null)
+        {
+            node.getFechaParentesis().apply(this);
+        }
+        outAParLogPrecDois(node);
     }
 }

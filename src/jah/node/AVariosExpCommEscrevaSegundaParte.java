@@ -7,7 +7,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class AVariosExpCommEscrevaSegundaParte extends PCommEscrevaSegundaParte
 {
-    private PExp _exp_;
+    private PExpOuExpLogica _expOuExpLogica_;
     private TVirgula _virgula_;
     private PCommEscrevaSegundaParte _commEscrevaSegundaParte_;
 
@@ -17,12 +17,12 @@ public final class AVariosExpCommEscrevaSegundaParte extends PCommEscrevaSegunda
     }
 
     public AVariosExpCommEscrevaSegundaParte(
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExpOuExpLogica _expOuExpLogica_,
         @SuppressWarnings("hiding") TVirgula _virgula_,
         @SuppressWarnings("hiding") PCommEscrevaSegundaParte _commEscrevaSegundaParte_)
     {
         // Constructor
-        setExp(_exp_);
+        setExpOuExpLogica(_expOuExpLogica_);
 
         setVirgula(_virgula_);
 
@@ -34,7 +34,7 @@ public final class AVariosExpCommEscrevaSegundaParte extends PCommEscrevaSegunda
     public Object clone()
     {
         return new AVariosExpCommEscrevaSegundaParte(
-            cloneNode(this._exp_),
+            cloneNode(this._expOuExpLogica_),
             cloneNode(this._virgula_),
             cloneNode(this._commEscrevaSegundaParte_));
     }
@@ -45,16 +45,16 @@ public final class AVariosExpCommEscrevaSegundaParte extends PCommEscrevaSegunda
         ((Analysis) sw).caseAVariosExpCommEscrevaSegundaParte(this);
     }
 
-    public PExp getExp()
+    public PExpOuExpLogica getExpOuExpLogica()
     {
-        return this._exp_;
+        return this._expOuExpLogica_;
     }
 
-    public void setExp(PExp node)
+    public void setExpOuExpLogica(PExpOuExpLogica node)
     {
-        if(this._exp_ != null)
+        if(this._expOuExpLogica_ != null)
         {
-            this._exp_.parent(null);
+            this._expOuExpLogica_.parent(null);
         }
 
         if(node != null)
@@ -67,7 +67,7 @@ public final class AVariosExpCommEscrevaSegundaParte extends PCommEscrevaSegunda
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._expOuExpLogica_ = node;
     }
 
     public TVirgula getVirgula()
@@ -124,7 +124,7 @@ public final class AVariosExpCommEscrevaSegundaParte extends PCommEscrevaSegunda
     public String toString()
     {
         return ""
-            + toString(this._exp_)
+            + toString(this._expOuExpLogica_)
             + toString(this._virgula_)
             + toString(this._commEscrevaSegundaParte_);
     }
@@ -133,9 +133,9 @@ public final class AVariosExpCommEscrevaSegundaParte extends PCommEscrevaSegunda
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._exp_ == child)
+        if(this._expOuExpLogica_ == child)
         {
-            this._exp_ = null;
+            this._expOuExpLogica_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class AVariosExpCommEscrevaSegundaParte extends PCommEscrevaSegunda
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._exp_ == oldChild)
+        if(this._expOuExpLogica_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExpOuExpLogica((PExpOuExpLogica) newChild);
             return;
         }
 

@@ -9,12 +9,12 @@ public final class TTipoBooleano extends Token
 {
     public TTipoBooleano()
     {
-        super.setText("bool");
+        super.setText("booleano");
     }
 
     public TTipoBooleano(int line, int pos)
     {
-        super.setText("bool");
+        super.setText("booleano");
         setLine(line);
         setPos(pos);
     }

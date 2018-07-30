@@ -16,7 +16,7 @@ inicio
 	escreva(a);
 	escreva(a, 12);
 	
-	se(a) entao
+	se(n < 9) entao
 		str := 'y';
 	fim se;
 	
@@ -48,4 +48,6 @@ inicio
 	fim para;
 	
 	a :=  (1 + (1*1) / (1 - 1));
+	se( ( a > b ) e (b > c) ) entao
+	fim se;
 fim.
