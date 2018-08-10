@@ -1,0 +1,280 @@
+Package jah ;
+
+Helpers
+	/* BASICOS */
+	digitos = ['0' .. '9'];
+	letras = ['a' .. 'z'] | ['A' .. 'Z'];
+	
+	/* CARACTERES ESPECIAIS */
+	aspasimples	= ''';
+	aspadupla	= '"';
+	underline	= '_';
+	virgula		= ',';
+
+	/* QUEBRA DE LINHA */
+	tab = 9;
+	cr = 13;
+	lf = 10;
+	nl = (cr lf | cr | lf);
+	branco = (' ' | '	')+;
+	
+	/* PARA COMBINACOES */
+	menorque	='<';
+	maiorque	='>';
+	iguala		='=';
+	e			='e';
+	ou			='ou';
+	nao			='nao';
+	doispontos	= ':';
+	val_bool 	= 'verdadeiro' | 'falso';	
+	
+Tokens
+	
+	/* PALAVRAS RESERVADAS DO PROGRAMA */
+	programa 	= 'programa';
+	inicio 		= 'inicio';
+	fim 		= 'fim';
+	fim_programa= 'fim.';
+	leia 		= 'leia';
+	escreva 	= 'escreva';
+	constante 	= 'constante';
+	faca		= 'faca';
+	ate			= 'ate';
+	de 			= 'de';
+	passo		= 'passo';
+	senao		= 'senao';
+	entao		= 'entao';
+	
+	/* EXPRESSOES CONDICIONAIS */
+	se 		= 'se';
+	caso 	= 'caso';
+	avalie 	= 'avalie';
+	
+	/* LOOPS */
+	enquanto= 'enquanto';
+	para 	= 'para';
+	repita	= 'repita';
+	
+	/* OPERADORES ARITMETICOS */
+	soma 	= '+';
+	sub 	= '-';
+	mult 	= '*';
+	div 	= '/';
+	
+	/* OPERADORES RELACIONAIS */
+	maior 		= maiorque;
+	menor 		= menorque;
+	igual 		= iguala;
+	maior_igual = maiorque iguala;
+	menor_igual = menorque iguala;
+	diferente	= menorque maiorque;
+	
+	/* OPERADORES BOOLEANOS */
+	nao = 'nao';
+	e	= 'e';
+	ou 	= 'ou';
+	xor	= 'xor';
+		
+	/* TIPOS */
+	tipo_inteiro	= 'inteiro';
+	tipo_real		= 'real';
+	tipo_string		= 'caractere';
+	tipo_booleano	= 'bool';
+	
+	/* OUTROS TOKENS */
+	virgula				= virgula;
+	ponto				= '.';
+	ponto_virgula		= ';';
+	dois_pontos			= doispontos;
+	abre_parentesis		= '(';
+	fecha_parentesis	= ')';
+	abre_colchetes		= '[';
+	fecha_colchetes		= ']';
+	atribuicao			= doispontos iguala;
+	aspas_simples		= aspasimples;
+	aspas_duplas		= aspadupla;
+	nova_linha			= nl;
+	tab					= '	';
+	espaco				= ' ';
+	
+	/* ID E VALORES */
+	inteiro	= digitos+;
+	real	= digitos+ virgula digitos+;
+	string	= aspasimples (letras | digitos | branco)+ aspasimples;
+	booleano= val_bool;
+	id		= (letras | underline) (letras | underline | digitos)*;
+
+	/* COMENTARIOS */
+	comentario_linha = '//';
+	comentario_bloco_abre = '/*';	
+	comentario_bloco_fecha = '*/';
+
+Ignored Tokens
+	tab, espaco, nova_linha;
+
+Productions
+	
+	pgr = 
+		programa
+		id
+		inicio
+		decl* comm*
+		fim_programa;
+	
+	zero_ou_mais_decl
+		= {um_decl} decl zero_ou_mais_decl
+		| {zr_decl} ;
+	zero_ou_mais_comm
+		= {um_comm} comm zero_ou_mais_comm
+		| {zr_comm} ;
+	
+	/********************************* DECLARACOES *********************************/
+	
+	decl 
+		= {variavel} tipo dois_pontos pos_decl ponto_virgula
+		| {constante} constante id valor ponto_virgula;
+	
+	pos_decl 
+		= {com_virgula} var virgula pos_decl
+		| {sem_virgula} var;
+	
+	tipo
+		= {real} tipo_real
+		| {inteiro} tipo_inteiro
+		| {string} tipo_string;
+	
+	var
+		= {normal} id
+		| {array} abre_colchetes inteiro fecha_colchetes;
+	
+	valor
+		= {string} string 
+		| {inteiro} inteiro 
+		| {real} real;
+	
+	/****************************** COMANDOS ******************************/
+	
+	multiplos_comm
+		= {apenas_um_comando} comm
+		| {mais_de_um_comando} comm multiplos_comm;
+
+	comm
+		= {comando_normal} var atribuicao exp ponto_virgula
+		| {comando_leia} leia abre_parentesis pos_decl fecha_parentesis ponto_virgula
+		| {comando_escreva} escreva abre_parentesis pos_exp_comm fecha_parentesis ponto_virgula
+		| {comando_se} se abre_parentesis exp_logica_inicial fecha_parentesis entao se_senao fim_se ponto_virgula
+		| {comando_avalie} avalie abre_parentesis exp fecha_parentesis avalie_senao fim_avalie
+		| {comando_enquanto} enquanto abre_parentesis exp_logica_inicial fecha_parentesis faca multiplos_comm fim_enquanto ponto_virgula
+		| {comando_repita} repita multiplos_comm ate abre_parentesis exp_logica_inicial fecha_parentesis ponto_virgula
+		| {comando_para_itera} inicio_para ate inteiro faca multiplos_comm fim_para ponto_virgula
+		| {comando_para_passa} inicio_para passo_para ate inteiro faca multiplos_comm fim_para ponto_virgula;
+	
+	chama_exp
+		= exp;
+	
+	pos_exp_comm
+		= {com_virgula} exp virgula pos_exp_comm
+		| {sem_virgula} chama_exp;
+	
+	fim_se
+		= fim se;
+	
+	fim_enquanto
+		= fim enquanto;
+		
+	inicio_para
+		= para var de inteiro;
+	
+	passo_para
+		= passo inteiro;
+		
+	fim_para
+		= fim para;
+	
+	fim_avalie
+		= {fim_simples} fim avalie
+		| {sennao_fim} senao dois_pontos multiplos_comm fim avalie;
+	
+	se_senao
+		= {dentro_se_simples} multiplos_comm
+		| {dentro_se_senao} comm senao multiplos_comm;
+
+	pos_avalie
+		= {caso} caso valor dois_pontos multiplos_comm;
+		
+	avalie_senao
+		= {avalie_simples} pos_avalie
+		| {avalie_senao} pos_avalie senao dois_pontos multiplos_comm;
+		
+	pos_explogica
+		= exp_logica_inicial;
+	
+	exp
+		= {exp_aritmetica_inicial} exp_aritmetica_inicial
+		| {exp_logica} exp_logica_inicial;
+	
+	exp_aritmetica_inicial
+		= {valor} valor
+		| {exp_entre_parentesis} abre_parentesis exp fecha_parentesis
+		| {arit_soma} arit_soma;
+	
+	arit_soma
+		= {exp_soma_exp} exp soma arit_sub
+		| {arit_sub} arit_sub;
+	
+	arit_sub
+		= {exp_sub_exp} exp sub arit_mult
+		| {arit_mult} arit_mult;
+	
+	arit_mult
+		= {exp_mul_exp} exp mult arit_div
+		| {arit_div} arit_div;
+	
+	arit_div
+		= {exp_div_exp} exp div arit_div
+		| {pos_exp} chama_exp;
+		
+	exp_logica_inicial
+		= {explogica_entre_parentesis} abre_parentesis exp_logica_inicial fecha_parentesis
+		| {explogica_iguala} explogica_iguala;
+	
+	explogica_iguala
+		= {exp_iguala_exp} exp igual explogica_diff
+		| {explogica_diff} explogica_diff;
+	
+	explogica_diff
+		= {exp_diferente_exp} exp diferente explogica_menor
+		| {explogica_menor} explogica_menor;
+	
+	explogica_menor
+		= {exp_menor_exp} exp menor explogica_menorigual
+		| {explogica_menorigual} explogica_menorigual;
+	
+	explogica_menorigual
+		= {exp_menor_igual_exp} exp menor_igual explogica_maior
+		| {explogica_maior} explogica_maior;
+	
+	explogica_maior
+		= {exp_maior_exp} exp maior explogica_maiorigual
+		| {explogica_maior_igual} explogica_maiorigual;
+	
+	explogica_maiorigual
+		= {exp_maior_igual_exp} exp maior_igual explogica_maiorigual
+		| {explogica_not} explogica_not
+		| {pos_exp} chama_exp;
+	
+	explogica_not
+		= {nao_explogica} nao exp_logica_inicial
+		| {explogica_and} explogica_and;
+	
+	explogica_and
+		= {explogica_e_explogica} exp_logica_inicial e explogica_or
+		| {explogica_or} explogica_or;
+		
+	explogica_or
+		= {explogica_ou_explogica} exp_logica_inicial ou explogica_xor
+		| {explogica_xor} explogica_xor;
+		
+	explogica_xor
+		= {explogica_xor_explogica} exp_logica_inicial xor pos_explogica
+		| pos_explogica;

@@ -1,0 +1,58 @@
+programa
+exemplo
+inicio
+	inteiro : a, b, c[20];
+	const PI 3,1416;
+	real : d;
+	caractere : str;
+	
+	a := 10;
+	b := a;
+	c[0] := 0;
+
+	leia(a);
+	leia(a,b,c);
+	
+	escreva(a);
+	escreva(a, 12);
+		
+	se(n < 9) entao
+		a := 9;
+	fim se;
+	
+	se (a < c[0]) entao
+		str := 'y';
+	senao
+		str := 'n';
+	fim se;
+	
+	avalie( a )
+		caso 10 :
+			a := 10;
+	fim avalie;
+	
+	enquanto( a < 5 ) faca
+		a := a + 1;
+	fim enquanto;
+	
+	repita
+		a := a + 2;
+	ate(a < 10);
+	
+	para a de 0 ate 20 faca
+		a := 44;
+	fim para;
+	
+	se (a < b) entao
+		leia(a);
+	fim se;
+	
+	para a de 20 passo 40 ate 2 faca
+		a := a + 98798;
+	fim para;
+	
+	a :=  (1 + (1*1) / (1 - 1));
+	se( ( a > b ) e (b > c) ) entao
+		escreva(b);
+	fim se;
+fim.

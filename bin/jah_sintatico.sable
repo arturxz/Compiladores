@@ -1,0 +1,252 @@
+Package jah ;
+
+Helpers
+	/* BASICOS */
+	digitos = ['0' .. '9'];
+	letras = ['a' .. 'z'] | ['A' .. 'Z'];
+	
+	/* CARACTERES ESPECIAIS */
+	aspasimples	= ''';
+	aspadupla	= '"';
+	underline	= '_';
+	virgula		= ',';
+
+	/* QUEBRA DE LINHA */
+	tab = 9;
+	cr = 13;
+	lf = 10;
+	nl = (cr lf | cr | lf);
+	branco = (' ' | '	')+;
+	
+	/* PARA COMBINACOES */
+	menorque	='<';
+	maiorque	='>';
+	iguala		='=';
+	e			='e';
+	ou			='ou';
+	nao			='nao';
+	doispontos	= ':';
+	val_bool 	= 'verdadeiro' | 'falso';	
+	
+Tokens
+	
+	/* PALAVRAS RESERVADAS DO PROGRAMA */
+	programa 	= 'programa';
+	inicio 		= 'inicio';
+	fim 		= 'fim';
+	fim_programa= 'fim.';
+	leia 		= 'leia';
+	escreva 	= 'escreva';
+	constante 	= 'const';
+	faca		= 'faca';
+	ate			= 'ate';
+	de 			= 'de';
+	passo		= 'passo';
+	senao		= 'senao';
+	entao		= 'entao';
+	
+	/* EXPRESSOES CONDICIONAIS */
+	se 		= 'se';
+	caso 	= 'caso';
+	avalie 	= 'avalie';
+	
+	/* LOOPS */
+	enquanto= 'enquanto';
+	para 	= 'para';
+	repita	= 'repita';
+	
+	/* OPERADORES ARITMETICOS */
+	soma 	= '+';
+	sub 	= '-';
+	mult 	= '*';
+	div 	= '/';
+	
+	/* OPERADORES RELACIONAIS */
+	maior 		= maiorque;
+	menor 		= menorque;
+	igual 		= iguala;
+	maior_igual = maiorque iguala;
+	menor_igual = menorque iguala;
+	diferente	= menorque maiorque;
+	
+	/* OPERADORES BOOLEANOS */
+	nao = 'nao';
+	e	= 'e';
+	ou 	= 'ou';
+	xor	= 'xor';
+		
+	/* TIPOS */
+	tipo_inteiro	= 'inteiro';
+	tipo_real		= 'real';
+	tipo_string		= 'caractere';
+	tipo_booleano	= 'booleano';
+	
+	/* OUTROS TOKENS */
+	virgula				= virgula;
+	ponto				= '.';
+	ponto_virgula		= ';';
+	dois_pontos			= doispontos;
+	abre_parentesis		= '(';
+	fecha_parentesis	= ')';
+	abre_colchetes		= '[';
+	fecha_colchetes		= ']';
+	atribuicao			= doispontos iguala;
+	aspas_simples		= aspasimples;
+	aspas_duplas		= aspadupla;
+	nova_linha			= nl;
+	tab					= '	';
+	espaco				= ' ';
+	
+	/* ID E VALORES */
+	inteiro	= digitos+;
+	real	= digitos+ virgula digitos+;
+	string	= aspasimples (letras | digitos | branco)+ aspasimples;
+	booleano= val_bool;
+	id		= (letras | underline) (letras | underline | digitos)*;
+
+	/* COMENTARIOS */
+	comentario_linha = '//';
+	comentario_bloco_abre = '/*';	
+	comentario_bloco_fecha = '*/';
+
+Ignored Tokens
+	tab, espaco, nova_linha;
+
+Productions
+	
+	pgr_inicio = programa id inicio pgr_decl_parte;
+	pgr_decl_parte = {com_decl} decl pgr_decl_parte | {sem_decl} pgr_comm_parte;
+	pgr_comm_parte = {com_comm} comm pgr_comm_parte | {sem_comm} pgr_final;
+	pgr_final = fim_programa;
+	
+	/********************************* DECLARACOES *********************************/
+	
+	decl 
+		= {variavel} tipo dois_pontos pos_decl ponto_virgula
+		| {constante} constante id valor ponto_virgula;
+	
+	pos_decl 
+		= {com_virgula} var virgula pos_decl
+		| {sem_virgula} var;
+	
+	tipo
+		= {real} tipo_real
+		| {inteiro} tipo_inteiro
+		| {string} tipo_string;
+	
+	var
+		= {normal} id
+		| {array} id abre_colchetes inteiro fecha_colchetes;
+	
+	valor
+		= {string} string 
+		| {inteiro} inteiro 
+		| {real} real;
+	
+	/****************************** COMANDOS ******************************/
+	comandos
+		= {mais_comandos} comm comandos
+		| {comando_vazio} comm;
+	comm
+		= {simples} var atribuicao exp ponto_virgula
+		| {leia} comm_leia
+		| {escreva} comm_escreva
+		| {se} comm_se
+		| {avalie} comm_avalie
+		| {enquanto} comm_enquanto
+		| {repita} comm_repita
+		| {para} comm_para;
+	
+	// ########## COMANDO LEIA
+	comm_leia = leia abre_parentesis comm_leia_segunda_parte;
+	comm_leia_segunda_parte 
+		= {varios_exp} exp virgula comm_leia_segunda_parte 
+		| {um_exp} exp comm_leia_terceira_parte;
+	comm_leia_terceira_parte = fecha_parentesis ponto_virgula;
+
+	// ########## COMANDO ESCREVA
+	comm_escreva = escreva abre_parentesis comm_escreva_segunda_parte;
+	comm_escreva_segunda_parte 
+		= {varios_exp} exp_ou_exp_logica virgula comm_escreva_segunda_parte 
+		| {um_exp} exp_ou_exp_logica comm_escreva_terceira_parte;
+	comm_escreva_terceira_parte = fecha_parentesis ponto_virgula;
+
+	// ########## COMANDO SE
+	comm_se = se abre_parentesis exp_logica fecha_parentesis entao comandos comm_se_senao? comm_se_fim;
+	comm_se_senao = senao comandos;
+	comm_se_fim = fim se ponto_virgula;
+
+	// ########## COMANDO AVALIE
+	comm_avalie = avalie abre_parentesis exp_ou_exp_logica fecha_parentesis comm_avalie_caso_parte;
+	comm_avalie_caso_parte 
+		= {com_caso} caso valor dois_pontos comandos comm_avalie_caso_parte
+		| {sem_caso} comm_avalie_senao_parte;
+	comm_avalie_senao_parte 
+		= {com_senao} senao dois_pontos comandos comm_avalie_fim 
+		| {sem_senao} comm_avalie_fim;
+	comm_avalie_fim = fim avalie ponto_virgula;
+	
+	// ########## COMANDO ENQUANTO
+	comm_enquanto = enquanto abre_parentesis exp_logica fecha_parentesis faca comandos comm_enquanto_fim;
+	comm_enquanto_fim = fim enquanto ponto_virgula;
+	
+	// ########## COMANDO REPITA
+	comm_repita = repita comm_repita_comandos_parte;
+	comm_repita_comandos_parte = comandos ate comm_repita_condicao_parte;
+	comm_repita_condicao_parte = abre_parentesis exp_logica fecha_parentesis ponto_virgula;
+	
+	// ########## COMANDO PARA
+	comm_para = para var de inteiro comm_para_passa;
+	comm_para_passa 
+		= {com_passo} passo inteiro comm_para_ate
+		| {sem_passo} comm_para_ate;
+	comm_para_ate = ate inteiro comm_para_meio;
+	comm_para_meio = faca comandos comm_para_fim;
+	comm_para_fim = fim para ponto_virgula;
+	
+	// #################### EXPRESSOES
+	exp_ou_exp_logica
+		= {ari} exp
+		| {log} exp_logica;
+
+	exp 
+		= {soma} exp soma termo 
+		| {subt} exp sub termo
+		| {term} termo;
+			
+	termo 
+		= {mult} termo mult exp_final 
+		| {divi} termo div exp_final
+		| {fim} exp_final;
+	
+	exp_final 
+		= {parentesis} abre_parentesis exp fecha_parentesis  
+		| {negativa_exp} sub exp_final
+		| {substituir_var} var
+		| {substituir_val} valor;
+					   		  
+	exp_logica 
+		= {and} exp_logica e log_prec_um
+		| {ou}  exp_logica ou log_prec_um
+		| {xor} exp_logica xor log_prec_um
+		| {not} nao log_prec_um
+		| {prx} log_prec_um;
+
+	log_prec_um 
+		= {diferente} exp diferente termo
+		| {igual} exp igual termo
+		| {fator} log_prec_dois;
+		
+	log_prec_dois 
+		= {maior} exp maior termo
+		| {menor} exp menor termo
+		| {maiorq} exp maior_igual termo
+		| {menorq} exp menor_igual termo
+		| {par} abre_parentesis exp_logica fecha_parentesis;
+
+
+/*
+**
+** FIM DA PARTE SINTATICA
+**
+*/
