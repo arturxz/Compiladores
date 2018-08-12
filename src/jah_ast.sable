@@ -114,34 +114,45 @@ Ignored Tokens
 
 Productions
 	
-	pgr_inicio = programa id inicio pgr_decl_parte;
-	pgr_decl_parte = {com_decl} decl pgr_decl_parte | {sem_decl} pgr_comm_parte;
-	pgr_comm_parte = {com_comm} comm pgr_comm_parte | {sem_comm} pgr_final;
-	pgr_final = fim_programa;
+	/********************************* GERAL *********************************/
+	
+	pgr_inicio {-> pgr}
+		= {id} programa id inicio pgr_decl_parte {-> New pgr.id(id)};
+	
+	pgr_decl_parte {-> pgr} 
+		= {com_decl} decl pgr_decl_parte {-> New pgr.com_decl(decl)}
+		| {sem_decl} pgr_comm_parte {-> pgr_comm_parte.pgr};
+	
+	pgr_comm_parte {-> pgr}
+		= {com_comm} comm pgr_comm_parte {-> New pgr.com_comm(comm)}
+		| {sem_comm} pgr_final {-> pgr_final.pgr};
+	
+	pgr_final {-> pgr}
+		= {fim} fim_programa {-> New pgr.fim()};
 	
 	/********************************* DECLARACOES *********************************/
 	
-	decl 
-		= {variavel} tipo dois_pontos pos_decl ponto_virgula
-		| {constante} constante id valor ponto_virgula;
+	decl {-> decl}
+		= {variavel} [l]:tipo dois_pontos [r]:pos_decl ponto_virgula{-> New decl.variavel(l.tipo, r.pos_decl)}
+		| {constante} constante id [r]:valor ponto_virgula 	{-> New decl.constante(constante, id, r.valor)};
 	
-	pos_decl 
-		= {com_virgula} var virgula pos_decl
-		| {sem_virgula} var;
+	pos_decl  {-> pos_decl}
+		= {com_virgula} [l]:var virgula [r]:pos_decl 	{-> New pos_decl.com_virgula(l.var, r.pos_decl)}
+		| {sem_virgula} var 							{-> New pos_decl.sem_virgula(var)};
 	
-	tipo
-		= {real} tipo_real
-		| {inteiro} tipo_inteiro
-		| {string} tipo_string;
+	tipo {-> tipo}
+		= {real} tipo_real			{-> New tipo.real(tipo_real)}
+		| {inteiro} tipo_inteiro	{-> New tipo.inteiro(tipo_inteiro)}
+		| {string} tipo_string		{-> New tipo.string(tipo_string)};
 	
-	var
-		= {normal} id
-		| {array} id abre_colchetes inteiro fecha_colchetes;
+	var {-> var}
+		= {normal} id 										{-> New var.normal(id)}
+		| {array} id abre_colchetes inteiro fecha_colchetes {-> New var.array(id, inteiro)};  
 	
-	valor
-		= {string} string 
-		| {inteiro} inteiro 
-		| {real} real;
+	valor {-> valor}
+		= {string} string	{-> New valor.string(string)} 
+		| {inteiro} inteiro {-> New valor.inteiro(inteiro)}
+		| {real} real		{-> New valor.real(real)};	
 	
 	/****************************** COMANDOS ******************************/
 	comandos
@@ -209,22 +220,101 @@ Productions
 		= {ari} exp
 		| {log} exp_logica;
 
-	exp 
-		= {soma} exp soma termo {-> New exp.soma(exp, termo.exp)}
-		| {subt} exp sub termo {-> New exp.subt(exp, termo.exp)}
+	exp  {-> exp}
+		= {soma} [l]:exp soma [r]:termo {-> New exp.soma(l.exp, r.exp)}
+		| {subt} [l]:exp sub [r]:termo 	{-> New exp.subt(l.exp, r.exp)}
 		| {termo} termo {-> termo.exp};
 			
 	termo {-> exp}
-		= {mult} termo mult exp_final {-> New exp.mult(termo.exp, exp_final.exp)}  
-		| {divi} termo div exp_final {-> New exp.divi(termo.exp, exp_final.exp)}
-		| {exp_final} exp_final {-> exp_final.exp};
+		= {mult} [l]:termo mult [r]:exp_final 	{-> New exp.mult(l.exp, r.exp)}  
+		| {divi} [l]:termo div [r]:exp_final 	{-> New exp.divi(l.exp, r.exp)}
+		| {exp_final} exp_final 				{-> exp_final.exp};
 	
 	exp_final {-> exp}
-		= {parentesis} abre_parentesis exp fecha_parentesis {-> exp}
-		| {negativa_exp} sub exp_final {-> exp}
-		| {substituir_var} var {-> New exp.substituir_var(var)}
-		| {substituir_val} valor {-> New exp.substituir_var(valor)};
-					   		  
+		= {parentesis} abre_parentesis exp fecha_parentesis {-> exp.exp}
+		| {negativa_exp} sub exp_final 						{-> exp_final.exp}
+		| {substituir_var} var 								{-> New exp.var(var)}
+		| {substituir_val} valor 							{-> New exp.valor(valor)};
+
+	exp_logica 
+		= {and} exp_logica e log_prec_um
+		| {ou}  exp_logica ou log_prec_um
+		| {xor} exp_logica xor log_prec_um
+		| {not} nao log_prec_um
+		| {prx} log_prec_um;
+
+	log_prec_um 
+		= {diferente} exp diferente termo
+		| {igual} exp igual termo
+		| {fator} log_prec_dois;
+		
+	log_prec_dois 
+		= {maior} exp maior termo
+		| {menor} exp menor termo
+		| {maiorq} exp maior_igual termo
+		| {menorq} exp menor_igual termo
+		| {par} abre_parentesis exp_logica fecha_parentesis;
+
+
+Abstract Syntax Tree
+	
+	/********************************* GERAL *********************************/
+	pgr
+		= {id} id
+		| {com_decl} decl 
+		| {com_comm} comm
+		| {fim} ;
+	
+		
+	/********************************* DECLARACOES *********************************/
+	
+	decl
+		= {variavel} [l]:tipo [r]:pos_decl
+		| {constante} constante id [r]:valor;
+	
+	pos_decl
+		= {com_virgula} [l]:var [r]:pos_decl
+		| {sem_virgula} var;
+	
+	tipo
+		= {real} tipo_real
+		| {inteiro} tipo_inteiro
+		| {string} tipo_string;
+	
+	var
+		= {normal} id
+		| {array} [l]:id [r]:inteiro;
+	
+	valor
+		= {string} string 
+		| {inteiro} inteiro 
+		| {real} real;
+	
+	/********************************* COMANDOS *********************************/
+	comm = exp;
+	
+	exp 
+		= {soma} [l]:exp [r]:exp
+		| {subt} [l]:exp [r]:exp
+		| {mult} [l]:exp [r]:exp
+		| {divi} [l]:exp [r]:exp
+		| {var} var
+		| {valor} valor;
+/*
+	exp_logica
+		= {not} exp_logica
+		| {ou}  [l]:exp_logica [r]:exp_logica
+		| {and} [l]:exp_logica [r]:exp_logica
+		| {xor} [l]:exp_logica [r]:exp_logica
+		| {diferente} [l]:exp [r]:exp
+		| {maiorq} [l]:exp [r]:exp
+		| {menorq} [l]:exp [r]:exp
+		| {igual} [l]:exp [r]:exp
+		| {maior} [l]:exp [r]:exp
+		| {menor} [l]:exp [r]:exp;
+*/
+
+/*					   		  
 	exp_logica
 		= {and} exp_logica e log_prec_um {-> New exp_logica.and(exp_logica, log_prec_um.exp_logica)}
 		| {ou}  exp_logica ou log_prec_um {-> New exp_logica.ou(exp_logica, log_prec_um.exp_logica)}
@@ -243,26 +333,4 @@ Productions
 		| {maiorq} exp maior_igual termo {-> New exp_logica.maiorq(exp, termo.exp)}
 		| {menorq} exp menor_igual termo {-> New exp_logica.menorq(exp, termo.exp)}
 		| {par} abre_parentesis exp_logica fecha_parentesis {-> exp_logica};
-
-Abstract Syntax Tree
-	pgr = exp* exp_logica*;
-	
-	exp 
-		= {soma} [l]:exp [r]:exp
-		| {subt} [l]:exp [r]:exp
-		| {mult} [l]:exp [r]:exp
-		| {divi} [l]:exp [r]:exp
-		| {substituir_var} var
-		| {substituir_val} valor;
-
-	exp_logica
-		= {not} exp_logica
-		| {ou}  [l]:exp_logica [r]:exp_logica
-		| {and} [l]:exp_logica [r]:exp_logica
-		| {xor} [l]:exp_logica [r]:exp_logica
-		| {diferente} [l]:exp [r]:exp
-		| {maiorq} [l]:exp [r]:exp
-		| {menorq} [l]:exp [r]:exp
-		| {igual} [l]:exp [r]:exp
-		| {maior} [l]:exp [r]:exp
-		| {menor} [l]:exp [r]:exp;
+*/
