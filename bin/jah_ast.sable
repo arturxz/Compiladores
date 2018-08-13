@@ -116,26 +116,26 @@ Productions
 
 	/********************************* GERAL *********************************/
 	pgr_inicio {-> pgr} 
-		= {pgr} programa id inicio [m]:decls? [r]:comms? fim_programa {-> New pgr.pgr(id, [m.decls], [r.comms])};
+		= programa id inicio [decl]:decls? [comm]:comms? fim_programa {-> New pgr(id, [decl.decl], [comm.comm])};
 	
 	// PLURAIS
 
-	decls {-> decls}
-		= {mais_decls} [arg]:decl [rest]:decls	{-> [arg.decls, rest.decls]}
-		| {ultima_decl} [arg]:decl				{-> [arg.decls]};
+	decls {-> decl*}
+		= {multip} [arg]:decl [rest]:decls	{-> [arg.decl, rest.decl]}
+		| {single} [arg]:decl				{-> [arg.decl]};
 	
-	comms {-> comms}
-		= {mais_comandos} [arg]:comm [rest]:comms 	{-> [arg.comms, rest.comms]}
-		| {ultimo_comando} [arg]:comm					{-> [arg.comms]};
+	comms {-> comm*}
+		= {multip} [arg]:comm [rest]:comms 	{-> [arg.comm, rest.comm]}
+		| {single} [arg]:comm				{-> [arg.comm]};
 		
-	pos_decl {-> vars}
-		= {com_virgula} [arg]:var virgula [rest]:pos_decl	{-> [arg.vars, rest.vars]}
-		| {sem_virgula} [arg]:var							{-> [arg.vars]};
+	var_list {-> var_list}
+		= {multip} [arg]:var virgula [rest]:var_list	{-> New var_list.multip(arg.var, rest.var_list)}
+		| {single} [arg]:var							{-> New var_list.single(arg.var)};
 		
 	/********************************* DECLARACOES *********************************/
 		
 	decl 
-		= {variavel} tipo dois_pontos pos_decl ponto_virgula
+		= {variavel} tipo dois_pontos var_list ponto_virgula
 		| {constante} constante id valor ponto_virgula
 	;
 	
@@ -267,26 +267,19 @@ Abstract Syntax Tree
 	
 	/********************************* GERAL *********************************/
 	pgr 
-		= {pgr} id [m]:decls [r]:comms
+		= id [decl]:decl* [comm]:comm*
 	;
-		
-	// PLURAIS
-	comms = comm*;
-	decls = decl*;
-	vars = var*;
 	
-		
 	/********************************* DECLARACOES *********************************/
 	
 	decl
-		= {variavel} [l]:tipo [r]:pos_decl
+		= {variavel} [l]:tipo [r]:var*
 		| {constante} constante id [r]:valor
 	;
 	
-	pos_decl
-		= {com_virgula} [l]:var [r]:pos_decl
-		| {sem_virgula} var
-	;
+	var_list
+		= {multip} [arg]:var [rest]:var_list
+		| {single} [arg]:var;
 	
 	tipo
 		= {real} tipo_real
@@ -342,12 +335,12 @@ Abstract Syntax Tree
 		| {ou}  [l]:exp_logica [r]:exp_logica
 		| {and} [l]:exp_logica [r]:exp_logica
 		| {xor} [l]:exp_logica [r]:exp_logica
-		| {diferente} [l]:exp [r]:exp
-		| {maiorq} [l]:exp [r]:exp
-		| {menorq} [l]:exp [r]:exp
-		| {igual} [l]:exp [r]:exp
-		| {maior} [l]:exp [r]:exp
-		| {menor} [l]:exp [r]:exp
+		| {diferente} 	[l]:exp [r]:exp
+		| {maiorq} 		[l]:exp [r]:exp
+		| {menorq} 		[l]:exp [r]:exp
+		| {igual} 		[l]:exp [r]:exp
+		| {maior} 		[l]:exp [r]:exp
+		| {menor} 		[l]:exp [r]:exp
 	;
 
 
