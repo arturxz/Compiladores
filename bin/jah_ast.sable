@@ -113,51 +113,51 @@ Ignored Tokens
 	tab, espaco, nova_linha;
 
 Productions
-	
+
 	/********************************* GERAL *********************************/
+	pgr_inicio {-> pgr} 
+		= {pgr} programa id inicio [m]:decls? [r]:comms? fim_programa {-> New pgr.pgr(id, [m.decls], [r.comms])};
 	
-	pgr_inicio {-> pgr}
-		= {id} programa id inicio pgr_decl_parte {-> New pgr.id(id)};
+	// PLURAIS
+
+	decls {-> decls}
+		= {mais_decls} [arg]:decl [rest]:decls	{-> [arg.decls, rest.decls]}
+		| {ultima_decl} [arg]:decl				{-> [arg.decls]};
 	
-	pgr_decl_parte {-> pgr} 
-		= {com_decl} decl pgr_decl_parte {-> New pgr.com_decl(decl)}
-		| {sem_decl} pgr_comm_parte {-> pgr_comm_parte.pgr};
-	
-	pgr_comm_parte {-> pgr}
-		= {com_comm} comm pgr_comm_parte {-> New pgr.com_comm(comm)}
-		| {sem_comm} pgr_final {-> pgr_final.pgr};
-	
-	pgr_final {-> pgr}
-		= {fim} fim_programa {-> New pgr.fim()};
-	
+	comms {-> comms}
+		= {mais_comandos} [arg]:comm [rest]:comms 	{-> [arg.comms, rest.comms]}
+		| {ultimo_comando} [arg]:comm					{-> [arg.comms]};
+		
+	pos_decl {-> vars}
+		= {com_virgula} [arg]:var virgula [rest]:pos_decl	{-> [arg.vars, rest.vars]}
+		| {sem_virgula} [arg]:var							{-> [arg.vars]};
+		
 	/********************************* DECLARACOES *********************************/
+		
+	decl 
+		= {variavel} tipo dois_pontos pos_decl ponto_virgula
+		| {constante} constante id valor ponto_virgula
+	;
 	
-	decl {-> decl}
-		= {variavel} [l]:tipo dois_pontos [r]:pos_decl ponto_virgula{-> New decl.variavel(l.tipo, r.pos_decl)}
-		| {constante} constante id [r]:valor ponto_virgula 	{-> New decl.constante(constante, id, r.valor)};
+	tipo
+		= {real} tipo_real
+		| {inteiro} tipo_inteiro
+		| {string} tipo_string
+	;
 	
-	pos_decl  {-> pos_decl}
-		= {com_virgula} [l]:var virgula [r]:pos_decl 	{-> New pos_decl.com_virgula(l.var, r.pos_decl)}
-		| {sem_virgula} var 							{-> New pos_decl.sem_virgula(var)};
+	var
+		= {normal} id
+		| {array} id abre_colchetes inteiro fecha_colchetes
+	;
 	
-	tipo {-> tipo}
-		= {real} tipo_real			{-> New tipo.real(tipo_real)}
-		| {inteiro} tipo_inteiro	{-> New tipo.inteiro(tipo_inteiro)}
-		| {string} tipo_string		{-> New tipo.string(tipo_string)};
-	
-	var {-> var}
-		= {normal} id 										{-> New var.normal(id)}
-		| {array} id abre_colchetes inteiro fecha_colchetes {-> New var.array(id, inteiro)};  
-	
-	valor {-> valor}
-		= {string} string	{-> New valor.string(string)} 
-		| {inteiro} inteiro {-> New valor.inteiro(inteiro)}
-		| {real} real		{-> New valor.real(real)};	
+	valor
+		= {string} string 
+		| {inteiro} inteiro 
+		| {real} real
+	;
 	
 	/****************************** COMANDOS ******************************/
-	comandos {-> comm*}
-		= {mais_comandos} comm comandos
-		| {comando_vazio} ;
+		
 	comm
 		= {simples} var atribuicao exp ponto_virgula
 		| {leia} comm_leia
@@ -166,7 +166,8 @@ Productions
 		| {avalie} comm_avalie
 		| {enquanto} comm_enquanto
 		| {repita} comm_repita
-		| {para} comm_para;
+		| {para} comm_para
+	;
 	
 	// ########## COMANDO LEIA
 	comm_leia = leia abre_parentesis comm_leia_segunda_parte;
@@ -183,27 +184,27 @@ Productions
 	comm_escreva_terceira_parte = fecha_parentesis ponto_virgula;
 
 	// ########## COMANDO SE
-	comm_se = se abre_parentesis exp_logica fecha_parentesis entao comm comandos comm_se_senao? comm_se_fim;
-	comm_se_senao = senao comm comandos;
+	comm_se = se abre_parentesis exp_logica fecha_parentesis entao comms comm_se_senao? comm_se_fim;
+	comm_se_senao = senao comms;
 	comm_se_fim = fim se ponto_virgula;
 
 	// ########## COMANDO AVALIE
 	comm_avalie = avalie abre_parentesis exp_ou_exp_logica fecha_parentesis comm_avalie_caso_parte;
 	comm_avalie_caso_parte 
-		= {com_caso} caso valor dois_pontos comm comandos comm_avalie_caso_parte
+		= {com_caso} caso valor dois_pontos comms comm_avalie_caso_parte
 		| {sem_caso} comm_avalie_senao_parte;
 	comm_avalie_senao_parte 
-		= {com_senao} senao dois_pontos comm comandos comm_avalie_fim 
+		= {com_senao} senao dois_pontos comms comm_avalie_fim 
 		| {sem_senao} comm_avalie_fim;
 	comm_avalie_fim = fim avalie ponto_virgula;
 	
 	// ########## COMANDO ENQUANTO
-	comm_enquanto = enquanto abre_parentesis exp_logica fecha_parentesis faca comm comandos comm_enquanto_fim;
+	comm_enquanto = enquanto abre_parentesis exp_logica fecha_parentesis faca comms comm_enquanto_fim;
 	comm_enquanto_fim = fim enquanto ponto_virgula;
 	
 	// ########## COMANDO REPITA
 	comm_repita = repita comm_repita_comandos_parte;
-	comm_repita_comandos_parte = comm comandos ate comm_repita_condicao_parte;
+	comm_repita_comandos_parte = comms ate comm_repita_condicao_parte;
 	comm_repita_condicao_parte = abre_parentesis exp_logica fecha_parentesis ponto_virgula;
 	
 	// ########## COMANDO PARA
@@ -212,86 +213,120 @@ Productions
 		= {com_passo} passo inteiro comm_para_ate
 		| {sem_passo} comm_para_ate;
 	comm_para_ate = ate inteiro comm_para_meio;
-	comm_para_meio = faca comm comandos comm_para_fim;
+	comm_para_meio = faca comms comm_para_fim;
 	comm_para_fim = fim para ponto_virgula;
 	
 	// #################### EXPRESSOES
 	exp_ou_exp_logica
 		= {ari} exp
-		| {log} exp_logica;
+		| {log} exp_logica
+	;
 
-	exp  {-> exp}
-		= {soma} [l]:exp soma [r]:termo {-> New exp.soma(l.exp, r.exp)}
-		| {subt} [l]:exp sub [r]:termo 	{-> New exp.subt(l.exp, r.exp)}
-		| {termo} termo {-> termo.exp};
+	exp 
+		= {soma} exp soma termo 
+		| {subt} exp sub termo
+		| {term} termo
+	;
 			
-	termo {-> exp}
-		= {mult} [l]:termo mult [r]:exp_final 	{-> New exp.mult(l.exp, r.exp)}  
-		| {divi} [l]:termo div [r]:exp_final 	{-> New exp.divi(l.exp, r.exp)}
-		| {exp_final} exp_final 				{-> exp_final.exp};
+	termo 
+		= {mult} termo mult exp_final 
+		| {divi} termo div exp_final
+		| {fim} exp_final
+	;
 	
-	exp_final {-> exp}
-		= {parentesis} abre_parentesis exp fecha_parentesis {-> exp.exp}
-		| {negativa_exp} sub exp_final 						{-> exp_final.exp}
-		| {substituir_var} var 								{-> New exp.var(var)}
-		| {substituir_val} valor 							{-> New exp.valor(valor)};
-
+	exp_final 
+		= {parentesis} abre_parentesis exp fecha_parentesis  
+		| {negativa_exp} sub exp_final
+		| {substituir_var} var
+		| {substituir_val} valor
+	;
+					   		  
 	exp_logica 
 		= {and} exp_logica e log_prec_um
 		| {ou}  exp_logica ou log_prec_um
 		| {xor} exp_logica xor log_prec_um
 		| {not} nao log_prec_um
-		| {prx} log_prec_um;
+		| {prx} log_prec_um
+	;
 
 	log_prec_um 
 		= {diferente} exp diferente termo
 		| {igual} exp igual termo
-		| {fator} log_prec_dois;
+		| {fator} log_prec_dois
+	;
 		
 	log_prec_dois 
 		= {maior} exp maior termo
 		| {menor} exp menor termo
 		| {maiorq} exp maior_igual termo
 		| {menorq} exp menor_igual termo
-		| {par} abre_parentesis exp_logica fecha_parentesis;
-
+		| {par} abre_parentesis exp_logica fecha_parentesis
+	;
 
 Abstract Syntax Tree
 	
 	/********************************* GERAL *********************************/
-	pgr
-		= {id} id
-		| {com_decl} decl 
-		| {com_comm} comm
-		| {fim} ;
+	pgr 
+		= {pgr} id [m]:decls [r]:comms
+	;
+		
+	// PLURAIS
+	comms = comm*;
+	decls = decl*;
+	vars = var*;
 	
 		
 	/********************************* DECLARACOES *********************************/
 	
 	decl
 		= {variavel} [l]:tipo [r]:pos_decl
-		| {constante} constante id [r]:valor;
+		| {constante} constante id [r]:valor
+	;
 	
 	pos_decl
 		= {com_virgula} [l]:var [r]:pos_decl
-		| {sem_virgula} var;
+		| {sem_virgula} var
+	;
 	
 	tipo
 		= {real} tipo_real
 		| {inteiro} tipo_inteiro
-		| {string} tipo_string;
+		| {string} tipo_string
+	;
 	
 	var
 		= {normal} id
-		| {array} [l]:id [r]:inteiro;
+		| {array} [l]:id [r]:inteiro
+	;
 	
 	valor
 		= {string} string 
 		| {inteiro} inteiro 
-		| {real} real;
+		| {real} real
+	;
 	
 	/********************************* COMANDOS *********************************/
-	comm = exp;
+	comm 
+		= {leia} var+
+		| {escreva} exp+
+		| {se} exp_logica comm+ senao_parte?
+		| {avalie} exp caso_parte* senao_parte?
+		| {enquanto} exp_logica comm+
+		| {repita} comm+ exp_logica
+		| {para} var [intini]:tipo_inteiro passo_parte? [intfim]:tipo_inteiro comm+
+	;
+	
+	caso_parte
+		= {caso} [l]:valor [r]:comm
+	;
+		
+	senao_parte
+		= {senao} comm+
+	;
+	
+	passo_parte
+		= {passo} tipo_inteiro
+	;
 	
 	exp 
 		= {soma} [l]:exp [r]:exp
@@ -299,8 +334,9 @@ Abstract Syntax Tree
 		| {mult} [l]:exp [r]:exp
 		| {divi} [l]:exp [r]:exp
 		| {var} var
-		| {valor} valor;
-/*
+		| {valor} valor
+	;
+
 	exp_logica
 		= {not} exp_logica
 		| {ou}  [l]:exp_logica [r]:exp_logica
@@ -311,8 +347,9 @@ Abstract Syntax Tree
 		| {menorq} [l]:exp [r]:exp
 		| {igual} [l]:exp [r]:exp
 		| {maior} [l]:exp [r]:exp
-		| {menor} [l]:exp [r]:exp;
-*/
+		| {menor} [l]:exp [r]:exp
+	;
+
 
 /*					   		  
 	exp_logica
