@@ -114,13 +114,13 @@ Ignored Tokens
 
 Productions
 	
-	pgr_inicio = programa id inicio pgr_decl_parte;
-	pgr_decl_parte = {com_decl} decl pgr_decl_parte | {sem_decl} pgr_comm_parte;
-	pgr_comm_parte = {com_comm} comm pgr_comm_parte | {sem_comm} pgr_final;
-	pgr_final = fim_programa;
+	pgr_inicio = programa id inicio decls? comandos? fim_programa;
 	
 	/********************************* DECLARACOES *********************************/
-	
+	decls
+		= {mais_decls} decl decls
+		| {ultima_decl} decl;
+		
 	decl 
 		= {variavel} tipo dois_pontos pos_decl ponto_virgula
 		| {constante} constante id valor ponto_virgula;
@@ -146,7 +146,8 @@ Productions
 	/****************************** COMANDOS ******************************/
 	comandos
 		= {mais_comandos} comm comandos
-		| {comando_vazio} comm;
+		| {ultimo_comando} comm;
+		
 	comm
 		= {simples} var atribuicao exp ponto_virgula
 		| {leia} comm_leia
