@@ -155,16 +155,26 @@ Productions
 		;
 		
 	cmd {-> cmd}
-		= {leia} leia abre_parentesis [var_list]:var_list fecha_parentesis ponto_virgula
+		= {atribuicao} [var]:var atribuicao [exp]:exp ponto_virgula
+			{-> New cmd.atribuicao(var,exp)}
+		| {leia} leia abre_parentesis [var_list]:var_list fecha_parentesis ponto_virgula
 			{-> New cmd.leia(var_list)}
+		| {escreva} abre_parentesis [exp]:exp fecha_parentesis ponto_virgula
+			{-> New cmd.escreva(exp)}
 		/*| {se} se abre_parentesis [exp_logica]:exp_logica fecha_parentesis entao [cmd_list]:cmd_list fim_se ponto_virgula
-			{-> New cmd.se(exp_logica,cmd_list)}*/
+			{-> New cmd.se(exp_logica,cmd_list)}
+		| {avalie} avalie abre_parentesis [exp]:exp fecha_parentesis ##### A FAZER ###
+		| {enquanto} enquanto abre_parentesis [exp_logica]:exp_logica fecha_parentesis faca [cmd_list]:cmd_list fim enquanto ponto_virgula
+			{-> New cmd.enquanto(exp_logica,cmd_list)}
+		| {repita} repita [cmd_list]:cmd_list ate abre_parentesis exp_logica fecha_parentesis ponto_virgula
+		*/
 		| {para1} para [var]:var de [int_inicio]:inteiro ate [int_fim]:inteiro faca [cmd_list]:cmd_list fim_para ponto_virgula
 			{-> New cmd.para1(var,int_inicio,int_fim,cmd_list)}
 		| {para2} para [var]:var de [int_inicio]:inteiro passo [int_passo]:inteiro ate [int_fim]:inteiro faca [cmd_list]:cmd_list fim_para ponto_virgula
 			{-> New cmd.para2(var,int_inicio,int_passo,int_fim,cmd_list)}
 		;
 		
+		/*
 	exp {-> exp}
 		= {valor} 		[valor]:valor 								{-> New exp.valor(valor)}
 		| {var} 		[var]:var 									{-> New exp.var(var)}
@@ -175,7 +185,30 @@ Productions
 		| {mult}		[esq]:exp mult [dir]:exp 					{-> New exp.mult(esq,dir)}
 		| {div}			[esq]:exp div [dir]:exp 					{-> New exp.div(esq,dir)}
 		| {logica} 		[exp_logica]:exp_logica 					{-> New exp.logica(exp_logica)}
-		;	
+		;	*/
+		
+		
+	 exp  
+	 	= {plus}   exp soma fator  	{-> New exp.soma(exp, fator.exp)  }
+        | {minus}  exp sub fator 	{-> New exp.sub(exp, fator.exp) }
+        | {factor} fator          	{-> fator.exp}
+    	;
+    fator {-> exp} 
+    	= {mult} fator mult term {-> New exp.mult(fator.exp, term.exp )}
+        | {div}  fator div term  {-> New exp.div(fator.exp, term.exp ) }
+        | {term} term             {-> term.exp}
+   		;
+
+    term {-> exp} 
+    	= {valor} valor          {-> New exp.valor(valor)}
+        | {parentesis}   abre_parentesis exp fecha_parentesis {-> exp}
+        /*| {logica} exp_logica {->New exp.logica(exp_logica)}*/
+    	;
+ /*   	
+    exp_list {-> exp}
+    	= {simples} 	[exp]:exp					 {-> New exp_list.simples(exp)}
+    	| {multipla}	[exp]:exp virgula [exp_list]:exp_list {-> New exp_list.multipla(exp,exp_list)}
+    	; */
 	
 	exp_logica {-> exp_logica}
 		= {parentesis} abre_parentesis [exp_logica]:exp_logica fecha_parentesis {-> New exp_logica.parentesis(exp_logica)}
@@ -190,6 +223,7 @@ Productions
 		| {ou} 			[esq]:exp_logica ou [dir]:exp_logica					{-> New exp_logica.ou(esq,dir)}
 		| {xor} 		[esq]:exp_logica xor [dir]:exp_logica					{-> New exp_logica.xor(esq,dir)}
 		;
+
 		
 	cmd_list {-> cmd_list}
 		= {simples}  [cmd]:cmd ponto_virgula							{-> New cmd_list.simples(cmd)}
@@ -241,8 +275,10 @@ Abstract Syntax Tree
 		;
 	
 	cmd
-		= {leia} [var_list]:var_list
-		/*| {se} [exp_logica]:exp_logica [cmd_list]:cmd_list*/
+		= {atribuicao} [var]:var [exp]:exp
+		| {leia} [var_list]:var_list
+		| {escreva} [exp]:exp
+		| {se} [exp_logica]:exp_logica [cmd_list]:cmd_list
 		| {para1} [var]:var [int_inicio]:inteiro [int_fim]:inteiro [cmd_list]:cmd_list
 		| {para2} [var]:var [int_inicio]:inteiro [int_passo]:inteiro [int_fim]:inteiro [cmd_list]:cmd_list
 		;
@@ -256,7 +292,12 @@ Abstract Syntax Tree
 		| {sub} [esq]:exp [dir]:exp
 		| {mult} [esq]:exp [dir]:exp
 		| {div} [esq]:exp [dir]:exp
-		| {logica} [exp_logica]:exp_logica
+		/*| {logica} [exp_logica]:exp_logica*/
+		;
+		
+	exp_list
+		= {simples} [exp]:exp
+		| {multipla} [exp]:exp [exp_list]:exp_list
 		;
 		
 	exp_logica
