@@ -161,13 +161,13 @@ Productions
 			{-> New cmd.leia(var_list)}
 		| {escreva} abre_parentesis [exp]:exp fecha_parentesis ponto_virgula
 			{-> New cmd.escreva(exp)}
-		/*| {se} se abre_parentesis [exp_logica]:exp_logica fecha_parentesis entao [cmd_list]:cmd_list fim_se ponto_virgula
+		| {se} se abre_parentesis [exp_logica]:exp_logica fecha_parentesis entao [cmd_list]:cmd_list fim_se ponto_virgula
 			{-> New cmd.se(exp_logica,cmd_list)}
-		| {avalie} avalie abre_parentesis [exp]:exp fecha_parentesis ##### A FAZER ###
+		| {avalie} avalie abre_parentesis [exp]:exp fecha_parentesis
 		| {enquanto} enquanto abre_parentesis [exp_logica]:exp_logica fecha_parentesis faca [cmd_list]:cmd_list fim enquanto ponto_virgula
 			{-> New cmd.enquanto(exp_logica,cmd_list)}
 		| {repita} repita [cmd_list]:cmd_list ate abre_parentesis exp_logica fecha_parentesis ponto_virgula
-		*/
+		
 		| {para1} para [var]:var de [int_inicio]:inteiro ate [int_fim]:inteiro faca [cmd_list]:cmd_list fim_para ponto_virgula
 			{-> New cmd.para1(var,int_inicio,int_fim,cmd_list)}
 		| {para2} para [var]:var de [int_inicio]:inteiro passo [int_passo]:inteiro ate [int_fim]:inteiro faca [cmd_list]:cmd_list fim_para ponto_virgula
@@ -281,8 +281,13 @@ Abstract Syntax Tree
 		| {se} [exp_logica]:exp_logica [cmd_list]:cmd_list
 		| {para1} [var]:var [int_inicio]:inteiro [int_fim]:inteiro [cmd_list]:cmd_list
 		| {para2} [var]:var [int_inicio]:inteiro [int_passo]:inteiro [int_fim]:inteiro [cmd_list]:cmd_list
-		;
-	
+	;
+		
+	exp_list
+		= {simples} [exp]:exp
+		| {multipla} [exp]:exp [exp_list]:exp_list
+	;
+		
 	exp
 		= {valor} [valor]:valor
 		| {var} [var]:var
@@ -292,13 +297,8 @@ Abstract Syntax Tree
 		| {sub} [esq]:exp [dir]:exp
 		| {mult} [esq]:exp [dir]:exp
 		| {div} [esq]:exp [dir]:exp
-		/*| {logica} [exp_logica]:exp_logica*/
-		;
-		
-	exp_list
-		= {simples} [exp]:exp
-		| {multipla} [exp]:exp [exp_list]:exp_list
-		;
+		| {logica} [exp_logica]:exp_logica
+	;
 		
 	exp_logica
 		= {parentesis} [exp_logica]:exp_logica
@@ -312,5 +312,5 @@ Abstract Syntax Tree
 		| {e} [esq]:exp_logica [dir]:exp_logica
 		| {ou} [esq]:exp_logica [dir]:exp_logica
 		| {xor} [esq]:exp_logica [dir]:exp_logica
-		;
+	;
 	
