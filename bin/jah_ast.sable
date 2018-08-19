@@ -220,19 +220,32 @@ Productions
 		= {com_caso} caso valor dois_pontos comms comm_avalie_caso_parte	{-> New comm_avalie_caso_parte.com_caso(valor, comms, comm_avalie_caso_parte)}
 		| {sem_caso} comm_avalie_senao_parte								{-> New comm_avalie_caso_parte.sem_caso(comm_avalie_senao_parte)}
 	;
-	comm_avalie_senao_parte 
-		= {com_senao} senao dois_pontos comms comm_avalie_fim 
-		| {sem_senao} comm_avalie_fim;
-	comm_avalie_fim = fim avalie ponto_virgula;
+	comm_avalie_senao_parte {-> comm_avalie_senao_parte}
+		= {com_senao} senao dois_pontos comms comm_avalie_fim 	{-> New comm_avalie_senao_parte.com_senao(comms)}
+		| {sem_senao} comm_avalie_fim							{-> New comm_avalie_senao_parte.sem_senao()}
+	;
+	comm_avalie_fim {-> comm_avalie_senao_parte}
+		= fim avalie ponto_virgula {-> New comm_avalie_senao_parte.sem_senao()}
+	;
 	
 	// ########## COMANDO ENQUANTO
-	comm_enquanto = enquanto abre_parentesis exp_logica fecha_parentesis faca comms comm_enquanto_fim;
-	comm_enquanto_fim = fim enquanto ponto_virgula;
+	comm_enquanto {-> comm_enquanto}
+		= enquanto abre_parentesis exp_logica fecha_parentesis faca comms comm_enquanto_fim {-> New comm_enquanto(exp_logica, comms)}
+	;
+	comm_enquanto_fim {-> comm_enquanto_fim}
+		= fim enquanto ponto_virgula {-> New comm_enquanto_fim()}
+	;
 	
 	// ########## COMANDO REPITA
-	comm_repita = repita comm_repita_comandos_parte;
-	comm_repita_comandos_parte = comms ate comm_repita_condicao_parte;
-	comm_repita_condicao_parte = abre_parentesis exp_logica fecha_parentesis ponto_virgula;
+	comm_repita {-> comm_repita}
+		= repita comm_repita_comms_parte {-> New comm_repita(comm_repita_comms_parte)}
+	;
+	comm_repita_comms_parte {-> comm_repita_comms_parte}
+		= [arg]:comms ate [rest]:comm_repita_condicao_parte {-> New comm_repita_comms_parte(arg.comms, rest.comm_repita_condicao_parte)}
+	;
+	comm_repita_condicao_parte {-> comm_repita_condicao_parte}
+		= abre_parentesis exp_logica fecha_parentesis ponto_virgula {-> New comm_repita_condicao_parte(exp_logica)}
+	;
 	
 	// ########## COMANDO PARA
 	comm_para = para var de inteiro comm_para_passa;
@@ -376,21 +389,31 @@ Abstract Syntax Tree
 	;
 	
 	comm_avalie_senao_parte
-		= {com_senao} comm+
+		= {com_senao} comms
+		| {sem_senao} 
 	;
 	
 	comm_enquanto
-		= exp_logica comm+ 
-	;
-
-	comm_repita
-		= comm+ comm_repita_condicao_parte 
-     ;
-
-    comm_repita_condicao_parte 
-    	= exp_logica
+		= exp_logica comms
 	;
 	
+	comm_enquanto_fim = ;
+	
+	comm_repita 
+		= comm_repita_comms_parte
+	;
+
+	comm_repita_comms_parte
+		= comms comm_repita_condicao_parte
+	;
+
+	comm_repita_condicao_parte 
+		= exp_logica
+	;
+
+
+	
+
 	comm_para
 		= var inteiro comm_para_passa 
 	;
