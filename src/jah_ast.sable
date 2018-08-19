@@ -241,21 +241,21 @@ Productions
 		= repita comm_repita_comms_parte {-> New comm_repita(comm_repita_comms_parte)}
 	;
 	comm_repita_comms_parte {-> comm_repita_comms_parte}
-		= [arg]:comms ate [rest]:comm_repita_condicao_parte {-> New comm_repita_comms_parte(arg.comms, rest.comm_repita_condicao_parte)}
+		= comms ate comm_repita_condicao_parte {-> New comm_repita_comms_parte(comms, comm_repita_condicao_parte)}
 	;
 	comm_repita_condicao_parte {-> comm_repita_condicao_parte}
 		= abre_parentesis exp_logica fecha_parentesis ponto_virgula {-> New comm_repita_condicao_parte(exp_logica)}
 	;
 	
 	// ########## COMANDO PARA
-	comm_para = para var de inteiro comm_para_passa;
+/*	comm_para = para var de inteiro comm_para_passa;
 	comm_para_passa 
 		= {com_passo} passo inteiro comm_para_ate
 		| {sem_passo} comm_para_ate;
 	comm_para_ate = ate inteiro comm_para_meio;
 	comm_para_meio = faca comms comm_para_fim;
 	comm_para_fim = fim para ponto_virgula;
-	
+*/	
 	// #################### EXPRESSOES
 /*	exp_ou_exp_logica {-> exp_ou_exp_logica}
 		= {ari} exp			{-> New exp_ou_exp_logica.ari(exp)}
@@ -398,21 +398,18 @@ Abstract Syntax Tree
 	;
 	
 	comm_enquanto_fim = ;
-	
+
 	comm_repita 
-		= comm_repita_comms_parte
+		= comm_repita_comms_parte 
 	;
 
-	comm_repita_comms_parte
+	comm_repita_comms_parte 
 		= comms comm_repita_condicao_parte
 	;
-
-	comm_repita_condicao_parte 
+	
+	comm_repita_condicao_parte
 		= exp_logica
 	;
-
-
-	
 
 	comm_para
 		= var inteiro comm_para_passa 
