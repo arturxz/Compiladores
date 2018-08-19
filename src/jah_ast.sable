@@ -248,20 +248,20 @@ Productions
 	;
 	
 	// ########## COMANDO PARA
-/*	comm_para = para var de inteiro comm_para_passa;
-	comm_para_passa 
-		= {com_passo} passo inteiro comm_para_ate
-		| {sem_passo} comm_para_ate;
-	comm_para_ate = ate inteiro comm_para_meio;
-	comm_para_meio = faca comms comm_para_fim;
-	comm_para_fim = fim para ponto_virgula;
-*/	
-	// #################### EXPRESSOES
-/*	exp_ou_exp_logica {-> exp_ou_exp_logica}
-		= {ari} exp			{-> New exp_ou_exp_logica.ari(exp)}
-		| {log} exp_logica	{-> New exp_ou_exp_logica.log(exp_logica)}
+	comm_para {-> comm_para} 
+		= para var de inteiro comm_para_passa {-> New comm_para(var, inteiro, comm_para_passa)}
 	;
-*/
+	comm_para_passa {-> comm_para_passa}
+		= {com_passo} passo inteiro comm_para_ate {-> New comm_para_passa.com_passo(inteiro, comm_para_ate)}
+		| {sem_passo} comm_para_ate {-> New comm_para_passa.sem_passo(comm_para_ate)}
+	;
+	comm_para_ate {-> comm_para_ate} 
+		= ate inteiro comm_para_fim {-> New comm_para_ate(inteiro, comm_para_fim)}
+	;
+	comm_para_fim {-> comm_para_fim}
+		= {fim} faca comms comm_para_fim {-> New comm_para_fim.fim(comms)}
+		| {nada} fim para ponto_virgula {-> New comm_para_fim.nada()}
+	;
 
 	exp 
 		= {soma} exp soma termo 
@@ -414,25 +414,17 @@ Abstract Syntax Tree
 	comm_para
 		= var inteiro comm_para_passa 
 	;
-	
 	comm_para_passa
 		= {com_passo} inteiro comm_para_ate
 		| {sem_passo} comm_para_ate
 	;
-	
 	comm_para_ate 
-		= inteiro comm_para_meio 
+		= inteiro comm_para_fim
 	;
-	
-	comm_para_meio 
-		= comms
+	comm_para_fim
+		= {fim} comms
+		| {nada}
 	;
-
-	exp_ou_exp_logica
-		= {ari} exp
-		| {log} exp_logica
-	;
-
 
 	exp 
 		= {soma} [l]:exp [r]:exp
@@ -455,103 +447,3 @@ Abstract Syntax Tree
 		| {maior} 		[l]:exp [r]:exp
 		| {menor} 		[l]:exp [r]:exp
 	;
-
-/*
-	pgr 
-		= id [decl]:decl* [comm]:comm*
-	;
-	
-	
-	decl
-		= {variavel} [l]:tipo [r]:var*
-		| {constante} constante id [r]:valor
-	;
-	
-	var_list
-		= {multip} [arg]:var [rest]:var_list
-		| {single} [arg]:var;
-	
-	tipo
-		= {real} tipo_real
-		| {inteiro} tipo_inteiro
-		| {string} tipo_string
-	;
-	
-	var
-		= {normal} id
-		| {array} [l]:id [r]:inteiro
-	;
-	
-
-	
-	valor
-		= {string} string 
-		| {inteiro} inteiro 
-		| {real} real
-	;
-	
-	comm 
-		= {leia} var+
-		| {escreva} exp+
-		| {se} exp_logica comm+ senao_parte?
-		| {avalie} exp caso_parte* senao_parte?
-		| {enquanto} exp_logica comm+
-		| {repita} comm+ exp_logica
-		| {para} var [intini]:tipo_inteiro passo_parte? [intfim]:tipo_inteiro comm+
-	;
-	
-	caso_parte
-		= {caso} [l]:valor [r]:comm
-	;
-		
-	senao_parte
-		= {senao} comm+
-	;
-	
-	passo_parte
-		= {passo} tipo_inteiro
-	;
-	
-	exp 
-		= {soma} [l]:exp [r]:exp
-		| {subt} [l]:exp [r]:exp
-		| {mult} [l]:exp [r]:exp
-		| {divi} [l]:exp [r]:exp
-		| {var} var
-		| {valor} valor
-	;
-
-	exp_logica
-		= {not} exp_logica
-		| {ou}  [l]:exp_logica [r]:exp_logica
-		| {and} [l]:exp_logica [r]:exp_logica
-		| {xor} [l]:exp_logica [r]:exp_logica
-		| {diferente} 	[l]:exp [r]:exp
-		| {maiorq} 		[l]:exp [r]:exp
-		| {menorq} 		[l]:exp [r]:exp
-		| {igual} 		[l]:exp [r]:exp
-		| {maior} 		[l]:exp [r]:exp
-		| {menor} 		[l]:exp [r]:exp
-	;
-
-
-			   		  
-	exp_logica
-		= {and} exp_logica e log_prec_um {-> New exp_logica.and(exp_logica, log_prec_um.exp_logica)}
-		| {ou}  exp_logica ou log_prec_um {-> New exp_logica.ou(exp_logica, log_prec_um.exp_logica)}
-		| {xor} exp_logica xor log_prec_um {-> New exp_logica.xor(exp_logica, log_prec_um.exp_logica)}
-		| {not} nao log_prec_um {-> log_prec_um.exp_logica}
-		| {log_prec_um} log_prec_um {-> log_prec_um.exp_logica};
-
-	log_prec_um  {-> exp_logica}
-		= {diferente} exp diferente termo {-> New exp_logica.diferente(exp, termo.exp)}
-		| {igual} exp igual termo {-> New exp_logica.igual(exp, termo.exp)}
-		| {log_prec_dois} log_prec_dois {-> log_prec_dois.exp_logica};
-		
-	log_prec_dois  {-> exp_logica}
-		= {maior} exp maior termo {-> New exp_logica.maior(exp, termo.exp)}
-		| {menor} exp menor termo {-> New exp_logica.menor(exp, termo.exp)}
-		| {maiorq} exp maior_igual termo {-> New exp_logica.maiorq(exp, termo.exp)}
-		| {menorq} exp menor_igual termo {-> New exp_logica.menorq(exp, termo.exp)}
-		| {par} abre_parentesis exp_logica fecha_parentesis {-> exp_logica};
-*/
