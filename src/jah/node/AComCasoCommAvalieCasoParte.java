@@ -7,10 +7,8 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class AComCasoCommAvalieCasoParte extends PCommAvalieCasoParte
 {
-    private TCaso _caso_;
     private PValor _valor_;
-    private TDoisPontos _doisPontos_;
-    private PComandos _comandos_;
+    private PComms _comms_;
     private PCommAvalieCasoParte _commAvalieCasoParte_;
 
     public AComCasoCommAvalieCasoParte()
@@ -19,20 +17,14 @@ public final class AComCasoCommAvalieCasoParte extends PCommAvalieCasoParte
     }
 
     public AComCasoCommAvalieCasoParte(
-        @SuppressWarnings("hiding") TCaso _caso_,
         @SuppressWarnings("hiding") PValor _valor_,
-        @SuppressWarnings("hiding") TDoisPontos _doisPontos_,
-        @SuppressWarnings("hiding") PComandos _comandos_,
+        @SuppressWarnings("hiding") PComms _comms_,
         @SuppressWarnings("hiding") PCommAvalieCasoParte _commAvalieCasoParte_)
     {
         // Constructor
-        setCaso(_caso_);
-
         setValor(_valor_);
 
-        setDoisPontos(_doisPontos_);
-
-        setComandos(_comandos_);
+        setComms(_comms_);
 
         setCommAvalieCasoParte(_commAvalieCasoParte_);
 
@@ -42,10 +34,8 @@ public final class AComCasoCommAvalieCasoParte extends PCommAvalieCasoParte
     public Object clone()
     {
         return new AComCasoCommAvalieCasoParte(
-            cloneNode(this._caso_),
             cloneNode(this._valor_),
-            cloneNode(this._doisPontos_),
-            cloneNode(this._comandos_),
+            cloneNode(this._comms_),
             cloneNode(this._commAvalieCasoParte_));
     }
 
@@ -53,31 +43,6 @@ public final class AComCasoCommAvalieCasoParte extends PCommAvalieCasoParte
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAComCasoCommAvalieCasoParte(this);
-    }
-
-    public TCaso getCaso()
-    {
-        return this._caso_;
-    }
-
-    public void setCaso(TCaso node)
-    {
-        if(this._caso_ != null)
-        {
-            this._caso_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._caso_ = node;
     }
 
     public PValor getValor()
@@ -105,16 +70,16 @@ public final class AComCasoCommAvalieCasoParte extends PCommAvalieCasoParte
         this._valor_ = node;
     }
 
-    public TDoisPontos getDoisPontos()
+    public PComms getComms()
     {
-        return this._doisPontos_;
+        return this._comms_;
     }
 
-    public void setDoisPontos(TDoisPontos node)
+    public void setComms(PComms node)
     {
-        if(this._doisPontos_ != null)
+        if(this._comms_ != null)
         {
-            this._doisPontos_.parent(null);
+            this._comms_.parent(null);
         }
 
         if(node != null)
@@ -127,32 +92,7 @@ public final class AComCasoCommAvalieCasoParte extends PCommAvalieCasoParte
             node.parent(this);
         }
 
-        this._doisPontos_ = node;
-    }
-
-    public PComandos getComandos()
-    {
-        return this._comandos_;
-    }
-
-    public void setComandos(PComandos node)
-    {
-        if(this._comandos_ != null)
-        {
-            this._comandos_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._comandos_ = node;
+        this._comms_ = node;
     }
 
     public PCommAvalieCasoParte getCommAvalieCasoParte()
@@ -184,10 +124,8 @@ public final class AComCasoCommAvalieCasoParte extends PCommAvalieCasoParte
     public String toString()
     {
         return ""
-            + toString(this._caso_)
             + toString(this._valor_)
-            + toString(this._doisPontos_)
-            + toString(this._comandos_)
+            + toString(this._comms_)
             + toString(this._commAvalieCasoParte_);
     }
 
@@ -195,27 +133,15 @@ public final class AComCasoCommAvalieCasoParte extends PCommAvalieCasoParte
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._caso_ == child)
-        {
-            this._caso_ = null;
-            return;
-        }
-
         if(this._valor_ == child)
         {
             this._valor_ = null;
             return;
         }
 
-        if(this._doisPontos_ == child)
+        if(this._comms_ == child)
         {
-            this._doisPontos_ = null;
-            return;
-        }
-
-        if(this._comandos_ == child)
-        {
-            this._comandos_ = null;
+            this._comms_ = null;
             return;
         }
 
@@ -232,27 +158,15 @@ public final class AComCasoCommAvalieCasoParte extends PCommAvalieCasoParte
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._caso_ == oldChild)
-        {
-            setCaso((TCaso) newChild);
-            return;
-        }
-
         if(this._valor_ == oldChild)
         {
             setValor((PValor) newChild);
             return;
         }
 
-        if(this._doisPontos_ == oldChild)
+        if(this._comms_ == oldChild)
         {
-            setDoisPontos((TDoisPontos) newChild);
-            return;
-        }
-
-        if(this._comandos_ == oldChild)
-        {
-            setComandos((PComandos) newChild);
+            setComms((PComms) newChild);
             return;
         }
 

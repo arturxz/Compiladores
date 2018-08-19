@@ -7,9 +7,8 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class AXorExpLogica extends PExpLogica
 {
-    private PExpLogica _expLogica_;
-    private TXor _xor_;
-    private PLogPrecUm _logPrecUm_;
+    private PExpLogica _l_;
+    private PExpLogica _r_;
 
     public AXorExpLogica()
     {
@@ -17,16 +16,13 @@ public final class AXorExpLogica extends PExpLogica
     }
 
     public AXorExpLogica(
-        @SuppressWarnings("hiding") PExpLogica _expLogica_,
-        @SuppressWarnings("hiding") TXor _xor_,
-        @SuppressWarnings("hiding") PLogPrecUm _logPrecUm_)
+        @SuppressWarnings("hiding") PExpLogica _l_,
+        @SuppressWarnings("hiding") PExpLogica _r_)
     {
         // Constructor
-        setExpLogica(_expLogica_);
+        setL(_l_);
 
-        setXor(_xor_);
-
-        setLogPrecUm(_logPrecUm_);
+        setR(_r_);
 
     }
 
@@ -34,9 +30,8 @@ public final class AXorExpLogica extends PExpLogica
     public Object clone()
     {
         return new AXorExpLogica(
-            cloneNode(this._expLogica_),
-            cloneNode(this._xor_),
-            cloneNode(this._logPrecUm_));
+            cloneNode(this._l_),
+            cloneNode(this._r_));
     }
 
     @Override
@@ -45,16 +40,16 @@ public final class AXorExpLogica extends PExpLogica
         ((Analysis) sw).caseAXorExpLogica(this);
     }
 
-    public PExpLogica getExpLogica()
+    public PExpLogica getL()
     {
-        return this._expLogica_;
+        return this._l_;
     }
 
-    public void setExpLogica(PExpLogica node)
+    public void setL(PExpLogica node)
     {
-        if(this._expLogica_ != null)
+        if(this._l_ != null)
         {
-            this._expLogica_.parent(null);
+            this._l_.parent(null);
         }
 
         if(node != null)
@@ -67,19 +62,19 @@ public final class AXorExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._expLogica_ = node;
+        this._l_ = node;
     }
 
-    public TXor getXor()
+    public PExpLogica getR()
     {
-        return this._xor_;
+        return this._r_;
     }
 
-    public void setXor(TXor node)
+    public void setR(PExpLogica node)
     {
-        if(this._xor_ != null)
+        if(this._r_ != null)
         {
-            this._xor_.parent(null);
+            this._r_.parent(null);
         }
 
         if(node != null)
@@ -92,62 +87,30 @@ public final class AXorExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._xor_ = node;
-    }
-
-    public PLogPrecUm getLogPrecUm()
-    {
-        return this._logPrecUm_;
-    }
-
-    public void setLogPrecUm(PLogPrecUm node)
-    {
-        if(this._logPrecUm_ != null)
-        {
-            this._logPrecUm_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._logPrecUm_ = node;
+        this._r_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogica_)
-            + toString(this._xor_)
-            + toString(this._logPrecUm_);
+            + toString(this._l_)
+            + toString(this._r_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogica_ == child)
+        if(this._l_ == child)
         {
-            this._expLogica_ = null;
+            this._l_ = null;
             return;
         }
 
-        if(this._xor_ == child)
+        if(this._r_ == child)
         {
-            this._xor_ = null;
-            return;
-        }
-
-        if(this._logPrecUm_ == child)
-        {
-            this._logPrecUm_ = null;
+            this._r_ = null;
             return;
         }
 
@@ -158,21 +121,15 @@ public final class AXorExpLogica extends PExpLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogica_ == oldChild)
+        if(this._l_ == oldChild)
         {
-            setExpLogica((PExpLogica) newChild);
+            setL((PExpLogica) newChild);
             return;
         }
 
-        if(this._xor_ == oldChild)
+        if(this._r_ == oldChild)
         {
-            setXor((TXor) newChild);
-            return;
-        }
-
-        if(this._logPrecUm_ == oldChild)
-        {
-            setLogPrecUm((PLogPrecUm) newChild);
+            setR((PExpLogica) newChild);
             return;
         }
 

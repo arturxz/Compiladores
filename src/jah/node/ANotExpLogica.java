@@ -7,8 +7,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ANotExpLogica extends PExpLogica
 {
-    private TNao _nao_;
-    private PLogPrecUm _logPrecUm_;
+    private PExpLogica _expLogica_;
 
     public ANotExpLogica()
     {
@@ -16,13 +15,10 @@ public final class ANotExpLogica extends PExpLogica
     }
 
     public ANotExpLogica(
-        @SuppressWarnings("hiding") TNao _nao_,
-        @SuppressWarnings("hiding") PLogPrecUm _logPrecUm_)
+        @SuppressWarnings("hiding") PExpLogica _expLogica_)
     {
         // Constructor
-        setNao(_nao_);
-
-        setLogPrecUm(_logPrecUm_);
+        setExpLogica(_expLogica_);
 
     }
 
@@ -30,8 +26,7 @@ public final class ANotExpLogica extends PExpLogica
     public Object clone()
     {
         return new ANotExpLogica(
-            cloneNode(this._nao_),
-            cloneNode(this._logPrecUm_));
+            cloneNode(this._expLogica_));
     }
 
     @Override
@@ -40,16 +35,16 @@ public final class ANotExpLogica extends PExpLogica
         ((Analysis) sw).caseANotExpLogica(this);
     }
 
-    public TNao getNao()
+    public PExpLogica getExpLogica()
     {
-        return this._nao_;
+        return this._expLogica_;
     }
 
-    public void setNao(TNao node)
+    public void setExpLogica(PExpLogica node)
     {
-        if(this._nao_ != null)
+        if(this._expLogica_ != null)
         {
-            this._nao_.parent(null);
+            this._expLogica_.parent(null);
         }
 
         if(node != null)
@@ -62,55 +57,23 @@ public final class ANotExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._nao_ = node;
-    }
-
-    public PLogPrecUm getLogPrecUm()
-    {
-        return this._logPrecUm_;
-    }
-
-    public void setLogPrecUm(PLogPrecUm node)
-    {
-        if(this._logPrecUm_ != null)
-        {
-            this._logPrecUm_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._logPrecUm_ = node;
+        this._expLogica_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._nao_)
-            + toString(this._logPrecUm_);
+            + toString(this._expLogica_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._nao_ == child)
+        if(this._expLogica_ == child)
         {
-            this._nao_ = null;
-            return;
-        }
-
-        if(this._logPrecUm_ == child)
-        {
-            this._logPrecUm_ = null;
+            this._expLogica_ = null;
             return;
         }
 
@@ -121,15 +84,9 @@ public final class ANotExpLogica extends PExpLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._nao_ == oldChild)
+        if(this._expLogica_ == oldChild)
         {
-            setNao((TNao) newChild);
-            return;
-        }
-
-        if(this._logPrecUm_ == oldChild)
-        {
-            setLogPrecUm((PLogPrecUm) newChild);
+            setExpLogica((PExpLogica) newChild);
             return;
         }
 

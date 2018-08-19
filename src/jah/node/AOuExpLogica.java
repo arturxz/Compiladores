@@ -7,9 +7,8 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class AOuExpLogica extends PExpLogica
 {
-    private PExpLogica _expLogica_;
-    private TOu _ou_;
-    private PLogPrecUm _logPrecUm_;
+    private PExpLogica _l_;
+    private PExpLogica _r_;
 
     public AOuExpLogica()
     {
@@ -17,16 +16,13 @@ public final class AOuExpLogica extends PExpLogica
     }
 
     public AOuExpLogica(
-        @SuppressWarnings("hiding") PExpLogica _expLogica_,
-        @SuppressWarnings("hiding") TOu _ou_,
-        @SuppressWarnings("hiding") PLogPrecUm _logPrecUm_)
+        @SuppressWarnings("hiding") PExpLogica _l_,
+        @SuppressWarnings("hiding") PExpLogica _r_)
     {
         // Constructor
-        setExpLogica(_expLogica_);
+        setL(_l_);
 
-        setOu(_ou_);
-
-        setLogPrecUm(_logPrecUm_);
+        setR(_r_);
 
     }
 
@@ -34,9 +30,8 @@ public final class AOuExpLogica extends PExpLogica
     public Object clone()
     {
         return new AOuExpLogica(
-            cloneNode(this._expLogica_),
-            cloneNode(this._ou_),
-            cloneNode(this._logPrecUm_));
+            cloneNode(this._l_),
+            cloneNode(this._r_));
     }
 
     @Override
@@ -45,16 +40,16 @@ public final class AOuExpLogica extends PExpLogica
         ((Analysis) sw).caseAOuExpLogica(this);
     }
 
-    public PExpLogica getExpLogica()
+    public PExpLogica getL()
     {
-        return this._expLogica_;
+        return this._l_;
     }
 
-    public void setExpLogica(PExpLogica node)
+    public void setL(PExpLogica node)
     {
-        if(this._expLogica_ != null)
+        if(this._l_ != null)
         {
-            this._expLogica_.parent(null);
+            this._l_.parent(null);
         }
 
         if(node != null)
@@ -67,19 +62,19 @@ public final class AOuExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._expLogica_ = node;
+        this._l_ = node;
     }
 
-    public TOu getOu()
+    public PExpLogica getR()
     {
-        return this._ou_;
+        return this._r_;
     }
 
-    public void setOu(TOu node)
+    public void setR(PExpLogica node)
     {
-        if(this._ou_ != null)
+        if(this._r_ != null)
         {
-            this._ou_.parent(null);
+            this._r_.parent(null);
         }
 
         if(node != null)
@@ -92,62 +87,30 @@ public final class AOuExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._ou_ = node;
-    }
-
-    public PLogPrecUm getLogPrecUm()
-    {
-        return this._logPrecUm_;
-    }
-
-    public void setLogPrecUm(PLogPrecUm node)
-    {
-        if(this._logPrecUm_ != null)
-        {
-            this._logPrecUm_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._logPrecUm_ = node;
+        this._r_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogica_)
-            + toString(this._ou_)
-            + toString(this._logPrecUm_);
+            + toString(this._l_)
+            + toString(this._r_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogica_ == child)
+        if(this._l_ == child)
         {
-            this._expLogica_ = null;
+            this._l_ = null;
             return;
         }
 
-        if(this._ou_ == child)
+        if(this._r_ == child)
         {
-            this._ou_ = null;
-            return;
-        }
-
-        if(this._logPrecUm_ == child)
-        {
-            this._logPrecUm_ = null;
+            this._r_ = null;
             return;
         }
 
@@ -158,21 +121,15 @@ public final class AOuExpLogica extends PExpLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogica_ == oldChild)
+        if(this._l_ == oldChild)
         {
-            setExpLogica((PExpLogica) newChild);
+            setL((PExpLogica) newChild);
             return;
         }
 
-        if(this._ou_ == oldChild)
+        if(this._r_ == oldChild)
         {
-            setOu((TOu) newChild);
-            return;
-        }
-
-        if(this._logPrecUm_ == oldChild)
-        {
-            setLogPrecUm((PLogPrecUm) newChild);
+            setR((PExpLogica) newChild);
             return;
         }
 

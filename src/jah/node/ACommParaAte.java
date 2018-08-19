@@ -7,9 +7,8 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ACommParaAte extends PCommParaAte
 {
-    private TAte _ate_;
     private TInteiro _inteiro_;
-    private PCommParaMeio _commParaMeio_;
+    private PCommParaFim _commParaFim_;
 
     public ACommParaAte()
     {
@@ -17,16 +16,13 @@ public final class ACommParaAte extends PCommParaAte
     }
 
     public ACommParaAte(
-        @SuppressWarnings("hiding") TAte _ate_,
         @SuppressWarnings("hiding") TInteiro _inteiro_,
-        @SuppressWarnings("hiding") PCommParaMeio _commParaMeio_)
+        @SuppressWarnings("hiding") PCommParaFim _commParaFim_)
     {
         // Constructor
-        setAte(_ate_);
-
         setInteiro(_inteiro_);
 
-        setCommParaMeio(_commParaMeio_);
+        setCommParaFim(_commParaFim_);
 
     }
 
@@ -34,40 +30,14 @@ public final class ACommParaAte extends PCommParaAte
     public Object clone()
     {
         return new ACommParaAte(
-            cloneNode(this._ate_),
             cloneNode(this._inteiro_),
-            cloneNode(this._commParaMeio_));
+            cloneNode(this._commParaFim_));
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseACommParaAte(this);
-    }
-
-    public TAte getAte()
-    {
-        return this._ate_;
-    }
-
-    public void setAte(TAte node)
-    {
-        if(this._ate_ != null)
-        {
-            this._ate_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._ate_ = node;
     }
 
     public TInteiro getInteiro()
@@ -95,16 +65,16 @@ public final class ACommParaAte extends PCommParaAte
         this._inteiro_ = node;
     }
 
-    public PCommParaMeio getCommParaMeio()
+    public PCommParaFim getCommParaFim()
     {
-        return this._commParaMeio_;
+        return this._commParaFim_;
     }
 
-    public void setCommParaMeio(PCommParaMeio node)
+    public void setCommParaFim(PCommParaFim node)
     {
-        if(this._commParaMeio_ != null)
+        if(this._commParaFim_ != null)
         {
-            this._commParaMeio_.parent(null);
+            this._commParaFim_.parent(null);
         }
 
         if(node != null)
@@ -117,37 +87,30 @@ public final class ACommParaAte extends PCommParaAte
             node.parent(this);
         }
 
-        this._commParaMeio_ = node;
+        this._commParaFim_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._ate_)
             + toString(this._inteiro_)
-            + toString(this._commParaMeio_);
+            + toString(this._commParaFim_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._ate_ == child)
-        {
-            this._ate_ = null;
-            return;
-        }
-
         if(this._inteiro_ == child)
         {
             this._inteiro_ = null;
             return;
         }
 
-        if(this._commParaMeio_ == child)
+        if(this._commParaFim_ == child)
         {
-            this._commParaMeio_ = null;
+            this._commParaFim_ = null;
             return;
         }
 
@@ -158,21 +121,15 @@ public final class ACommParaAte extends PCommParaAte
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._ate_ == oldChild)
-        {
-            setAte((TAte) newChild);
-            return;
-        }
-
         if(this._inteiro_ == oldChild)
         {
             setInteiro((TInteiro) newChild);
             return;
         }
 
-        if(this._commParaMeio_ == oldChild)
+        if(this._commParaFim_ == oldChild)
         {
-            setCommParaMeio((PCommParaMeio) newChild);
+            setCommParaFim((PCommParaFim) newChild);
             return;
         }
 

@@ -8,9 +8,7 @@ import jah.analysis.*;
 public final class AArrayVar extends PVar
 {
     private TId _id_;
-    private TAbreColchetes _abreColchetes_;
     private TInteiro _inteiro_;
-    private TFechaColchetes _fechaColchetes_;
 
     public AArrayVar()
     {
@@ -19,18 +17,12 @@ public final class AArrayVar extends PVar
 
     public AArrayVar(
         @SuppressWarnings("hiding") TId _id_,
-        @SuppressWarnings("hiding") TAbreColchetes _abreColchetes_,
-        @SuppressWarnings("hiding") TInteiro _inteiro_,
-        @SuppressWarnings("hiding") TFechaColchetes _fechaColchetes_)
+        @SuppressWarnings("hiding") TInteiro _inteiro_)
     {
         // Constructor
         setId(_id_);
 
-        setAbreColchetes(_abreColchetes_);
-
         setInteiro(_inteiro_);
-
-        setFechaColchetes(_fechaColchetes_);
 
     }
 
@@ -39,9 +31,7 @@ public final class AArrayVar extends PVar
     {
         return new AArrayVar(
             cloneNode(this._id_),
-            cloneNode(this._abreColchetes_),
-            cloneNode(this._inteiro_),
-            cloneNode(this._fechaColchetes_));
+            cloneNode(this._inteiro_));
     }
 
     @Override
@@ -75,31 +65,6 @@ public final class AArrayVar extends PVar
         this._id_ = node;
     }
 
-    public TAbreColchetes getAbreColchetes()
-    {
-        return this._abreColchetes_;
-    }
-
-    public void setAbreColchetes(TAbreColchetes node)
-    {
-        if(this._abreColchetes_ != null)
-        {
-            this._abreColchetes_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._abreColchetes_ = node;
-    }
-
     public TInteiro getInteiro()
     {
         return this._inteiro_;
@@ -125,39 +90,12 @@ public final class AArrayVar extends PVar
         this._inteiro_ = node;
     }
 
-    public TFechaColchetes getFechaColchetes()
-    {
-        return this._fechaColchetes_;
-    }
-
-    public void setFechaColchetes(TFechaColchetes node)
-    {
-        if(this._fechaColchetes_ != null)
-        {
-            this._fechaColchetes_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._fechaColchetes_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
             + toString(this._id_)
-            + toString(this._abreColchetes_)
-            + toString(this._inteiro_)
-            + toString(this._fechaColchetes_);
+            + toString(this._inteiro_);
     }
 
     @Override
@@ -170,21 +108,9 @@ public final class AArrayVar extends PVar
             return;
         }
 
-        if(this._abreColchetes_ == child)
-        {
-            this._abreColchetes_ = null;
-            return;
-        }
-
         if(this._inteiro_ == child)
         {
             this._inteiro_ = null;
-            return;
-        }
-
-        if(this._fechaColchetes_ == child)
-        {
-            this._fechaColchetes_ = null;
             return;
         }
 
@@ -201,21 +127,9 @@ public final class AArrayVar extends PVar
             return;
         }
 
-        if(this._abreColchetes_ == oldChild)
-        {
-            setAbreColchetes((TAbreColchetes) newChild);
-            return;
-        }
-
         if(this._inteiro_ == oldChild)
         {
             setInteiro((TInteiro) newChild);
-            return;
-        }
-
-        if(this._fechaColchetes_ == oldChild)
-        {
-            setFechaColchetes((TFechaColchetes) newChild);
             return;
         }
 

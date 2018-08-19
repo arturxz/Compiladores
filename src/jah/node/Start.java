@@ -7,7 +7,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class Start extends Node
 {
-    private PPgrInicio _pPgrInicio_;
+    private PPgr _pPgr_;
     private EOF _eof_;
 
     public Start()
@@ -16,10 +16,10 @@ public final class Start extends Node
     }
 
     public Start(
-        @SuppressWarnings("hiding") PPgrInicio _pPgrInicio_,
+        @SuppressWarnings("hiding") PPgr _pPgr_,
         @SuppressWarnings("hiding") EOF _eof_)
     {
-        setPPgrInicio(_pPgrInicio_);
+        setPPgr(_pPgr_);
         setEOF(_eof_);
     }
 
@@ -27,7 +27,7 @@ public final class Start extends Node
     public Object clone()
     {
         return new Start(
-            cloneNode(this._pPgrInicio_),
+            cloneNode(this._pPgr_),
             cloneNode(this._eof_));
     }
 
@@ -37,16 +37,16 @@ public final class Start extends Node
         ((Analysis) sw).caseStart(this);
     }
 
-    public PPgrInicio getPPgrInicio()
+    public PPgr getPPgr()
     {
-        return this._pPgrInicio_;
+        return this._pPgr_;
     }
 
-    public void setPPgrInicio(PPgrInicio node)
+    public void setPPgr(PPgr node)
     {
-        if(this._pPgrInicio_ != null)
+        if(this._pPgr_ != null)
         {
-            this._pPgrInicio_.parent(null);
+            this._pPgr_.parent(null);
         }
 
         if(node != null)
@@ -59,7 +59,7 @@ public final class Start extends Node
             node.parent(this);
         }
 
-        this._pPgrInicio_ = node;
+        this._pPgr_ = node;
     }
 
     public EOF getEOF()
@@ -90,9 +90,9 @@ public final class Start extends Node
     @Override
     void removeChild(Node child)
     {
-        if(this._pPgrInicio_ == child)
+        if(this._pPgr_ == child)
         {
-            this._pPgrInicio_ = null;
+            this._pPgr_ = null;
             return;
         }
 
@@ -108,9 +108,9 @@ public final class Start extends Node
     @Override
     void replaceChild(Node oldChild, Node newChild)
     {
-        if(this._pPgrInicio_ == oldChild)
+        if(this._pPgr_ == oldChild)
         {
-            setPPgrInicio((PPgrInicio) newChild);
+            setPPgr((PPgr) newChild);
             return;
         }
 
@@ -127,7 +127,7 @@ public final class Start extends Node
     public String toString()
     {
         return "" +
-            toString(this._pPgrInicio_) +
+            toString(this._pPgr_) +
             toString(this._eof_);
     }
 }

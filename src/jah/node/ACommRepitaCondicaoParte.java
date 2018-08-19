@@ -7,10 +7,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ACommRepitaCondicaoParte extends PCommRepitaCondicaoParte
 {
-    private TAbreParentesis _abreParentesis_;
     private PExpLogica _expLogica_;
-    private TFechaParentesis _fechaParentesis_;
-    private TPontoVirgula _pontoVirgula_;
 
     public ACommRepitaCondicaoParte()
     {
@@ -18,19 +15,10 @@ public final class ACommRepitaCondicaoParte extends PCommRepitaCondicaoParte
     }
 
     public ACommRepitaCondicaoParte(
-        @SuppressWarnings("hiding") TAbreParentesis _abreParentesis_,
-        @SuppressWarnings("hiding") PExpLogica _expLogica_,
-        @SuppressWarnings("hiding") TFechaParentesis _fechaParentesis_,
-        @SuppressWarnings("hiding") TPontoVirgula _pontoVirgula_)
+        @SuppressWarnings("hiding") PExpLogica _expLogica_)
     {
         // Constructor
-        setAbreParentesis(_abreParentesis_);
-
         setExpLogica(_expLogica_);
-
-        setFechaParentesis(_fechaParentesis_);
-
-        setPontoVirgula(_pontoVirgula_);
 
     }
 
@@ -38,41 +26,13 @@ public final class ACommRepitaCondicaoParte extends PCommRepitaCondicaoParte
     public Object clone()
     {
         return new ACommRepitaCondicaoParte(
-            cloneNode(this._abreParentesis_),
-            cloneNode(this._expLogica_),
-            cloneNode(this._fechaParentesis_),
-            cloneNode(this._pontoVirgula_));
+            cloneNode(this._expLogica_));
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseACommRepitaCondicaoParte(this);
-    }
-
-    public TAbreParentesis getAbreParentesis()
-    {
-        return this._abreParentesis_;
-    }
-
-    public void setAbreParentesis(TAbreParentesis node)
-    {
-        if(this._abreParentesis_ != null)
-        {
-            this._abreParentesis_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._abreParentesis_ = node;
     }
 
     public PExpLogica getExpLogica()
@@ -100,91 +60,20 @@ public final class ACommRepitaCondicaoParte extends PCommRepitaCondicaoParte
         this._expLogica_ = node;
     }
 
-    public TFechaParentesis getFechaParentesis()
-    {
-        return this._fechaParentesis_;
-    }
-
-    public void setFechaParentesis(TFechaParentesis node)
-    {
-        if(this._fechaParentesis_ != null)
-        {
-            this._fechaParentesis_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._fechaParentesis_ = node;
-    }
-
-    public TPontoVirgula getPontoVirgula()
-    {
-        return this._pontoVirgula_;
-    }
-
-    public void setPontoVirgula(TPontoVirgula node)
-    {
-        if(this._pontoVirgula_ != null)
-        {
-            this._pontoVirgula_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._pontoVirgula_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
-            + toString(this._abreParentesis_)
-            + toString(this._expLogica_)
-            + toString(this._fechaParentesis_)
-            + toString(this._pontoVirgula_);
+            + toString(this._expLogica_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._abreParentesis_ == child)
-        {
-            this._abreParentesis_ = null;
-            return;
-        }
-
         if(this._expLogica_ == child)
         {
             this._expLogica_ = null;
-            return;
-        }
-
-        if(this._fechaParentesis_ == child)
-        {
-            this._fechaParentesis_ = null;
-            return;
-        }
-
-        if(this._pontoVirgula_ == child)
-        {
-            this._pontoVirgula_ = null;
             return;
         }
 
@@ -195,27 +84,9 @@ public final class ACommRepitaCondicaoParte extends PCommRepitaCondicaoParte
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._abreParentesis_ == oldChild)
-        {
-            setAbreParentesis((TAbreParentesis) newChild);
-            return;
-        }
-
         if(this._expLogica_ == oldChild)
         {
             setExpLogica((PExpLogica) newChild);
-            return;
-        }
-
-        if(this._fechaParentesis_ == oldChild)
-        {
-            setFechaParentesis((TFechaParentesis) newChild);
-            return;
-        }
-
-        if(this._pontoVirgula_ == oldChild)
-        {
-            setPontoVirgula((TPontoVirgula) newChild);
             return;
         }
 

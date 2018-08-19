@@ -7,36 +7,16 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ACommEnquantoFim extends PCommEnquantoFim
 {
-    private TFim _fim_;
-    private TEnquanto _enquanto_;
-    private TPontoVirgula _pontoVirgula_;
 
     public ACommEnquantoFim()
     {
         // Constructor
     }
 
-    public ACommEnquantoFim(
-        @SuppressWarnings("hiding") TFim _fim_,
-        @SuppressWarnings("hiding") TEnquanto _enquanto_,
-        @SuppressWarnings("hiding") TPontoVirgula _pontoVirgula_)
-    {
-        // Constructor
-        setFim(_fim_);
-
-        setEnquanto(_enquanto_);
-
-        setPontoVirgula(_pontoVirgula_);
-
-    }
-
     @Override
     public Object clone()
     {
-        return new ACommEnquantoFim(
-            cloneNode(this._fim_),
-            cloneNode(this._enquanto_),
-            cloneNode(this._pontoVirgula_));
+        return new ACommEnquantoFim();
     }
 
     @Override
@@ -45,112 +25,16 @@ public final class ACommEnquantoFim extends PCommEnquantoFim
         ((Analysis) sw).caseACommEnquantoFim(this);
     }
 
-    public TFim getFim()
-    {
-        return this._fim_;
-    }
-
-    public void setFim(TFim node)
-    {
-        if(this._fim_ != null)
-        {
-            this._fim_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._fim_ = node;
-    }
-
-    public TEnquanto getEnquanto()
-    {
-        return this._enquanto_;
-    }
-
-    public void setEnquanto(TEnquanto node)
-    {
-        if(this._enquanto_ != null)
-        {
-            this._enquanto_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._enquanto_ = node;
-    }
-
-    public TPontoVirgula getPontoVirgula()
-    {
-        return this._pontoVirgula_;
-    }
-
-    public void setPontoVirgula(TPontoVirgula node)
-    {
-        if(this._pontoVirgula_ != null)
-        {
-            this._pontoVirgula_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._pontoVirgula_ = node;
-    }
-
     @Override
     public String toString()
     {
-        return ""
-            + toString(this._fim_)
-            + toString(this._enquanto_)
-            + toString(this._pontoVirgula_);
+        return "";
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._fim_ == child)
-        {
-            this._fim_ = null;
-            return;
-        }
-
-        if(this._enquanto_ == child)
-        {
-            this._enquanto_ = null;
-            return;
-        }
-
-        if(this._pontoVirgula_ == child)
-        {
-            this._pontoVirgula_ = null;
-            return;
-        }
-
         throw new RuntimeException("Not a child.");
     }
 
@@ -158,24 +42,6 @@ public final class ACommEnquantoFim extends PCommEnquantoFim
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._fim_ == oldChild)
-        {
-            setFim((TFim) newChild);
-            return;
-        }
-
-        if(this._enquanto_ == oldChild)
-        {
-            setEnquanto((TEnquanto) newChild);
-            return;
-        }
-
-        if(this._pontoVirgula_ == oldChild)
-        {
-            setPontoVirgula((TPontoVirgula) newChild);
-            return;
-        }
-
         throw new RuntimeException("Not a child.");
     }
 }

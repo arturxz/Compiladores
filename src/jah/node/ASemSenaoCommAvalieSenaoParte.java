@@ -7,26 +7,16 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ASemSenaoCommAvalieSenaoParte extends PCommAvalieSenaoParte
 {
-    private PCommAvalieFim _commAvalieFim_;
 
     public ASemSenaoCommAvalieSenaoParte()
     {
         // Constructor
     }
 
-    public ASemSenaoCommAvalieSenaoParte(
-        @SuppressWarnings("hiding") PCommAvalieFim _commAvalieFim_)
-    {
-        // Constructor
-        setCommAvalieFim(_commAvalieFim_);
-
-    }
-
     @Override
     public Object clone()
     {
-        return new ASemSenaoCommAvalieSenaoParte(
-            cloneNode(this._commAvalieFim_));
+        return new ASemSenaoCommAvalieSenaoParte();
     }
 
     @Override
@@ -35,48 +25,16 @@ public final class ASemSenaoCommAvalieSenaoParte extends PCommAvalieSenaoParte
         ((Analysis) sw).caseASemSenaoCommAvalieSenaoParte(this);
     }
 
-    public PCommAvalieFim getCommAvalieFim()
-    {
-        return this._commAvalieFim_;
-    }
-
-    public void setCommAvalieFim(PCommAvalieFim node)
-    {
-        if(this._commAvalieFim_ != null)
-        {
-            this._commAvalieFim_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._commAvalieFim_ = node;
-    }
-
     @Override
     public String toString()
     {
-        return ""
-            + toString(this._commAvalieFim_);
+        return "";
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._commAvalieFim_ == child)
-        {
-            this._commAvalieFim_ = null;
-            return;
-        }
-
         throw new RuntimeException("Not a child.");
     }
 
@@ -84,12 +42,6 @@ public final class ASemSenaoCommAvalieSenaoParte extends PCommAvalieSenaoParte
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._commAvalieFim_ == oldChild)
-        {
-            setCommAvalieFim((PCommAvalieFim) newChild);
-            return;
-        }
-
         throw new RuntimeException("Not a child.");
     }
 }

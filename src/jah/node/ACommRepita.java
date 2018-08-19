@@ -7,8 +7,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ACommRepita extends PCommRepita
 {
-    private TRepita _repita_;
-    private PCommRepitaComandosParte _commRepitaComandosParte_;
+    private PCommRepitaCommsParte _commRepitaCommsParte_;
 
     public ACommRepita()
     {
@@ -16,13 +15,10 @@ public final class ACommRepita extends PCommRepita
     }
 
     public ACommRepita(
-        @SuppressWarnings("hiding") TRepita _repita_,
-        @SuppressWarnings("hiding") PCommRepitaComandosParte _commRepitaComandosParte_)
+        @SuppressWarnings("hiding") PCommRepitaCommsParte _commRepitaCommsParte_)
     {
         // Constructor
-        setRepita(_repita_);
-
-        setCommRepitaComandosParte(_commRepitaComandosParte_);
+        setCommRepitaCommsParte(_commRepitaCommsParte_);
 
     }
 
@@ -30,8 +26,7 @@ public final class ACommRepita extends PCommRepita
     public Object clone()
     {
         return new ACommRepita(
-            cloneNode(this._repita_),
-            cloneNode(this._commRepitaComandosParte_));
+            cloneNode(this._commRepitaCommsParte_));
     }
 
     @Override
@@ -40,16 +35,16 @@ public final class ACommRepita extends PCommRepita
         ((Analysis) sw).caseACommRepita(this);
     }
 
-    public TRepita getRepita()
+    public PCommRepitaCommsParte getCommRepitaCommsParte()
     {
-        return this._repita_;
+        return this._commRepitaCommsParte_;
     }
 
-    public void setRepita(TRepita node)
+    public void setCommRepitaCommsParte(PCommRepitaCommsParte node)
     {
-        if(this._repita_ != null)
+        if(this._commRepitaCommsParte_ != null)
         {
-            this._repita_.parent(null);
+            this._commRepitaCommsParte_.parent(null);
         }
 
         if(node != null)
@@ -62,55 +57,23 @@ public final class ACommRepita extends PCommRepita
             node.parent(this);
         }
 
-        this._repita_ = node;
-    }
-
-    public PCommRepitaComandosParte getCommRepitaComandosParte()
-    {
-        return this._commRepitaComandosParte_;
-    }
-
-    public void setCommRepitaComandosParte(PCommRepitaComandosParte node)
-    {
-        if(this._commRepitaComandosParte_ != null)
-        {
-            this._commRepitaComandosParte_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._commRepitaComandosParte_ = node;
+        this._commRepitaCommsParte_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._repita_)
-            + toString(this._commRepitaComandosParte_);
+            + toString(this._commRepitaCommsParte_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._repita_ == child)
+        if(this._commRepitaCommsParte_ == child)
         {
-            this._repita_ = null;
-            return;
-        }
-
-        if(this._commRepitaComandosParte_ == child)
-        {
-            this._commRepitaComandosParte_ = null;
+            this._commRepitaCommsParte_ = null;
             return;
         }
 
@@ -121,15 +84,9 @@ public final class ACommRepita extends PCommRepita
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._repita_ == oldChild)
+        if(this._commRepitaCommsParte_ == oldChild)
         {
-            setRepita((TRepita) newChild);
-            return;
-        }
-
-        if(this._commRepitaComandosParte_ == oldChild)
-        {
-            setCommRepitaComandosParte((PCommRepitaComandosParte) newChild);
+            setCommRepitaCommsParte((PCommRepitaCommsParte) newChild);
             return;
         }
 

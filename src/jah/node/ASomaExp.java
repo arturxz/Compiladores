@@ -7,9 +7,8 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ASomaExp extends PExp
 {
-    private PExp _exp_;
-    private TSoma _soma_;
-    private PTermo _termo_;
+    private PExp _l_;
+    private PExp _r_;
 
     public ASomaExp()
     {
@@ -17,16 +16,13 @@ public final class ASomaExp extends PExp
     }
 
     public ASomaExp(
-        @SuppressWarnings("hiding") PExp _exp_,
-        @SuppressWarnings("hiding") TSoma _soma_,
-        @SuppressWarnings("hiding") PTermo _termo_)
+        @SuppressWarnings("hiding") PExp _l_,
+        @SuppressWarnings("hiding") PExp _r_)
     {
         // Constructor
-        setExp(_exp_);
+        setL(_l_);
 
-        setSoma(_soma_);
-
-        setTermo(_termo_);
+        setR(_r_);
 
     }
 
@@ -34,9 +30,8 @@ public final class ASomaExp extends PExp
     public Object clone()
     {
         return new ASomaExp(
-            cloneNode(this._exp_),
-            cloneNode(this._soma_),
-            cloneNode(this._termo_));
+            cloneNode(this._l_),
+            cloneNode(this._r_));
     }
 
     @Override
@@ -45,16 +40,16 @@ public final class ASomaExp extends PExp
         ((Analysis) sw).caseASomaExp(this);
     }
 
-    public PExp getExp()
+    public PExp getL()
     {
-        return this._exp_;
+        return this._l_;
     }
 
-    public void setExp(PExp node)
+    public void setL(PExp node)
     {
-        if(this._exp_ != null)
+        if(this._l_ != null)
         {
-            this._exp_.parent(null);
+            this._l_.parent(null);
         }
 
         if(node != null)
@@ -67,19 +62,19 @@ public final class ASomaExp extends PExp
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._l_ = node;
     }
 
-    public TSoma getSoma()
+    public PExp getR()
     {
-        return this._soma_;
+        return this._r_;
     }
 
-    public void setSoma(TSoma node)
+    public void setR(PExp node)
     {
-        if(this._soma_ != null)
+        if(this._r_ != null)
         {
-            this._soma_.parent(null);
+            this._r_.parent(null);
         }
 
         if(node != null)
@@ -92,62 +87,30 @@ public final class ASomaExp extends PExp
             node.parent(this);
         }
 
-        this._soma_ = node;
-    }
-
-    public PTermo getTermo()
-    {
-        return this._termo_;
-    }
-
-    public void setTermo(PTermo node)
-    {
-        if(this._termo_ != null)
-        {
-            this._termo_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._termo_ = node;
+        this._r_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._exp_)
-            + toString(this._soma_)
-            + toString(this._termo_);
+            + toString(this._l_)
+            + toString(this._r_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._exp_ == child)
+        if(this._l_ == child)
         {
-            this._exp_ = null;
+            this._l_ = null;
             return;
         }
 
-        if(this._soma_ == child)
+        if(this._r_ == child)
         {
-            this._soma_ = null;
-            return;
-        }
-
-        if(this._termo_ == child)
-        {
-            this._termo_ = null;
+            this._r_ = null;
             return;
         }
 
@@ -158,21 +121,15 @@ public final class ASomaExp extends PExp
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._exp_ == oldChild)
+        if(this._l_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setL((PExp) newChild);
             return;
         }
 
-        if(this._soma_ == oldChild)
+        if(this._r_ == oldChild)
         {
-            setSoma((TSoma) newChild);
-            return;
-        }
-
-        if(this._termo_ == oldChild)
-        {
-            setTermo((PTermo) newChild);
+            setR((PExp) newChild);
             return;
         }
 

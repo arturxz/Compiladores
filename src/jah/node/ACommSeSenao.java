@@ -7,8 +7,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ACommSeSenao extends PCommSeSenao
 {
-    private TSenao _senao_;
-    private PComandos _comandos_;
+    private PComms _comms_;
 
     public ACommSeSenao()
     {
@@ -16,13 +15,10 @@ public final class ACommSeSenao extends PCommSeSenao
     }
 
     public ACommSeSenao(
-        @SuppressWarnings("hiding") TSenao _senao_,
-        @SuppressWarnings("hiding") PComandos _comandos_)
+        @SuppressWarnings("hiding") PComms _comms_)
     {
         // Constructor
-        setSenao(_senao_);
-
-        setComandos(_comandos_);
+        setComms(_comms_);
 
     }
 
@@ -30,8 +26,7 @@ public final class ACommSeSenao extends PCommSeSenao
     public Object clone()
     {
         return new ACommSeSenao(
-            cloneNode(this._senao_),
-            cloneNode(this._comandos_));
+            cloneNode(this._comms_));
     }
 
     @Override
@@ -40,16 +35,16 @@ public final class ACommSeSenao extends PCommSeSenao
         ((Analysis) sw).caseACommSeSenao(this);
     }
 
-    public TSenao getSenao()
+    public PComms getComms()
     {
-        return this._senao_;
+        return this._comms_;
     }
 
-    public void setSenao(TSenao node)
+    public void setComms(PComms node)
     {
-        if(this._senao_ != null)
+        if(this._comms_ != null)
         {
-            this._senao_.parent(null);
+            this._comms_.parent(null);
         }
 
         if(node != null)
@@ -62,55 +57,23 @@ public final class ACommSeSenao extends PCommSeSenao
             node.parent(this);
         }
 
-        this._senao_ = node;
-    }
-
-    public PComandos getComandos()
-    {
-        return this._comandos_;
-    }
-
-    public void setComandos(PComandos node)
-    {
-        if(this._comandos_ != null)
-        {
-            this._comandos_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._comandos_ = node;
+        this._comms_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._senao_)
-            + toString(this._comandos_);
+            + toString(this._comms_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._senao_ == child)
+        if(this._comms_ == child)
         {
-            this._senao_ = null;
-            return;
-        }
-
-        if(this._comandos_ == child)
-        {
-            this._comandos_ = null;
+            this._comms_ = null;
             return;
         }
 
@@ -121,15 +84,9 @@ public final class ACommSeSenao extends PCommSeSenao
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._senao_ == oldChild)
+        if(this._comms_ == oldChild)
         {
-            setSenao((TSenao) newChild);
-            return;
-        }
-
-        if(this._comandos_ == oldChild)
-        {
-            setComandos((PComandos) newChild);
+            setComms((PComms) newChild);
             return;
         }
 

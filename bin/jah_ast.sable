@@ -252,56 +252,56 @@ Productions
 		= para var de inteiro comm_para_passa {-> New comm_para(var, inteiro, comm_para_passa)}
 	;
 	comm_para_passa {-> comm_para_passa}
-		= {com_passo} passo inteiro comm_para_ate {-> New comm_para_passa.com_passo(inteiro, comm_para_ate)}
-		| {sem_passo} comm_para_ate {-> New comm_para_passa.sem_passo(comm_para_ate)}
+		= {com_passo} passo inteiro comm_para_ate 	{-> New comm_para_passa.com_passo(inteiro, comm_para_ate)}
+		| {sem_passo} comm_para_ate 				{-> New comm_para_passa.sem_passo(comm_para_ate)}
 	;
 	comm_para_ate {-> comm_para_ate} 
 		= ate inteiro comm_para_fim {-> New comm_para_ate(inteiro, comm_para_fim)}
 	;
 	comm_para_fim {-> comm_para_fim}
-		= {fim} faca comms comm_para_fim {-> New comm_para_fim.fim(comms)}
-		| {nada} fim para ponto_virgula {-> New comm_para_fim.nada()}
+		= {fim} faca comms comm_para_fim	{-> New comm_para_fim.fim(comms)}
+		| {nada} fim para ponto_virgula		{-> New comm_para_fim.nada()}
 	;
 
-	exp 
-		= {soma} exp soma termo 
-		| {subt} exp sub termo
-		| {term} termo
+	exp {-> exp}
+		= {soma} exp soma termo	{-> New exp.soma(exp, termo.exp)}
+		| {subt} exp sub termo 	{-> New exp.subt(exp, termo.exp)}
+		| {term} termo 			{-> termo.exp}
 	;
-			
-	termo 
-		= {mult} termo mult exp_final 
-		| {divi} termo div exp_final
-		| {fim} exp_final
+
+	termo {-> exp}
+		= {mult} termo mult exp_final	{-> New exp.mult(termo.exp, exp_final.exp)}
+		| {divi} termo div exp_final 	{-> New exp.divi(termo.exp, exp_final.exp)}
+		| {fim} exp_final 				{-> exp_final.exp}
 	;
 	
-	exp_final 
-		= {parentesis} abre_parentesis exp fecha_parentesis  
-		| {negativa_exp} sub exp_final
-		| {substituir_var} var
-		| {substituir_val} valor
+	exp_final {-> exp}
+		= {parentesis} abre_parentesis exp fecha_parentesis	{-> exp.exp}
+		| {negativa_exp} sub exp_final 						{-> New exp.nega(exp_final.exp)}
+		| {substituir_var} var								{-> New exp.var(var)}
+		| {substituir_val} valor							{-> New exp.val(valor)}
 	;
 					   		  
-	exp_logica 
-		= {and} exp_logica e log_prec_um
-		| {ou}  exp_logica ou log_prec_um
-		| {xor} exp_logica xor log_prec_um
-		| {not} nao log_prec_um
-		| {prx} log_prec_um
+	exp_logica {-> exp_logica}
+		= {and} exp_logica e log_prec_um	{-> New exp_logica.and(exp_logica, log_prec_um.exp_logica)}
+		| {ou}  exp_logica ou log_prec_um	{-> New exp_logica.ou(exp_logica, log_prec_um.exp_logica)}
+		| {xor} exp_logica xor log_prec_um	{-> New exp_logica.xor(exp_logica, log_prec_um.exp_logica)}
+		| {not} nao log_prec_um				{-> New exp_logica.not(log_prec_um.exp_logica)}
+		| {prx} log_prec_um					{-> log_prec_um.exp_logica}
 	;
 
-	log_prec_um 
-		= {diferente} exp diferente termo
-		| {igual} exp igual termo
-		| {fator} log_prec_dois
+	log_prec_um {-> exp_logica}
+		= {diferente} exp diferente termo	{-> New exp_logica.diferente(exp, termo.exp)}
+		| {igual} exp igual termo			{-> New exp_logica.diferente(exp, termo.exp)}
+		| {fator} log_prec_dois				{-> log_prec_dois.exp_logica}
 	;
 		
-	log_prec_dois 
-		= {maior} exp maior termo
-		| {menor} exp menor termo
-		| {maiorq} exp maior_igual termo
-		| {menorq} exp menor_igual termo
-		| {par} abre_parentesis exp_logica fecha_parentesis
+	log_prec_dois {-> exp_logica}
+		= {maior} exp maior termo			{-> New exp_logica.maior(exp, termo.exp)}
+		| {menor} exp menor termo			{-> New exp_logica.menor(exp, termo.exp)}
+		| {maiorq} exp maior_igual termo	{-> New exp_logica.maiorq(exp, termo.exp)}
+		| {menorq} exp menor_igual termo	{-> New exp_logica.menorq(exp, termo.exp)}
+		| {par} abre_parentesis exp_logica fecha_parentesis {-> exp_logica}
 	;
 
 Abstract Syntax Tree
@@ -431,8 +431,9 @@ Abstract Syntax Tree
 		| {subt} [l]:exp [r]:exp
 		| {mult} [l]:exp [r]:exp
 		| {divi} [l]:exp [r]:exp
+		| {nega} exp
 		| {var} var
-		| {valor} valor
+		| {val} valor
 	;
 
 	exp_logica

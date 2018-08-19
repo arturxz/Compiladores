@@ -7,10 +7,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class AComSenaoCommAvalieSenaoParte extends PCommAvalieSenaoParte
 {
-    private TSenao _senao_;
-    private TDoisPontos _doisPontos_;
-    private PComandos _comandos_;
-    private PCommAvalieFim _commAvalieFim_;
+    private PComms _comms_;
 
     public AComSenaoCommAvalieSenaoParte()
     {
@@ -18,19 +15,10 @@ public final class AComSenaoCommAvalieSenaoParte extends PCommAvalieSenaoParte
     }
 
     public AComSenaoCommAvalieSenaoParte(
-        @SuppressWarnings("hiding") TSenao _senao_,
-        @SuppressWarnings("hiding") TDoisPontos _doisPontos_,
-        @SuppressWarnings("hiding") PComandos _comandos_,
-        @SuppressWarnings("hiding") PCommAvalieFim _commAvalieFim_)
+        @SuppressWarnings("hiding") PComms _comms_)
     {
         // Constructor
-        setSenao(_senao_);
-
-        setDoisPontos(_doisPontos_);
-
-        setComandos(_comandos_);
-
-        setCommAvalieFim(_commAvalieFim_);
+        setComms(_comms_);
 
     }
 
@@ -38,10 +26,7 @@ public final class AComSenaoCommAvalieSenaoParte extends PCommAvalieSenaoParte
     public Object clone()
     {
         return new AComSenaoCommAvalieSenaoParte(
-            cloneNode(this._senao_),
-            cloneNode(this._doisPontos_),
-            cloneNode(this._comandos_),
-            cloneNode(this._commAvalieFim_));
+            cloneNode(this._comms_));
     }
 
     @Override
@@ -50,16 +35,16 @@ public final class AComSenaoCommAvalieSenaoParte extends PCommAvalieSenaoParte
         ((Analysis) sw).caseAComSenaoCommAvalieSenaoParte(this);
     }
 
-    public TSenao getSenao()
+    public PComms getComms()
     {
-        return this._senao_;
+        return this._comms_;
     }
 
-    public void setSenao(TSenao node)
+    public void setComms(PComms node)
     {
-        if(this._senao_ != null)
+        if(this._comms_ != null)
         {
-            this._senao_.parent(null);
+            this._comms_.parent(null);
         }
 
         if(node != null)
@@ -72,119 +57,23 @@ public final class AComSenaoCommAvalieSenaoParte extends PCommAvalieSenaoParte
             node.parent(this);
         }
 
-        this._senao_ = node;
-    }
-
-    public TDoisPontos getDoisPontos()
-    {
-        return this._doisPontos_;
-    }
-
-    public void setDoisPontos(TDoisPontos node)
-    {
-        if(this._doisPontos_ != null)
-        {
-            this._doisPontos_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._doisPontos_ = node;
-    }
-
-    public PComandos getComandos()
-    {
-        return this._comandos_;
-    }
-
-    public void setComandos(PComandos node)
-    {
-        if(this._comandos_ != null)
-        {
-            this._comandos_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._comandos_ = node;
-    }
-
-    public PCommAvalieFim getCommAvalieFim()
-    {
-        return this._commAvalieFim_;
-    }
-
-    public void setCommAvalieFim(PCommAvalieFim node)
-    {
-        if(this._commAvalieFim_ != null)
-        {
-            this._commAvalieFim_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._commAvalieFim_ = node;
+        this._comms_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._senao_)
-            + toString(this._doisPontos_)
-            + toString(this._comandos_)
-            + toString(this._commAvalieFim_);
+            + toString(this._comms_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._senao_ == child)
+        if(this._comms_ == child)
         {
-            this._senao_ = null;
-            return;
-        }
-
-        if(this._doisPontos_ == child)
-        {
-            this._doisPontos_ = null;
-            return;
-        }
-
-        if(this._comandos_ == child)
-        {
-            this._comandos_ = null;
-            return;
-        }
-
-        if(this._commAvalieFim_ == child)
-        {
-            this._commAvalieFim_ = null;
+            this._comms_ = null;
             return;
         }
 
@@ -195,27 +84,9 @@ public final class AComSenaoCommAvalieSenaoParte extends PCommAvalieSenaoParte
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._senao_ == oldChild)
+        if(this._comms_ == oldChild)
         {
-            setSenao((TSenao) newChild);
-            return;
-        }
-
-        if(this._doisPontos_ == oldChild)
-        {
-            setDoisPontos((TDoisPontos) newChild);
-            return;
-        }
-
-        if(this._comandos_ == oldChild)
-        {
-            setComandos((PComandos) newChild);
-            return;
-        }
-
-        if(this._commAvalieFim_ == oldChild)
-        {
-            setCommAvalieFim((PCommAvalieFim) newChild);
+            setComms((PComms) newChild);
             return;
         }
 
