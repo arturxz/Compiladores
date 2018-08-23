@@ -1,0 +1,7 @@
+programa
+exemplo
+inicio
+
+	inteiro : a := 2+3;
+
+fim.
