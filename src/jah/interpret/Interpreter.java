@@ -1,13 +1,10 @@
 package jah.interpret;
-/* An interpreter for the simple math language we all espouse. */
 
 import jah.node.*;
 import jah.analysis.*;
 import java.lang.System;
-import java.util.Hashtable;
 
 public class Interpreter extends DepthFirstAdapter {
-	public static Hashtable<String, String> ht_int = new Hashtable<String, String>();
 	
 	// PRODUCOES PARA PROGRAMA GERAL
 	public void outASemTudoPgr(ASemTudoPgr node) {
@@ -29,23 +26,6 @@ public class Interpreter extends DepthFirstAdapter {
 	// DECLARACOES
 	public void caseAVariaveisDecl(AVariaveisDecl node) {
 		
-	}
+	} 
 	
-	private boolean testaInteiro(String str) {
-		try {
-			Integer.parseInt(str);
-		} catch(NumberFormatException nfe){
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean testaReal(String str) {
-		try {
-			Float.parseFloat(str);
-		} catch(NumberFormatException nfe){
-			return false;
-		}
-		return true;
-	}
 }

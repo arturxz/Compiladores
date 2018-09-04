@@ -24,22 +24,22 @@ public class TesteValidaInteiro {
 	
 	@Test
 	public void testeInvalidoStringVazia() {
-		assertFalse( metodos.ValidaReal.validaReal("") );
+		assertFalse( metodos.ValidaInteiro.validaInteiro("") );
 	}
 	
 	@Test
 	public void testeInvalidoMaisDeUmPonto() {
-		assertFalse( metodos.ValidaReal.validaReal("1.52.34") );
+		assertFalse( metodos.ValidaInteiro.validaInteiro("1.52.34") );
 	}
 	
 	@Test
 	public void testeInvalidoMaisDeUmaVirgula() {
-		assertFalse( metodos.ValidaReal.validaReal("1,52,34") );
+		assertFalse( metodos.ValidaInteiro.validaInteiro("1,52,34") );
 	}
 	
 	@Test
 	public void testeInvalidoLetras() {
-		assertFalse( metodos.ValidaReal.validaReal("aa") );
+		assertFalse( metodos.ValidaInteiro.validaInteiro("aa") );
 	}
 
 }
