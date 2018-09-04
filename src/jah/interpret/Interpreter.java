@@ -58,14 +58,63 @@ public class Interpreter extends DepthFirstAdapter {
 				if((i+1) < lista.length) {
 					// TESTANDO SE EH ARRAY
 					if(InterpreterUtil.validaInteiro(lista[i+1])) {
-						
+						if( InterpreterUtil.buscaEntrada( lista[i] ) ) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
+						} else {
+							InterpreterUtil.incluiEntrada("inteiro["+lista[i+1]+"]", lista[i], null);
+						}
+					} else {
+						// VARIAVEL NORMAL
+						if( InterpreterUtil.buscaEntrada( lista[i] ) ) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
+						} else {
+							InterpreterUtil.incluiEntrada("inteiro", lista[i], null);
+						}
 					}
 				}
 			}
 		} else if( node.getTipo() instanceof ARealTipo ) {
-			InterpreterUtil.adicionaMensagem("Real");
-		} else if( node.getTipo() instanceof AInteiroTipo ) {
-			InterpreterUtil.adicionaMensagem("String");
+			String[] lista = node.getVarList().toString().split(" ");
+			for(int i = 0; i<lista.length; i++) {
+				if((i+1) < lista.length) {
+					// TESTANDO SE EH ARRAY
+					if(InterpreterUtil.validaInteiro(lista[i+1])) {
+						if( InterpreterUtil.buscaEntrada( lista[i] ) ) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
+						} else {
+							InterpreterUtil.incluiEntrada("real["+lista[i+1]+"]", lista[i], null);
+						}
+					} else {
+						// VARIAVEL NORMAL
+						if( InterpreterUtil.buscaEntrada( lista[i] ) ) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
+						} else {
+							InterpreterUtil.incluiEntrada("real", lista[i], null);
+						}
+					}
+				}
+			}
+		} else if( node.getTipo() instanceof AStringTipo ) {
+			String[] lista = node.getVarList().toString().split(" ");
+			for(int i = 0; i<lista.length; i++) {
+				if((i+1) < lista.length) {
+					// TESTANDO SE EH ARRAY
+					if(InterpreterUtil.validaInteiro(lista[i+1])) {
+						if( InterpreterUtil.buscaEntrada( lista[i] ) ) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
+						} else {
+							InterpreterUtil.incluiEntrada("inteiro["+lista[i+1]+"]", lista[i], null);
+						}
+					} else {
+						// VARIAVEL NORMAL
+						if( InterpreterUtil.buscaEntrada( lista[i] ) ) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
+						} else {
+							InterpreterUtil.incluiEntrada("inteiro", lista[i], null);
+						}
+					}
+				}
+			}
 		}
 	}
 

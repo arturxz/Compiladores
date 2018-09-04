@@ -11,7 +11,7 @@ public class InterpreterUtil {
 	 * 
 	 * O primeiro item eh um objeto String que referencia o id da variavel
 	 * O segundo item eh um array de String, onde: 
-	 * 		A primeira entrada eh o tipo da variavel (inteiro, real, string)
+	 * 		A primeira entrada eh o tipo da variavel (inteiro, real, string, inteiro[], real[], string[])
 	 * 		A segunda entrada eh a variavel (42, 3.1416, "vamola") ja validados.
 	 * 		NA DECLARACAO DA VARIAVEL, INSIRA NULL COMO O VALOR DA VARIAVEL!
 	**/
@@ -22,12 +22,19 @@ public class InterpreterUtil {
 	 * AS MENSAGENS SAO COLOCADAS EM PILHA PARA QUE SEJAM MOSTRADAS NA ORDEM CORRETA.
 	**/
 	
-	public static boolean incluiEntrada(String tipo, String id, String var) {
-		/** INCLUI ENTRADA NO HASHTABLE. SUBTENDE-SE QUE O VALOR JA FOI VALIDADO! **/
+	public static boolean incluiEntrada(String tipo, String id, String valor) {
+		/** 
+		 * INCLUI ENTRADA NO HASHTABLE. SUBTENDE-SE QUE O VALOR JA FOI VALIDADO!
+		 * NA DECLARACAO, ADICIONAR UM NULO.
+		**/
+		System.out.println("Variavel:" +id);
+		System.out.println("Tipo:" +tipo);
+		System.out.println("Valor:" +valor);
+		System.out.println("----------------");
 		if (buscaEntrada(id)) {
 			return false;
 		} else {
-			ht.put(id, new String[] { tipo, var });
+			ht.put(id, new String[] { tipo, valor });
 			return true;
 		}
 	}
@@ -71,10 +78,6 @@ public class InterpreterUtil {
 			return false;
 		}
 		return true;
-	}
-	
-	public static int incluiDeclaracao() {
-		return 0;
 	}
 	
 	public static void imprimeRetornos() {
