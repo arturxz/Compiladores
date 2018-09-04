@@ -7,9 +7,7 @@ import java.lang.System;
 import java.util.Hashtable;
 
 public class Interpreter extends DepthFirstAdapter {
-	public static Hashtable<Node, Integer> 	ht_int = new Hashtable<Node, Integer>();
-	public static Hashtable<Node, Float> 	ht_flo = new Hashtable<Node, Float>();
-	public static Hashtable<Node, String> 	ht_str = new Hashtable<Node, String>();
+	public static Hashtable<String, String> ht_int = new Hashtable<String, String>();
 	
 	// PRODUCOES PARA PROGRAMA GERAL
 	public void outASemTudoPgr(ASemTudoPgr node) {
