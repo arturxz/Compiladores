@@ -1,6 +1,8 @@
 programa
 exemplo
 inicio
-	inteiro : a;
-	a := 10+10,1;
+	const pi 3,14;
+	const pi 3,142;
+	const pi 3,1416;
+	const pi 3,14159;
 fim.
