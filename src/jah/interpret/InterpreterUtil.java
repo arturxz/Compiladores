@@ -1,6 +1,7 @@
 package jah.interpret;
 
 import java.util.Hashtable;
+import java.util.Stack;
 
 public class InterpreterUtil {
 	private static Hashtable<String, String[]> ht = new Hashtable<String, String[]>();
@@ -12,6 +13,13 @@ public class InterpreterUtil {
 	 * O segundo item eh um array de String, onde: 
 	 * 		A primeira entrada eh o tipo da variavel (inteiro, real, string)
 	 * 		A segunda entrada eh a variavel (42, 3.1416, "vamola") ja validados.
+	 * 		NA DECLARACAO DA VARIAVEL, INSIRA NULL COMO O VALOR DA VARIAVEL!
+	**/
+	
+	private static Stack<String> msgs = new Stack<String>();
+	/**
+	 * NESSA PILHA ESTAO TODAS AS MENSAGENS RETORNADAS PARA O USUARIO.
+	 * AS MENSAGENS SAO COLOCADAS EM PILHA PARA QUE SEJAM MOSTRADAS NA ORDEM CORRETA.
 	**/
 	
 	public static boolean incluiEntrada(String tipo, String id, String var) {
@@ -63,6 +71,20 @@ public class InterpreterUtil {
 			return false;
 		}
 		return true;
+	}
+	
+	public static int incluiDeclaracao() {
+		return 0;
+	}
+	
+	public static void imprimeRetornos() {
+		while(!msgs.isEmpty()) {
+			System.out.println(msgs.pop());
+		}
+	}
+	
+	public static boolean adicionaMensagem(String msg) {
+		return msgs.add(msg);
 	}
 
 }

@@ -1,8 +1,7 @@
 programa
 exemplo
 inicio
-	const pi 3,14;
-	const pi 3,142;
-	const pi 3,1416;
+	inteiro : a, b, c, vtr[12];
+	real : testereal;
 	const pi 3,14159;
 fim.
