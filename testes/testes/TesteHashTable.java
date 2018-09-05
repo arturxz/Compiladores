@@ -19,9 +19,9 @@ public class TesteHashTable {
 	@BeforeClass
 	public static void inicializacao() {
 		t =  new HashTable();
-		t.ht.put("nome",	 new Tipo("string", "artur"));
-		t.ht.put("idade",	 new Tipo("inteiro", "23"));
-		t.ht.put("tamanho",new Tipo("real", "1.88"));
+		t.ht.put("nome",	new Tipo("string", "artur"));
+		t.ht.put("idade",	new Tipo("inteiro", "23"));
+		t.ht.put("tamanho",	new Tipo("real", "1.88"));
 	}
 	
 	@AfterClass

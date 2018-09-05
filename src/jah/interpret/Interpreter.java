@@ -32,7 +32,7 @@ public class Interpreter extends DepthFirstAdapter {
 		String id = node.getId().toString();
 		String va = node.getValor().toString();
 		
-		if( InterpreterUtil.buscaEntrada(id) ) {
+		if( InterpreterUtil.existeVariavel(id) ) {
 			InterpreterUtil.adicionaMensagem("Erro! Variavel ja declarada!");
 			InterpreterUtil.adicionaMensagem("Linha:" +node.getId().getLine() +", Posicao:" +node.getId().getPos());
 		} else {
@@ -48,7 +48,7 @@ public class Interpreter extends DepthFirstAdapter {
 				InterpreterUtil.adicionaMensagem("Linha:" +node.getId().getLine() +", Posicao:" +node.getId().getPos());
 			}
 		}
-
+	
 	}
 	
 	public void caseAVariaveisDecl(AVariaveisDecl node) {
@@ -62,16 +62,16 @@ public class Interpreter extends DepthFirstAdapter {
 			} else if( node.getTipo() instanceof ARealTipo ) {
 				
 			} else if( node.getTipo() instanceof AStringTipo ) {
-				
+			
 			}
 		} else {
 			// APENAS UMA DECLARACAO QUE NAO E ARRAY
 			if( node.getTipo() instanceof AInteiroTipo ) {
-				InterpreterUtil.incluiEntrada("inteiro", node.getVarList().toString(), null);
+				InterpreterUtil.incluiEntrada("inteiro", lista[0], null);
 			} else if( node.getTipo() instanceof ARealTipo ) {
-				InterpreterUtil.incluiEntrada("real", node.getVarList().toString(), null);
+				InterpreterUtil.incluiEntrada("real", lista[0], null);
 			} else if( node.getTipo() instanceof AStringTipo ) {
-				InterpreterUtil.incluiEntrada("string", node.getVarList().toString(), null);
+				InterpreterUtil.incluiEntrada("string", lista[0], null);
 			}
 		}
 		/**
@@ -98,14 +98,14 @@ public class Interpreter extends DepthFirstAdapter {
 		if((i+1) < lista.length) {
 			// TESTANDO SE EH ARRAY
 			if(InterpreterUtil.validaInteiro(lista[i+1])) {
-				if( InterpreterUtil.buscaEntrada( lista[i] ) ) {
+				if( InterpreterUtil.existeVariavel( lista[i] ) ) {
 					InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
 				} else {
 					InterpreterUtil.incluiEntrada(tipo +"["+lista[i+1]+"]", lista[i], null);
 				}
 			} else {
 				// VARIAVEL NORMAL
-				if( InterpreterUtil.buscaEntrada( lista[i] ) ) {
+				if( InterpreterUtil.existeVariavel( lista[i] ) ) {
 					InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
 				} else {
 					InterpreterUtil.incluiEntrada(tipo, lista[i], null);
