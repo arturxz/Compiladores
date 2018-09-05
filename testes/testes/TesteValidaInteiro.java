@@ -3,43 +3,52 @@ package testes;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import metodos.ValidaInteiro;
+
 public class TesteValidaInteiro {
+	public static ValidaInteiro t;
+	
+	@BeforeClass
+	public static void antes() {
+		t = new ValidaInteiro();
+	}
 	
 	@Test
 	public void testeInteiroValidoPequeno() {
-		assertTrue(metodos.ValidaInteiro.validaInteiro("0"));
+		assertTrue( t.validaInteiro("0") );
 	}
 	
 	@Test
 	public void testeInteiroValidoGrande() {
-		assertTrue(metodos.ValidaInteiro.validaInteiro("23984729"));
+		assertTrue( t.validaInteiro("23984729") );
 	}
 	
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void testeInvalidoStringNula() {
-		assertFalse( metodos.ValidaReal.validaReal(null) );
+		assertFalse( t.validaInteiro(null) );
 	}
 	
 	@Test
 	public void testeInvalidoStringVazia() {
-		assertFalse( metodos.ValidaInteiro.validaInteiro("") );
+		assertFalse( t.validaInteiro("") );
 	}
 	
 	@Test
 	public void testeInvalidoMaisDeUmPonto() {
-		assertFalse( metodos.ValidaInteiro.validaInteiro("1.52.34") );
+		assertFalse( t.validaInteiro("1.52.34") );
 	}
 	
 	@Test
 	public void testeInvalidoMaisDeUmaVirgula() {
-		assertFalse( metodos.ValidaInteiro.validaInteiro("1,52,34") );
+		assertFalse( t.validaInteiro("1,52,34") );
 	}
 	
 	@Test
 	public void testeInvalidoLetras() {
-		assertFalse( metodos.ValidaInteiro.validaInteiro("aa") );
+		assertFalse( t.validaInteiro("aa") );
 	}
 
 }

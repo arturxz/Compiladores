@@ -2,25 +2,23 @@ package metodos;
 
 import java.util.Hashtable;
 
+import testes.Tipo;
+
 public class HashTable {
 	
-	public static Hashtable<String, String[]> ht = new Hashtable<String, String[]>();
+	public static Hashtable<String, Tipo> ht = new Hashtable<String, Tipo>();
 	
 	public static boolean incluiEntrada(String tipo, String id, String var) {
 		if(buscaEntrada(id)) {
 			return false;
 		} else {
-			ht.put(id, new String[]{tipo, var});
+			ht.put(id, new Tipo(tipo, var));
 			return true;
 		}
 	}
 	
-	public static String[] retornaEntrada(String id) {
-		if(buscaEntrada(id)) {
-			return new String[]{ht.get(id)[0], id, ht.get(id)[1]};
-		} else {
-			return null;
-		}
+	public static Tipo retornaEntrada(String id) {
+		return ht.get(id);
 	}
 	
 	public static boolean buscaEntrada(String entrada) {
