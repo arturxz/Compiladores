@@ -29,88 +29,91 @@ public class Interpreter extends DepthFirstAdapter {
 
 	// DECLARACAO DE CONSTANTES
 	public void caseAConstanteDecl(AConstanteDecl node) {
-		String id = node.getId().toString();
+		String id = node.getId().toString().replaceAll(" ", "");
 		String va = node.getValor().toString();
 		
-		if( InterpreterUtil.existeVariavel(id) ) {
-			InterpreterUtil.adicionaMensagem("Erro! Variavel ja declarada!");
-			InterpreterUtil.adicionaMensagem("Linha:" +node.getId().getLine() +", Posicao:" +node.getId().getPos());
-		} else {
-			if( node.getValor() instanceof ARealValor ) {
-				va = va.replaceAll(",", ".");
-				InterpreterUtil.incluiEntrada("real", id, va);
-			} else if( node.getValor() instanceof AInteiroValor ) {
-				InterpreterUtil.incluiEntrada("inteiro", id, va);
-			} else if( node.getValor() instanceof AStringValor ) {
-				InterpreterUtil.incluiEntrada("string", id, va);
-			} else {
-				InterpreterUtil.adicionaMensagem("Erro! Tipo do valor nao eh suportado!");
-				InterpreterUtil.adicionaMensagem("Linha:" +node.getId().getLine() +", Posicao:" +node.getId().getPos());
+		if( node.getValor() instanceof AInteiroValor ) {
+			if( !InterpreterUtil.incluiEntrada("inteiro", id, va) ) {
+				InterpreterUtil.adicionaMensagem("Erro! Impossivel declarar constante, variavel: " +id +" ja declarada!");
+			}
+		} else if( node.getValor() instanceof ARealValor ) {
+			if( !InterpreterUtil.incluiEntrada("real", id, va) ) {
+				InterpreterUtil.adicionaMensagem("Erro! Impossivel declarar constante, variavel: " +id +" ja declarada!");
+			}
+		} else if( node.getValor() instanceof AStringValor ) {
+			if( !InterpreterUtil.incluiEntrada("string", id, va) ) {
+				InterpreterUtil.adicionaMensagem("Erro! Impossivel declarar constante, variavel: " +id +" ja declarada!");
 			}
 		}
-	
 	}
 	
 	public void caseAVariaveisDecl(AVariaveisDecl node) {
-		
-		String[] lista = node.getVarList().toString().split(" "); 
+		String[] lista = node.getVarList().toString().split(" ");
 		
 		if( lista.length > 1 ) {
 			// LISTA DE DECLARACOES OU ARRAY
 			if( node.getTipo() instanceof AInteiroTipo ) {
-				
+				for(int i = 0; i < lista.length; i++) {
+					if(i < lista.length-1 && InterpreterUtil.validaInteiro(lista[i+1])) {
+						// EH ARRAY
+						if(!InterpreterUtil.incluiEntrada( "inteiro " +lista[i+1], lista[i], null )) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel: " +lista[i] +" ja declarada!");
+						}
+						i = i+1;
+					} else {
+						// NAO EH ARRAY
+						if(!InterpreterUtil.incluiEntrada( "inteiro", lista[i], null )) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel: " +lista[i] +" ja declarada!");
+						}
+					}
+				}
 			} else if( node.getTipo() instanceof ARealTipo ) {
-				
+				for(int i = 0; i < lista.length; i++) {
+					if(i < lista.length-1 && InterpreterUtil.validaInteiro(lista[i+1])) {
+						// EH ARRAY
+						if(!InterpreterUtil.incluiEntrada( "real " +lista[i+1], lista[i], null )) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel: " +lista[i] +" ja declarada!");
+						}
+						i = i+1;
+					} else {
+						// NAO EH ARRAY
+						if(!InterpreterUtil.incluiEntrada( "real", lista[i], null )) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel: " +lista[i] +" ja declarada!");
+						}
+					}
+				}
 			} else if( node.getTipo() instanceof AStringTipo ) {
-			
+				for(int i = 0; i < lista.length; i++) {
+					if(i < lista.length-1 && InterpreterUtil.validaInteiro(lista[i+1])) {
+						// EH ARRAY
+						if(!InterpreterUtil.incluiEntrada( "string " +lista[i+1], lista[i], null )) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel: " +lista[i] +" ja declarada!");
+						}
+						i = i+1;
+					} else {
+						// NAO EH ARRAY
+						if(!InterpreterUtil.incluiEntrada( "string", lista[i], null )) {
+							InterpreterUtil.adicionaMensagem("Erro! Variavel: " +lista[i] +" ja declarada!");
+						}
+					}
+				}
 			}
 		} else {
 			// APENAS UMA DECLARACAO QUE NAO E ARRAY
 			if( node.getTipo() instanceof AInteiroTipo ) {
-				InterpreterUtil.incluiEntrada("inteiro", lista[0], null);
+				if(!InterpreterUtil.incluiEntrada( "inteiro", lista[0], null )) {
+					InterpreterUtil.adicionaMensagem("Erro! Variavel: " +lista[0] +" ja declarada!");
+				}
 			} else if( node.getTipo() instanceof ARealTipo ) {
-				InterpreterUtil.incluiEntrada("real", lista[0], null);
+				if(!InterpreterUtil.incluiEntrada( "real", lista[0], null )) {
+					InterpreterUtil.adicionaMensagem("Erro! Variavel: " +lista[0] +" ja declarada!");
+				}
 			} else if( node.getTipo() instanceof AStringTipo ) {
-				InterpreterUtil.incluiEntrada("string", lista[0], null);
+				if(!InterpreterUtil.incluiEntrada( "string", lista[0], null )) {
+					InterpreterUtil.adicionaMensagem("Erro! Variavel: " +lista[0] +" ja declarada!");
+				}
 			}
 		}
-		/**
-		if( node.getTipo() instanceof AInteiroTipo ) {
-			String[] lista = node.getVarList().toString().split(" ");
-			for(int i = 0; i<lista.length; i++) {
-				adicionaEntrada(lista, i, "inteiro");
-			}
-		} else if( node.getTipo() instanceof ARealTipo ) {
-			String[] lista = node.getVarList().toString().split(" ");
-			for(int i = 0; i<lista.length; i++) {
-				adicionaEntrada(lista, i, "real");
-			}
-		} else if( node.getTipo() instanceof AStringTipo ) {
-			String[] lista = node.getVarList().toString().split(" ");
-			for(int i = 0; i<lista.length; i++) {
-				adicionaEntrada(lista, i, "string");
-			}
-		}
-		**/
 	}
 
-	private void adicionaEntrada(String[] lista, int i, String tipo) {
-		if((i+1) < lista.length) {
-			// TESTANDO SE EH ARRAY
-			if(InterpreterUtil.validaInteiro(lista[i+1])) {
-				if( InterpreterUtil.existeVariavel( lista[i] ) ) {
-					InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
-				} else {
-					InterpreterUtil.incluiEntrada(tipo +"["+lista[i+1]+"]", lista[i], null);
-				}
-			} else {
-				// VARIAVEL NORMAL
-				if( InterpreterUtil.existeVariavel( lista[i] ) ) {
-					InterpreterUtil.adicionaMensagem("Erro! Variavel" +lista[i] +" ja declarada!");
-				} else {
-					InterpreterUtil.incluiEntrada(tipo, lista[i], null);
-				}
-			}
-		}
-	}
 }

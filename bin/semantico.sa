@@ -1,7 +1,17 @@
 programa
 exemplo
 inicio
-	inteiro : a, b, c, vtr[12];
-	real : testereal;
+	inteiro : inta, vtr1[12];
+	inteiro : intb;
+	
+	real : reala;
+	real : vtr2[42], realb;
+	
+	caractere : stra, vtr3[99], strb; 
+	caractere : vtr4[50];
+	
 	const pi 3,14159;
+	const vtr2 3,3;
+	
+	inteiro : inta;
 fim.
