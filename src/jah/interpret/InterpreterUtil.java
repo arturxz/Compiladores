@@ -3,7 +3,7 @@ package jah.interpret;
 import java.util.Hashtable;
 import java.util.Stack;
 
-import testes.Tipo;
+import jah.interpret.Tipo;
 
 public class InterpreterUtil {
 	private static Hashtable<String, Tipo> ht = new Hashtable<String, Tipo>();

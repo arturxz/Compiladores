@@ -4,15 +4,31 @@ public class Tipo {
 
 	private String tipo;
 	private String[] valor;
+	private boolean array;
 
 	public Tipo(String tipo, String[] valor) {
 		this.tipo = tipo;
 		this.setValor(valor);
+		eArray();
 	}
 
 	public Tipo(String tipo, String valor) {
 		this.tipo = tipo;
 		this.setValor(valor);
+		eArray();
+	}
+	
+	private void eArray() {
+		String[] nome = this.tipo.split(" ");
+		if(nome.length > 1) {
+			this.array = true;
+		} else {
+			this.array = false;
+		}
+	}
+	
+	public boolean verificaArray() {
+		return this.array;
 	}
 
 	public String getTipo() {
@@ -28,7 +44,7 @@ public class Tipo {
 	}
 
 	public void setValor(String valor) {
-		if( valor == null ) {
+		if (valor == null) {
 			this.valor = null;
 		} else {
 			String[] arr = valor.split(" ");
@@ -47,7 +63,6 @@ public class Tipo {
 			}
 		}
 		return msg;
-
 	}
 
 }

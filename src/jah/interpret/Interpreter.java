@@ -4,6 +4,8 @@ import jah.node.*;
 import jah.analysis.*;
 import java.lang.System;
 
+import jah.interpret.InterpreterUtil;
+
 public class Interpreter extends DepthFirstAdapter {
 
 	// PRODUCOES PARA PROGRAMA GERAL
@@ -116,4 +118,16 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 
+	public void caseASimplesComm(ASimplesComm node) {
+		String id = node.getVar().toString().replaceAll(" ", "");
+		if( InterpreterUtil.existeVariavel(id) ) {
+			Tipo var = InterpreterUtil.retornaEntrada(id);
+			
+			if( var.getTipo().equals("inteiro") ) {
+				
+			}
+		} else {
+			InterpreterUtil.adicionaMensagem("Erro! Variavel "+id +" nao declarada!");
+		}
+	}
 }

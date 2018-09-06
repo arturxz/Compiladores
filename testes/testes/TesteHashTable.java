@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import metodos.HashTable;
+import metodos.Tipo;
 
 public class TesteHashTable {
 	public static HashTable t;

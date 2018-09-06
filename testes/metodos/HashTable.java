@@ -2,8 +2,6 @@ package metodos;
 
 import java.util.Hashtable;
 
-import testes.Tipo;
-
 public class HashTable {
 	
 	public static Hashtable<String, Tipo> ht = new Hashtable<String, Tipo>();
