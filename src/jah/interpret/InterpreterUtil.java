@@ -28,10 +28,10 @@ public class InterpreterUtil {
 		 * INCLUI ENTRADA NO HASHTABLE. SUBTENDE-SE QUE O VALOR JA FOI VALIDADO! NA
 		 * DECLARACAO, ADICIONAR UM NULO.
 		 **/
-		System.out.println("->VAR:" + id);
-		System.out.println("->TIP:" + tipo);
-		System.out.println("->VAL:" + valor);
-		System.out.println("####################");
+		//System.out.println("->VAR:" + id);
+		//System.out.println("->TIP:" + tipo);
+		//System.out.println("->VAL:" + valor);
+		//System.out.println("####################");
 		if(existeVariavel(id)) {
 			return false;
 		} else {

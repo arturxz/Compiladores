@@ -13,4 +13,6 @@ inicio
 	const pi 3,14159;
 	
 	inta := 10;
+	vtr1[2] := 20;
+	vtr1[55] := 22;
 fim.

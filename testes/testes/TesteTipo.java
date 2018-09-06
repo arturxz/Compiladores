@@ -2,9 +2,9 @@ package testes;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -84,7 +84,6 @@ public class TesteTipo {
 	public void testaToStringComMuitosValores() {
 		Tipo t = new Tipo("string", "");
 		t.setValor(new String[]{"a", "b", "c"});
-		
 		assertEquals("Tipo: string\nValor: a, b, c", t.toString());
 	}
 	

@@ -122,10 +122,10 @@ public class Interpreter extends DepthFirstAdapter {
 		String id = node.getVar().toString().replaceAll(" ", "");
 		if( InterpreterUtil.existeVariavel(id) ) {
 			Tipo var = InterpreterUtil.retornaEntrada(id);
-			
-			if( var.getTipo().equals("inteiro") ) {
-				
-			}
+			System.out.println("Variavel é array? R:" +var.verificaArray());
+			//if( var.getTipo().equals("inteiro") ) {
+			//	System.out.println("");
+			//}
 		} else {
 			InterpreterUtil.adicionaMensagem("Erro! Variavel "+id +" nao declarada!");
 		}
