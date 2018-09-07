@@ -27,6 +27,14 @@ public class Tipo {
 		}
 	}
 	
+	public int getTamanhoArray() {
+		if(array) {
+			return Integer.parseInt( tipo.split(" ")[1] );
+		} else {
+			return -1;
+		}
+	}
+	
 	public boolean verificaArray() {
 		return this.array;
 	}

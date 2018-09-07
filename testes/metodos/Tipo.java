@@ -34,6 +34,14 @@ public class Tipo {
 	public String getTipo() {
 		return this.tipo;
 	}
+	
+	public int getTamanhoArray() {
+		if(array) {
+			return Integer.parseInt( tipo.split(" ")[1] );
+		} else {
+			return -1;
+		}
+	}
 
 	public String[] getValor() {
 		return this.valor;

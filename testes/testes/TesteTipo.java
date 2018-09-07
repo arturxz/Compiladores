@@ -87,4 +87,15 @@ public class TesteTipo {
 		assertEquals("Tipo: string\nValor: a, b, c", t.toString());
 	}
 	
+	@Test
+	public void testaTamanhoArraySemSerArray() {
+		Tipo t = new Tipo("string", "");
+		assertEquals(-1, t.getTamanhoArray() );
+	}
+	
+	@Test
+	public void testaTamanhoArray() {
+		Tipo t = new Tipo("string 12", "");
+		assertEquals(12, t.getTamanhoArray() );
+	}
 }
