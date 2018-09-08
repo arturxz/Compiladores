@@ -27,6 +27,11 @@ public class TesteValidaInteiro {
 	}
 	
 	@Test
+	public void testeInteiroValidoComEspaco() {
+		assertTrue( t.validaInteiro("23984729 ") );
+	}
+	
+	@Test
 	public void testeInvalidoStringNula() {
 		assertFalse( t.validaInteiro(null) );
 	}

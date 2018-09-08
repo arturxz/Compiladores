@@ -124,23 +124,165 @@ public class Interpreter extends DepthFirstAdapter {
 	// ATRIBUICAO SIMPLES NAO ESTA COMPLETA
 	public void caseASimplesComm(ASimplesComm node) {
 		String[] id = node.getVar().toString().split(" ");
-
+		
+		System.out.println( aplicaOperacao(node.getExp()) );
+		
 		if (InterpreterUtil.existeVariavel(id[0])) {
 			Tipo var = InterpreterUtil.retornaEntrada(id[0]);
 			if (var.verificaArray()) {
 				// A VARIAVEL E UM ARRAY
-				if( id[1] <= var.get ) {
+				
+				if(  ( 0 <= Integer.parseInt(id[1])) && (Integer.parseInt(id[1])) <= var.getTamanhoArray() ) {
+					// A ENTRADA E VALIDA
 					
+				} else {
+					// A ENTRADA ESTA FORA DO RANGE 0 - TAMANHO
+					InterpreterUtil.adicionaMensagem("Erro! O array " +id[0] +" nao possui a entrada " +id[1] +".");
 				}
 
 			} else {
 				// A VARIAVEL E UMA VARIAVEL NORMAL
-				// System.out.println( node.getExp(). );
+				
 			}
 		} else {
 			InterpreterUtil.adicionaMensagem("Erro! Variavel " + id + " nao declarada!");
 		}
 	}
-
-
+	
+	public String aplicaOperacao(PExp exp) {
+		
+		if( exp instanceof ASomaExp  ) {
+			ASomaExp e = (ASomaExp) exp;
+			
+			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
+				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
+					// entao segundo termo e inteiro tb
+					int l = Integer.parseInt(e.getL().toString());
+					int r = Integer.parseInt(e.getR().toString());
+					return String.valueOf(l+r);
+				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
+					// entao o segundo termo e real
+					float l = Float.parseFloat(e.getL().toString());
+					float r = Float.parseFloat(e.getR().toString());
+					return String.valueOf(l+r);
+				}
+			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
+				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
+					float l = Float.parseFloat(e.getL().toString());
+					float r = Float.parseFloat(e.getR().toString());
+					return String.valueOf(l+r);					
+				} else {
+					InterpreterUtil.adicionaMensagem("Erro! Soma entre numeral e string.");
+				}
+			} else {
+				// entao eh string
+				String str = e.getL().toString().replaceAll("'", "") + e.getR().toString().replaceAll("'", "");
+				str = "'" +str +"'";
+				return str;
+			}
+			
+		} else if( exp instanceof ASubtExp  ) {
+			ASubtExp e = (ASubtExp) exp;
+			
+			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
+				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
+					// entao segundo termo e inteiro tb
+					int l = Integer.parseInt(e.getL().toString());
+					int r = Integer.parseInt(e.getR().toString());
+					return String.valueOf(l-r);
+				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
+					// entao o segundo termo e real
+					float l = Float.parseFloat(e.getL().toString());
+					float r = Float.parseFloat(e.getR().toString());
+					return String.valueOf(l-r);
+				}
+			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
+				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
+					float l = Float.parseFloat(e.getL().toString());
+					float r = Float.parseFloat(e.getR().toString());
+					return String.valueOf(l-r);					
+				} else {
+					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
+				}
+			} else {
+				// entao eh string
+				InterpreterUtil.adicionaMensagem("Erro! Operacao indefinida para o tipo string!.");
+			}
+		} else if( exp instanceof AMultExp  ) {
+			AMultExp e = (AMultExp) exp;
+			
+			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
+				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
+					// entao segundo termo e inteiro tb
+					int l = Integer.parseInt(e.getL().toString());
+					int r = Integer.parseInt(e.getR().toString());
+					return String.valueOf(l-r);
+				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
+					// entao o segundo termo e real
+					float l = Float.parseFloat(e.getL().toString());
+					float r = Float.parseFloat(e.getR().toString());
+					return String.valueOf(l-r);
+				}
+			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
+				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
+					float l = Float.parseFloat(e.getL().toString());
+					float r = Float.parseFloat(e.getR().toString());
+					return String.valueOf(l-r);					
+				} else {
+					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
+				}
+			} else {
+				// entao eh string
+				InterpreterUtil.adicionaMensagem("Erro! Operacao indefinida para o tipo string!.");
+			}
+		} else if( exp instanceof ADiviExp  ) {
+			ADiviExp e = (ADiviExp) exp;
+			
+			if( e.getR().toString().equals("0") ) {
+				InterpreterUtil.adicionaMensagem("Erro! Divisao por zero.");
+			} else if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
+				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
+					// entao segundo termo e inteiro tb
+					int l = Integer.parseInt(e.getL().toString());
+					int r = Integer.parseInt(e.getR().toString());
+					return String.valueOf(l-r);
+				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
+					// entao o segundo termo e real
+					float l = Float.parseFloat(e.getL().toString());
+					float r = Float.parseFloat(e.getR().toString());
+					return String.valueOf(l-r);
+				}
+			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
+				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
+					float l = Float.parseFloat(e.getL().toString());
+					float r = Float.parseFloat(e.getR().toString());
+					return String.valueOf(l-r);					
+				} else {
+					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
+				}
+			} else {
+				// entao eh string
+				InterpreterUtil.adicionaMensagem("Erro! Operacao indefinida para o tipo string!.");
+			}
+		} else if( exp instanceof ANegaExp  ) {
+			ANegaExp e = (ANegaExp) exp;
+			
+			if( InterpreterUtil.validaInteiro(e.getExp().toString()) ) {
+				int i = Integer.parseInt(e.getExp().toString());
+				return String.valueOf( (i * -1) );
+			} else if( InterpreterUtil.validaReal(e.getExp().toString()) ) {
+				float i = Float.parseFloat(e.getExp().toString());
+				return String.valueOf( (i * -1) );				
+			} else {
+				InterpreterUtil.adicionaMensagem("Erro! Impossivel negativar uma string!");
+			}
+			
+		} else if( exp instanceof AVarExp  ) {
+			return ((AVarExp) exp).getVar().toString();
+		} else if( exp instanceof AValExp  ) {
+			return ((AValExp) exp).getValor().toString();
+		} 
+		return null;
+	}
+	
 }
