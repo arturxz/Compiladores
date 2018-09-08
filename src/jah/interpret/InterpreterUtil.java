@@ -55,19 +55,25 @@ public class InterpreterUtil {
 
 	/** METODOS DE VALIDACAO **/
 	public static boolean validaReal(String str) {
-		str = str.replaceAll(",", ".");
+		if(str != null) {
+			str = str.replaceAll(" ", "");
+			str = str.replaceAll(",", ".");
+		}
 		try {
 			Float.parseFloat(str);
-		} catch (NumberFormatException nfe) {
+		} catch(NumberFormatException nfe){
 			return false;
 		}
 		return true;
 	}
 
 	public static boolean validaInteiro(String str) {
+		if(str != null) {
+			str = str.replaceAll(" ", "");
+		}
 		try {
 			Integer.parseInt(str);
-		} catch (NumberFormatException nfe) {
+		} catch(NumberFormatException nfe){
 			return false;
 		}
 		return true;
