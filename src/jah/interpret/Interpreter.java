@@ -125,7 +125,7 @@ public class Interpreter extends DepthFirstAdapter {
 	public void caseASimplesComm(ASimplesComm node) {
 		String[] id = node.getVar().toString().split(" ");
 		
-		System.out.println( aplicaOperacao(node.getExp()) );
+		System.out.println( aplicaOperacao( node.getExp()) );
 		
 		if (InterpreterUtil.existeVariavel(id[0])) {
 			Tipo var = InterpreterUtil.retornaEntrada(id[0]);
@@ -157,19 +157,19 @@ public class Interpreter extends DepthFirstAdapter {
 			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
 					// entao segundo termo e inteiro tb
-					int l = Integer.parseInt(e.getL().toString());
-					int r = Integer.parseInt(e.getR().toString());
+					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
+					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l+r);
 				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
 					// entao o segundo termo e real
-					float l = Float.parseFloat(e.getL().toString());
-					float r = Float.parseFloat(e.getR().toString());
+					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
+					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l+r);
 				}
 			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
-					float l = Float.parseFloat(e.getL().toString());
-					float r = Float.parseFloat(e.getR().toString());
+					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
+					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l+r);					
 				} else {
 					InterpreterUtil.adicionaMensagem("Erro! Soma entre numeral e string.");
@@ -187,19 +187,19 @@ public class Interpreter extends DepthFirstAdapter {
 			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
 					// entao segundo termo e inteiro tb
-					int l = Integer.parseInt(e.getL().toString());
-					int r = Integer.parseInt(e.getR().toString());
+					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
+					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
 				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
 					// entao o segundo termo e real
-					float l = Float.parseFloat(e.getL().toString());
-					float r = Float.parseFloat(e.getR().toString());
+					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
+					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
 				}
 			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
-					float l = Float.parseFloat(e.getL().toString());
-					float r = Float.parseFloat(e.getR().toString());
+					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
+					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);					
 				} else {
 					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
@@ -214,19 +214,19 @@ public class Interpreter extends DepthFirstAdapter {
 			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
 					// entao segundo termo e inteiro tb
-					int l = Integer.parseInt(e.getL().toString());
-					int r = Integer.parseInt(e.getR().toString());
+					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
+					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
 				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
 					// entao o segundo termo e real
-					float l = Float.parseFloat(e.getL().toString());
-					float r = Float.parseFloat(e.getR().toString());
+					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
+					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
 				}
 			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
-					float l = Float.parseFloat(e.getL().toString());
-					float r = Float.parseFloat(e.getR().toString());
+					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
+					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);					
 				} else {
 					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
@@ -243,19 +243,19 @@ public class Interpreter extends DepthFirstAdapter {
 			} else if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
 					// entao segundo termo e inteiro tb
-					int l = Integer.parseInt(e.getL().toString());
-					int r = Integer.parseInt(e.getR().toString());
+					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
+					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
 				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
 					// entao o segundo termo e real
-					float l = Float.parseFloat(e.getL().toString());
-					float r = Float.parseFloat(e.getR().toString());
+					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
+					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
 				}
 			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
-					float l = Float.parseFloat(e.getL().toString());
-					float r = Float.parseFloat(e.getR().toString());
+					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
+					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);					
 				} else {
 					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
@@ -268,10 +268,10 @@ public class Interpreter extends DepthFirstAdapter {
 			ANegaExp e = (ANegaExp) exp;
 			
 			if( InterpreterUtil.validaInteiro(e.getExp().toString()) ) {
-				int i = Integer.parseInt(e.getExp().toString());
+				int i = Integer.parseInt(e.getExp().toString().replaceAll(" ", ""));
 				return String.valueOf( (i * -1) );
 			} else if( InterpreterUtil.validaReal(e.getExp().toString()) ) {
-				float i = Float.parseFloat(e.getExp().toString());
+				float i = Float.parseFloat(e.getExp().toString().replaceAll(" ", ""));
 				return String.valueOf( (i * -1) );				
 			} else {
 				InterpreterUtil.adicionaMensagem("Erro! Impossivel negativar uma string!");
