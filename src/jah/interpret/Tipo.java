@@ -22,8 +22,10 @@ public class Tipo {
 		String[] nome = this.tipo.split(" ");
 		if(nome.length > 1) {
 			this.array = true;
+			this.valor = new String[ Integer.parseInt(nome[1].replaceAll(" ", "")) ];
 		} else {
 			this.array = false;
+			this.valor = new String[1];
 		}
 	}
 	
@@ -48,6 +50,7 @@ public class Tipo {
 	}
 
 	public void setValor(String[] valor) {
+		
 		this.valor = valor;
 	}
 
@@ -65,7 +68,7 @@ public class Tipo {
 
 		for (int i = 0; i < this.getValor().length; i++) {
 			if (i == this.getValor().length - 1) {
-				msg = msg + this.getValor()[i];
+				msg = msg + this.getValor()[i] +".";
 			} else {
 				msg = msg + this.getValor()[i] + ", ";
 			}

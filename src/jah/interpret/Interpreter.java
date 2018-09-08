@@ -125,25 +125,76 @@ public class Interpreter extends DepthFirstAdapter {
 	public void caseASimplesComm(ASimplesComm node) {
 		String[] id = node.getVar().toString().split(" ");
 		
-		System.out.println( aplicaOperacao( node.getExp()) );
-		
 		if (InterpreterUtil.existeVariavel(id[0])) {
 			Tipo var = InterpreterUtil.retornaEntrada(id[0]);
 			if (var.verificaArray()) {
 				// A VARIAVEL E UM ARRAY
-				
-				if(  ( 0 <= Integer.parseInt(id[1])) && (Integer.parseInt(id[1])) <= var.getTamanhoArray() ) {
+				if(  ( 0 <= Integer.parseInt(id[1])) && (Integer.parseInt(id[1])) < var.getTamanhoArray()-1 ) {
 					// A ENTRADA E VALIDA
-					
+					if( var.getTipo().split(" ")[0].equals("inteiro") ) {
+						String ret = aplicaOperacao(node.getExp());
+						if( InterpreterUtil.validaInteiro(ret) ) {
+							String[] vet = var.getValor();
+							vet[Integer.parseInt(id[1])] = ret;
+							var.setValor(vet);
+						} else {
+							InterpreterUtil.adicionaMensagem("Erro! Tentativa de atribuição entre tipos " +var.getTipo() +" e valor " +node.getExp());
+						}
+					} else if( var.getTipo().split(" ")[0].equals("real") ) {
+						String ret = aplicaOperacao(node.getExp());
+						if( InterpreterUtil.validaReal(ret) ) {
+							String[] vet = var.getValor();
+							vet[Integer.parseInt(id[1])] = ret;
+							var.setValor(vet);
+						} else {
+							InterpreterUtil.adicionaMensagem("Erro! Tentativa de atribuição entre tipos " +var.getTipo() +" e valor " +node.getExp());
+						}
+					} else if( var.getTipo().split(" ")[0].equals("string") ) {
+						String ret = aplicaOperacao(node.getExp());
+						ret = ret.replaceAll("'", "").replaceAll(" ", "");
+						if( ret.length() == 1 ) {
+							String[] vet = var.getValor();
+							vet[Integer.parseInt(id[1])] = ret;
+							var.setValor(vet);
+						} else {
+							InterpreterUtil.adicionaMensagem("Erro! Tentativa de atribuição entre tipos " +var.getTipo().split(" ")[0] +" e valor " +node.getExp());
+						}
+					}
 				} else {
-					// A ENTRADA ESTA FORA DO RANGE 0 - TAMANHO
+					// A ENTRADA ESTA FORA DO RANGE 0 - TAMANHO-1
 					InterpreterUtil.adicionaMensagem("Erro! O array " +id[0] +" nao possui a entrada " +id[1] +".");
 				}
 
 			} else {
 				// A VARIAVEL E UMA VARIAVEL NORMAL
-				
+				if( var.getTipo().replaceAll(" ", "").equals("inteiro") ) {
+					String ret = aplicaOperacao(node.getExp());
+					if( InterpreterUtil.validaInteiro(ret) ) {
+						String[] vet = new String[]{ret};
+						var.setValor(vet);
+					} else {
+						InterpreterUtil.adicionaMensagem("Erro! Tipos incompatíveis. Atribuído valor " +ret +" a variavel do tipo " +var.getTipo());
+					}
+				} else if( var.getTipo().replaceAll(" ", "").equals("real") ) {
+					String ret = aplicaOperacao(node.getExp());
+					if( InterpreterUtil.validaReal(ret) ) {
+						String[] vet = new String[]{ret};
+						var.setValor(vet);
+					} else {
+						InterpreterUtil.adicionaMensagem("Erro! Tipos incompatíveis. Atribuído valor " +ret +" a variavel do tipo " +var.getTipo());
+					}
+				} else if( var.getTipo().replaceAll(" ", "").equals("string") ) {
+					String ret = aplicaOperacao(node.getExp());
+					ret = ret.replaceAll("'", "").replaceAll(" ", "");
+					if( ret.length() == 1 ) {
+						String[] vet = new String[]{ret};
+						var.setValor(vet);
+					} else {
+						InterpreterUtil.adicionaMensagem("Erro! Tipos incompatíveis. Atribuído valor " +ret +" a variavel do tipo " +var.getTipo());
+					}
+				}
 			}
+			System.out.println(var.toString());
 		} else {
 			InterpreterUtil.adicionaMensagem("Erro! Variavel " + id + " nao declarada!");
 		}
@@ -278,10 +329,28 @@ public class Interpreter extends DepthFirstAdapter {
 			}
 			
 		} else if( exp instanceof AVarExp  ) {
+			AVarExp var = (AVarExp) exp;
+			if( InterpreterUtil.existeVariavel( var.getVar().toString()) ) {
+				Tipo t = InterpreterUtil.retornaEntrada(var.getVar().toString());
+				if(t.verificaArray()) {
+					String ret = "";
+					for(int i = 0; i < t.getTamanhoArray(); i++) {
+						if(i == t.getTamanhoArray()-1) {
+							ret = t.getValor()[i];
+						} else {
+							ret = t.getValor()[i] + " ";
+						}
+					}
+				} else{
+					return t.getValor()[0];
+				}
+			}
 			return ((AVarExp) exp).getVar().toString();
 		} else if( exp instanceof AValExp  ) {
 			return ((AValExp) exp).getValor().toString();
 		} 
+		
+		// retorna nulo se ocorrer algum erro.
 		return null;
 	}
 	
