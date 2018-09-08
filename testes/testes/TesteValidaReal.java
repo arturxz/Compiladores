@@ -27,6 +27,11 @@ public class TesteValidaReal {
 		assertTrue( t.validaReal("1,52") );
 	}
 	
+	@Test
+	public void testeValidoComEspaco() {
+		assertTrue( t.validaReal(" 1,52") );
+	}
+	
 	@Test(expected = NullPointerException.class)
 	public void testeInvalidoStringNula() {
 		assertFalse( t.validaReal(null) );

@@ -3,7 +3,10 @@ package metodos;
 public class ValidaReal {
 	
 	public static boolean validaReal(String str) {
-		str = str.replaceAll(",", ".");
+		if(str != null) {
+			str = str.replaceAll(" ", "");
+			str = str.replaceAll(",", ".");
+		}
 		try {
 			Float.parseFloat(str);
 		} catch(NumberFormatException nfe){
