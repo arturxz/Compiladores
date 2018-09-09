@@ -242,6 +242,7 @@ public class Interpreter extends DepthFirstAdapter {
 		 * 
 		 */
 		boolean r = aplicaLogica(node.getExpLogica());
+		System.out.println("Enquanto");
 		
 		
 		if ( r ) {
@@ -249,10 +250,34 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 	
+	
+	//DEVERIA ENTRAR NESTE NÓ
 	public void caseAAlgoCommLeia(AAlgoCommLeia node) {
+		//System.out.println("Entrou no caso ALGO");
 		String var = node.getVar().toString();
 		if (!InterpreterUtil.existeVariavel(var)) {
 			InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " nao declarada");
+		}
+	}
+	
+	//DEVERIA ENTRAR NESTE NÓ
+	public void caseAAlgoExpAriCommEscreva(AAlgoExpAriCommEscreva node) {
+		System.out.println("Ari comm escreva");
+		
+		String r = aplicaOperacao(node.getExp());
+		
+		if (!r.equals("")) {
+			node.getCommEscreva();
+		}
+	}
+	
+	//DEVERIA ENTRAR NESTE NÓ
+	public void caseAAlgoExpLogCommEscreva(AAlgoExpLogCommEscreva node) {
+		System.out.println("Log comm escreva");
+		
+		boolean r = aplicaLogica(node.getExpLogica());
+		if (r) {
+			node.getCommEscreva();
 		}
 	}
 	
@@ -297,13 +322,7 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 		
 	}
-	
-	public void caseASemSenaoCommAvalieSenaoParte(ASemSenaoCommAvalieSenaoParte node) {
-		System.out.println("sem senao ");
-	}
-	public void caseAComSenaoCommAvalieSenaoParte(AComSenaoCommAvalieSenaoParte node) {
-		System.out.println("com senao");
-	}
+
 	
 	public void caseACommPara(ACommPara node) {
 		/*
