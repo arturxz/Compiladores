@@ -90,7 +90,7 @@ public class InterpreterUtil {
 		return msgs.add(msg);
 	}
 	
-	public String encontraValor(String str) {
+	public static String encontraValor(String str) {
 		/**
 		 * ESSE METODO ENCONTRA RETORNA O VALOR ENVIADO A ELE
 		 * COMO ARGUMENTO. SE FOR ENVIADO O NOME DE UMA VARIAVEL,

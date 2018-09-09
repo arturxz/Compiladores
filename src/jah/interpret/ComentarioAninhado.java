@@ -3,6 +3,7 @@ package jah.interpret;
 import java.io.IOException;
 import jah.lexer.*;
 import jah.node.*;
+
 public class ComentarioAninhado extends Lexer {
 
 	private int pilha;

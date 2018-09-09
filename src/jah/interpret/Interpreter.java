@@ -299,172 +299,161 @@ public class Interpreter extends DepthFirstAdapter {
 			InterpreterUtil.adicionaMensagem("Erro! Variavel " + id + " nao declarada!");
 		}
 	}
-	
-	**/
-
+**/
 	private String aplicaOperacao(PExp exp) {
-		
 		if( exp instanceof ASomaExp  ) {
 			ASomaExp e = (ASomaExp) exp;
 			
-			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
-				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
-					// ENTAO O SEGUNTO TERMO TAMBEM EH INTEIRO
-					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
-					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l+r);
-				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
-					// ENTAO O SEGUNDO TERMO EH REAL
-					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
-					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l+r);
+			String valL = InterpreterUtil.encontraValor( e.getL().toString() );
+			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
+			
+			if( InterpreterUtil.validaInteiro(valL) ) {
+				// PRIMEIRO TERMO EH INTEIRO
+				int termo1 = Integer.parseInt(valL);
+				if( InterpreterUtil.validaInteiro(valR) ) {
+					// SEGUNDO TERMO EH TIPO INTEIRO
+					int termo2 = Integer.parseInt(valR);
+					return  "" +(termo1+termo2);
+				} else if( InterpreterUtil.validaReal(valR) ) {
+					// SEGUNDO TERMO EH TIPO REAL
+					float termo2 = Float.parseFloat(valR);
+					return  "" +(termo1+termo2);
 				}
-			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
-				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
-					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
-					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l+r);					
-				} else {
-					InterpreterUtil.adicionaMensagem("Erro! Soma entre numeral e string.");
+			} else if( InterpreterUtil.validaReal(valL) ) {
+				// PRIMEIRO TERMO EH INTEIRO
+				float termo1 = Float.parseFloat(valL);
+				if( InterpreterUtil.validaInteiro(valR) ) {
+					// SEGUNDO TERMO EH TIPO INTEIRO
+					int termo2 = Integer.parseInt(valR);
+					return  "" +(termo1+termo2);
+				} else if( InterpreterUtil.validaReal(valR) ) {
+					// SEGUNDO TERMO EH TIPO REAL
+					float termo2 = Float.parseFloat(valR);
+					return  "" +(termo1+termo2);
 				}
 			} else {
-				// ENTAO EH STRING
-				String str = e.getL().toString().replaceAll("'", "") + e.getR().toString().replaceAll("'", "");
-				str = "'" +str +"'";
-				return str;
+				InterpreterUtil.adicionaMensagem("Impossivel efetuar soma entre os valores " +valL +" e " +valR);
 			}
-			
 		} else if( exp instanceof ASubtExp  ) {
 			ASubtExp e = (ASubtExp) exp;
 			
-			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
-				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
-					// ENTAO O SEGUNTO TERMO TAMBEM EH INTEIRO
-					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
-					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l-r);
-				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
-					// ENTAO O SEGUNDO TERMO EH REAL
-					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
-					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l-r);
+			String valL = InterpreterUtil.encontraValor( e.getL().toString() );
+			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
+			
+			if( InterpreterUtil.validaInteiro(valL) ) {
+				// PRIMEIRO TERMO EH INTEIRO
+				int termo1 = Integer.parseInt(valL);
+				if( InterpreterUtil.validaInteiro(valR) ) {
+					// SEGUNDO TERMO EH TIPO INTEIRO
+					int termo2 = Integer.parseInt(valR);
+					return  "" +(termo1-termo2);
+				} else if( InterpreterUtil.validaReal(valR) ) {
+					// SEGUNDO TERMO EH TIPO REAL
+					float termo2 = Float.parseFloat(valR);
+					return  "" +(termo1-termo2);
 				}
-			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
-				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
-					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
-					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l-r);					
-				} else {
-					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
+			} else if( InterpreterUtil.validaReal(valL) ) {
+				// PRIMEIRO TERMO EH INTEIRO
+				float termo1 = Float.parseFloat(valL);
+				if( InterpreterUtil.validaInteiro(valR) ) {
+					// SEGUNDO TERMO EH TIPO INTEIRO
+					int termo2 = Integer.parseInt(valR);
+					return  "" +(termo1-termo2);
+				} else if( InterpreterUtil.validaReal(valR) ) {
+					// SEGUNDO TERMO EH TIPO REAL
+					float termo2 = Float.parseFloat(valR);
+					return  "" +(termo1-termo2);
 				}
 			} else {
-				// ENTAO EH STRING
-				InterpreterUtil.adicionaMensagem("Erro! Operacao indefinida para o tipo string!.");
+				InterpreterUtil.adicionaMensagem("Impossivel efetuar subtracao entre os valores " +valL +" e " +valR);
 			}
 		} else if( exp instanceof AMultExp  ) {
 			AMultExp e = (AMultExp) exp;
 			
-			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
-				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
-					// ENTAO O SEGUNDO TERMO TAMBEM EH INTEIRO
-					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
-					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l-r);
-				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
-					// ENTAO O SEGUNDO TERMO EH REAL
-					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
-					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l-r);
+			String valL = InterpreterUtil.encontraValor( e.getL().toString() );
+			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
+			
+			if( InterpreterUtil.validaInteiro(valL) ) {
+				// PRIMEIRO TERMO EH INTEIRO
+				int divisor = Integer.parseInt(valL);
+				if( InterpreterUtil.validaInteiro(valR) ) {
+					// SEGUNDO TERMO EH TIPO INTEIRO
+					int dividendo = Integer.parseInt(valR);
+					return  "" +(divisor*dividendo);
+				} else if( InterpreterUtil.validaReal(valR) ) {
+					// SEGUNDO TERMO EH TIPO REAL
+					float dividendo = Float.parseFloat(valR);
+					return  "" +(divisor*dividendo);
 				}
-			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
-				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
-					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
-					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l-r);					
-				} else {
-					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
+			} else if( InterpreterUtil.validaReal(valL) ) {
+				// PRIMEIRO TERMO EH INTEIRO
+				float divisor = Float.parseFloat(valL);
+				if( InterpreterUtil.validaInteiro(valR) ) {
+					// SEGUNDO TERMO EH TIPO INTEIRO
+					int dividendo = Integer.parseInt(valR);
+					return  "" +(divisor*dividendo);
+				} else if( InterpreterUtil.validaReal(valR) ) {
+					// SEGUNDO TERMO EH TIPO REAL
+					float dividendo = Float.parseFloat(valR);
+					return  "" +(divisor*dividendo);
 				}
 			} else {
-				// ENTAO EH STRING
-				InterpreterUtil.adicionaMensagem("Erro! Operacao indefinida para o tipo string!.");
+				InterpreterUtil.adicionaMensagem("Impossivel efetuar multiplicacao entre os valores " +valL +" e " +valR);
 			}
 		} else if( exp instanceof ADiviExp  ) {
 			ADiviExp e = (ADiviExp) exp;
+			String valL = InterpreterUtil.encontraValor( e.getL().toString() );
+			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
-			if( e.getR().toString().equals("0") ) {
-				InterpreterUtil.adicionaMensagem("Erro! Divisao por zero.");
-			} else if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
-				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
-					// ENTAO O SEGUNDO TERMO EH INTEIRO
-					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
-					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l-r);
-				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
-					// ENTAO O SEGUNDO TERMO EH REAL
-					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
-					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l-r);
+			if( InterpreterUtil.validaInteiro(valL) ) {
+				// PRIMEIRO TERMO EH INTEIRO
+				int divisor = Integer.parseInt(valL);
+				if( InterpreterUtil.validaInteiro(valR) ) {
+					// SEGUNDO TERMO EH TIPO INTEIRO
+					int dividendo = Integer.parseInt(valR);
+					return  "" +(divisor/dividendo);
+				} else if( InterpreterUtil.validaReal(valR) ) {
+					// SEGUNDO TERMO EH TIPO REAL
+					float dividendo = Float.parseFloat(valR);
+					return  "" +(divisor/dividendo);
 				}
-			} else if( InterpreterUtil.validaReal(e.getL().toString()) ) {
-				if( InterpreterUtil.validaInteiro(e.getR().toString()) || InterpreterUtil.validaReal(e.getR().toString()) ) {
-					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
-					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
-					return String.valueOf(l-r);					
-				} else {
-					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
+			} else if( InterpreterUtil.validaReal(valL) ) {
+				// PRIMEIRO TERMO EH INTEIRO
+				float divisor = Float.parseFloat(valL);
+				if( InterpreterUtil.validaInteiro(valR) ) {
+					// SEGUNDO TERMO EH TIPO INTEIRO
+					int dividendo = Integer.parseInt(valR);
+					return  "" +(divisor/dividendo);
+				} else if( InterpreterUtil.validaReal(valR) ) {
+					// SEGUNDO TERMO EH TIPO REAL
+					float dividendo = Float.parseFloat(valR);
+					return  "" +(divisor/dividendo);
 				}
 			} else {
-				// ENTAO EH UMA STRING
-				InterpreterUtil.adicionaMensagem("Erro! Operacao indefinida para o tipo string!.");
+				InterpreterUtil.adicionaMensagem("Impossivel efetuar divisao entre os valores " +valL +" e " +valR);
 			}
 		} else if( exp instanceof ANegaExp  ) {
 			ANegaExp e = (ANegaExp) exp;
+			String val = InterpreterUtil.encontraValor(e.toString());
 			
-			if( InterpreterUtil.validaInteiro(e.getExp().toString()) ) {
+			if( InterpreterUtil.validaInteiro( val ) ) {
 				int i = Integer.parseInt(e.getExp().toString().replaceAll(" ", ""));
 				return String.valueOf( (i * -1) );
-			} else if( InterpreterUtil.validaReal(e.getExp().toString()) ) {
+			} else if( InterpreterUtil.validaReal( val ) ) {
 				float i = Float.parseFloat(e.getExp().toString().replaceAll(" ", ""));
-				return String.valueOf( (i * -1) );				
+				return String.valueOf( (i * -1) );	
 			} else {
 				InterpreterUtil.adicionaMensagem("Erro! Impossivel negativar uma string!");
 			}
-			
 		} else if( exp instanceof AVarExp  ) {
-			return ((AVarExp) exp).getVar().toString();
+			AVarExp e = (AVarExp) exp;
+			return InterpreterUtil.encontraValor(e.getVar().toString());
 		} else if( exp instanceof AValExp  ) {
-			return ((AValExp) exp).getValor().toString();
+			AValExp e = (AValExp) exp;
+			return InterpreterUtil.encontraValor(e.getValor().toString());
 		} 
-		
 		// RETURNA NULO QUANDO ACONTECE ALGUM ERRO
 		return null;
 	}
-	
-	private String encontraValor(String str) {
-		if( InterpreterUtil.validaInteiro(str) ) {
-			// ENTAO EH UM VALOR INTEIRO
-			return str.replaceAll(" ", "");
-		} else if( InterpreterUtil.validaReal(str) ){
-			// ENTAO EH UM VALOR REAL
-			return str.replaceAll(" ", "");
-		} else if( InterpreterUtil.existeVariavel(str.split(" ")[0]) ) {
-			// ENTAO EH UMA VARIAVEL
-			Tipo t = InterpreterUtil.retornaEntrada(str.split(" ")[0]);
-			if( t.verificaArray() ) {
-				// ENTAO A VARIAVEL EH UM ARRAY
-				if( Integer.parseInt(str.split(" ")[1]) >= t.getTamanhoArray() ) {
-					return null;
-				} else {
-					return t.getValor()[ Integer.parseInt(str.split(" ")[1]) ];
-				}
-			} else {
-				// ENTAO A VARIAVEL EH NORMAL
-				return t.getValor()[0];
-			}
-		} else if( str.replaceAll(" ", "").replaceAll("'", "").length() == 1 ) {
-			// ENTAO EH UM VALOR CARACTERE
-			return str.replaceAll(" ", "");
-		}
-		return null;
-	}
+
 }
