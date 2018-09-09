@@ -246,10 +246,9 @@ public class Interpreter extends DepthFirstAdapter {
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
 			if(valL == null) {
-				InterpreterUtil.adicionaMensagem("Valor de " +e.getL() +" nulo!");
+				
 				return "";
 			} else if(valR == null) {
-				InterpreterUtil.adicionaMensagem("Valor de " +e.getR() +" nulo!");
 				return "";
 			}
 			
@@ -287,10 +286,9 @@ public class Interpreter extends DepthFirstAdapter {
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
 			if(valL == null) {
-				InterpreterUtil.adicionaMensagem("Valor de " +e.getL() +" nulo!");
+				
 				return "";
 			} else if(valR == null) {
-				InterpreterUtil.adicionaMensagem("Valor de " +e.getR() +" nulo!");
 				return "";
 			}
 			
@@ -328,10 +326,9 @@ public class Interpreter extends DepthFirstAdapter {
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
 			if(valL == null) {
-				InterpreterUtil.adicionaMensagem("Valor de " +e.getL() +" nulo!");
+				
 				return "";
 			} else if(valR == null) {
-				InterpreterUtil.adicionaMensagem("Valor de " +e.getR() +" nulo!");
 				return "";
 			}
 			
@@ -368,10 +365,9 @@ public class Interpreter extends DepthFirstAdapter {
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
 			if(valL == null) {
-				InterpreterUtil.adicionaMensagem("Valor de " +e.getL() +" nulo!");
+				
 				return "";
 			} else if(valR == null) {
-				InterpreterUtil.adicionaMensagem("Valor de " +e.getR() +" nulo!");
 				return "";
 			}
 			
