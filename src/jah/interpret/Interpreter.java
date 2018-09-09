@@ -236,6 +236,7 @@ public class Interpreter extends DepthFirstAdapter {
 	}
 	
 	
+	
 	// OPERACOES ARITMETICAS
 	private String aplicaOperacao(PExp exp) {
 		if( exp instanceof ASomaExp  ) {
@@ -243,6 +244,14 @@ public class Interpreter extends DepthFirstAdapter {
 			
 			String valL = InterpreterUtil.encontraValor( e.getL().toString() );
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
+			
+			if(valL == null) {
+				InterpreterUtil.adicionaMensagem("Valor de " +e.getL() +" nulo!");
+				return "";
+			} else if(valR == null) {
+				InterpreterUtil.adicionaMensagem("Valor de " +e.getR() +" nulo!");
+				return "";
+			}
 			
 			if( InterpreterUtil.validaInteiro(valL) ) {
 				// PRIMEIRO TERMO EH INTEIRO
@@ -253,19 +262,19 @@ public class Interpreter extends DepthFirstAdapter {
 					return  "" +(termo1+termo2);
 				} else if( InterpreterUtil.validaReal(valR) ) {
 					// SEGUNDO TERMO EH TIPO REAL
-					float termo2 = Float.parseFloat(valR);
+					float termo2 = Float.parseFloat(valR.replaceAll(",", "."));
 					return  "" +(termo1+termo2);
 				}
-			} else if( InterpreterUtil.validaReal(valL) ) {
+			} else if( InterpreterUtil.validaReal(valL.replaceAll(",", ".")) ) {
 				// PRIMEIRO TERMO EH INTEIRO
-				float termo1 = Float.parseFloat(valL);
+				float termo1 = Float.parseFloat(valL.replaceAll(",", "."));
 				if( InterpreterUtil.validaInteiro(valR) ) {
 					// SEGUNDO TERMO EH TIPO INTEIRO
 					int termo2 = Integer.parseInt(valR);
 					return  "" +(termo1+termo2);
 				} else if( InterpreterUtil.validaReal(valR) ) {
 					// SEGUNDO TERMO EH TIPO REAL
-					float termo2 = Float.parseFloat(valR);
+					float termo2 = Float.parseFloat(valR.replaceAll(",", "."));
 					return  "" +(termo1+termo2);
 				}
 			} else {
@@ -277,6 +286,14 @@ public class Interpreter extends DepthFirstAdapter {
 			String valL = InterpreterUtil.encontraValor( e.getL().toString() );
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
+			if(valL == null) {
+				InterpreterUtil.adicionaMensagem("Valor de " +e.getL() +" nulo!");
+				return "";
+			} else if(valR == null) {
+				InterpreterUtil.adicionaMensagem("Valor de " +e.getR() +" nulo!");
+				return "";
+			}
+			
 			if( InterpreterUtil.validaInteiro(valL) ) {
 				// PRIMEIRO TERMO EH INTEIRO
 				int termo1 = Integer.parseInt(valL);
@@ -286,19 +303,19 @@ public class Interpreter extends DepthFirstAdapter {
 					return  "" +(termo1-termo2);
 				} else if( InterpreterUtil.validaReal(valR) ) {
 					// SEGUNDO TERMO EH TIPO REAL
-					float termo2 = Float.parseFloat(valR);
+					float termo2 = Float.parseFloat(valR.replaceAll(",", "."));
 					return  "" +(termo1-termo2);
 				}
 			} else if( InterpreterUtil.validaReal(valL) ) {
 				// PRIMEIRO TERMO EH INTEIRO
-				float termo1 = Float.parseFloat(valL);
+				float termo1 = Float.parseFloat(valL.replaceAll(",", "."));
 				if( InterpreterUtil.validaInteiro(valR) ) {
 					// SEGUNDO TERMO EH TIPO INTEIRO
 					int termo2 = Integer.parseInt(valR);
 					return  "" +(termo1-termo2);
 				} else if( InterpreterUtil.validaReal(valR) ) {
 					// SEGUNDO TERMO EH TIPO REAL
-					float termo2 = Float.parseFloat(valR);
+					float termo2 = Float.parseFloat(valR.replaceAll(",", "."));
 					return  "" +(termo1-termo2);
 				}
 			} else {
@@ -310,6 +327,14 @@ public class Interpreter extends DepthFirstAdapter {
 			String valL = InterpreterUtil.encontraValor( e.getL().toString() );
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
+			if(valL == null) {
+				InterpreterUtil.adicionaMensagem("Valor de " +e.getL() +" nulo!");
+				return "";
+			} else if(valR == null) {
+				InterpreterUtil.adicionaMensagem("Valor de " +e.getR() +" nulo!");
+				return "";
+			}
+			
 			if( InterpreterUtil.validaInteiro(valL) ) {
 				// PRIMEIRO TERMO EH INTEIRO
 				int divisor = Integer.parseInt(valL);
@@ -319,19 +344,19 @@ public class Interpreter extends DepthFirstAdapter {
 					return  "" +(divisor*dividendo);
 				} else if( InterpreterUtil.validaReal(valR) ) {
 					// SEGUNDO TERMO EH TIPO REAL
-					float dividendo = Float.parseFloat(valR);
+					float dividendo = Float.parseFloat(valR.replaceAll(",", "."));
 					return  "" +(divisor*dividendo);
 				}
 			} else if( InterpreterUtil.validaReal(valL) ) {
 				// PRIMEIRO TERMO EH INTEIRO
-				float divisor = Float.parseFloat(valL);
+				float divisor = Float.parseFloat(valL.replaceAll(",", "."));
 				if( InterpreterUtil.validaInteiro(valR) ) {
 					// SEGUNDO TERMO EH TIPO INTEIRO
 					int dividendo = Integer.parseInt(valR);
 					return  "" +(divisor*dividendo);
 				} else if( InterpreterUtil.validaReal(valR) ) {
 					// SEGUNDO TERMO EH TIPO REAL
-					float dividendo = Float.parseFloat(valR);
+					float dividendo = Float.parseFloat(valR.replaceAll(",", "."));
 					return  "" +(divisor*dividendo);
 				}
 			} else {
@@ -342,6 +367,14 @@ public class Interpreter extends DepthFirstAdapter {
 			String valL = InterpreterUtil.encontraValor( e.getL().toString() );
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
+			if(valL == null) {
+				InterpreterUtil.adicionaMensagem("Valor de " +e.getL() +" nulo!");
+				return "";
+			} else if(valR == null) {
+				InterpreterUtil.adicionaMensagem("Valor de " +e.getR() +" nulo!");
+				return "";
+			}
+			
 			if( InterpreterUtil.validaInteiro(valL) ) {
 				// PRIMEIRO TERMO EH INTEIRO
 				int divisor = Integer.parseInt(valL);
@@ -351,19 +384,19 @@ public class Interpreter extends DepthFirstAdapter {
 					return  "" +(divisor/dividendo);
 				} else if( InterpreterUtil.validaReal(valR) ) {
 					// SEGUNDO TERMO EH TIPO REAL
-					float dividendo = Float.parseFloat(valR);
+					float dividendo = Float.parseFloat(valR.replaceAll(",", "."));
 					return  "" +(divisor/dividendo);
 				}
 			} else if( InterpreterUtil.validaReal(valL) ) {
 				// PRIMEIRO TERMO EH INTEIRO
-				float divisor = Float.parseFloat(valL);
+				float divisor = Float.parseFloat(valL.replaceAll(",", "."));
 				if( InterpreterUtil.validaInteiro(valR) ) {
 					// SEGUNDO TERMO EH TIPO INTEIRO
 					int dividendo = Integer.parseInt(valR);
 					return  "" +(divisor/dividendo);
 				} else if( InterpreterUtil.validaReal(valR) ) {
 					// SEGUNDO TERMO EH TIPO REAL
-					float dividendo = Float.parseFloat(valR);
+					float dividendo = Float.parseFloat(valR.replaceAll(",", "."));
 					return  "" +(divisor/dividendo);
 				}
 			} else {
@@ -373,11 +406,16 @@ public class Interpreter extends DepthFirstAdapter {
 			ANegaExp e = (ANegaExp) exp;
 			String val = InterpreterUtil.encontraValor(e.toString());
 			
+			if(val == null) {
+				InterpreterUtil.adicionaMensagem("Valor de " +e +" nulo!");
+				return "";
+			}
+			
 			if( InterpreterUtil.validaInteiro( val ) ) {
 				int i = Integer.parseInt(e.getExp().toString().replaceAll(" ", ""));
 				return String.valueOf( (i * -1) );
 			} else if( InterpreterUtil.validaReal( val ) ) {
-				float i = Float.parseFloat(e.getExp().toString().replaceAll(" ", ""));
+				float i = Float.parseFloat(e.getExp().toString().replaceAll(" ", "").replaceAll(",", "."));
 				return String.valueOf( (i * -1) );	
 			} else {
 				InterpreterUtil.adicionaMensagem("Erro! Impossivel negativar uma string!");
@@ -390,7 +428,7 @@ public class Interpreter extends DepthFirstAdapter {
 			return InterpreterUtil.encontraValor(e.getValor().toString());
 		} 
 		// RETURNA NULO QUANDO ACONTECE ALGUM ERRO
-		return null;
+		return "";
 	}
 	
 	// OPERACOES LOGICAS
@@ -427,7 +465,7 @@ public class Interpreter extends DepthFirstAdapter {
 					return numL >= numR;
 				} else if( InterpreterUtil.validaReal(opL) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
-					float numR = Float.parseFloat(opR);
+					float numR = Float.parseFloat(opR.replaceAll(",", "."));
 					return numL >= numR;
 				} else {
 					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
@@ -436,14 +474,14 @@ public class Interpreter extends DepthFirstAdapter {
 				}
 			} else if( InterpreterUtil.validaReal(opL) ) {
 				// ENTAO O NUMERO DA ESQUERDA EH TIPO REAL
-				float numL = Float.parseFloat(opR);
+				float numL = Float.parseFloat(opR.replaceAll(",", "."));
 				if ( InterpreterUtil.validaInteiro(opR) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
 					int numR = Integer.parseInt(opR);
 					return numL >= numR;
 				} else if( InterpreterUtil.validaReal(opR) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
-					float numR = Float.parseFloat(opR);
+					float numR = Float.parseFloat(opR.replaceAll(",", "."));
 					return numL >= numR;
 				} else {
 					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
@@ -469,7 +507,7 @@ public class Interpreter extends DepthFirstAdapter {
 					return numL <= numR;
 				} else if( InterpreterUtil.validaReal(opL) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
-					float numR = Float.parseFloat(opR);
+					float numR = Float.parseFloat(opR.replaceAll(",", "."));
 					return numL <= numR;
 				} else {
 					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
@@ -478,14 +516,14 @@ public class Interpreter extends DepthFirstAdapter {
 				}
 			} else if( InterpreterUtil.validaReal(opL) ) {
 				// ENTAO O NUMERO DA ESQUERDA EH TIPO REAL
-				float numL = Float.parseFloat(opR);
+				float numL = Float.parseFloat(opR.replaceAll(",", "."));
 				if ( InterpreterUtil.validaInteiro(opR) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
 					int numR = Integer.parseInt(opR);
 					return numL <= numR;
 				} else if( InterpreterUtil.validaReal(opR) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
-					float numR = Float.parseFloat(opR);
+					float numR = Float.parseFloat(opR.replaceAll(",", "."));
 					return numL <= numR;
 				} else {
 					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
@@ -511,7 +549,7 @@ public class Interpreter extends DepthFirstAdapter {
 					return numL > numR;
 				} else if( InterpreterUtil.validaReal(opL) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
-					float numR = Float.parseFloat(opR);
+					float numR = Float.parseFloat(opR.replaceAll(",", "."));
 					return numL > numR;
 				} else {
 					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
@@ -520,14 +558,14 @@ public class Interpreter extends DepthFirstAdapter {
 				}
 			} else if( InterpreterUtil.validaReal(opL) ) {
 				// ENTAO O NUMERO DA ESQUERDA EH TIPO REAL
-				float numL = Float.parseFloat(opR);
+				float numL = Float.parseFloat(opR.replaceAll(",", "."));
 				if ( InterpreterUtil.validaInteiro(opR) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
 					int numR = Integer.parseInt(opR);
 					return numL > numR;
 				} else if( InterpreterUtil.validaReal(opR) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
-					float numR = Float.parseFloat(opR);
+					float numR = Float.parseFloat(opR.replaceAll(",", "."));
 					return numL > numR;
 				} else {
 					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
@@ -553,7 +591,7 @@ public class Interpreter extends DepthFirstAdapter {
 					return numL < numR;
 				} else if( InterpreterUtil.validaReal(opL) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
-					float numR = Float.parseFloat(opR);
+					float numR = Float.parseFloat(opR.replaceAll(",", "."));
 					return numL < numR;
 				} else {
 					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
@@ -562,14 +600,14 @@ public class Interpreter extends DepthFirstAdapter {
 				}
 			} else if( InterpreterUtil.validaReal(opL) ) {
 				// ENTAO O NUMERO DA ESQUERDA EH TIPO REAL
-				float numL = Float.parseFloat(opR);
+				float numL = Float.parseFloat(opR.replaceAll(",", "."));
 				if ( InterpreterUtil.validaInteiro(opR) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
 					int numR = Integer.parseInt(opR);
 					return numL < numR;
 				} else if( InterpreterUtil.validaReal(opR) ) {
 					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
-					float numR = Float.parseFloat(opR);
+					float numR = Float.parseFloat(opR.replaceAll(",", "."));
 					return numL < numR;
 				} else {
 					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO

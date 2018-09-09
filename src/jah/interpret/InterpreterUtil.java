@@ -58,11 +58,11 @@ public class InterpreterUtil {
 		if(str != null) {
 			str = str.replaceAll(" ", "");
 			str = str.replaceAll(",", ".");
-		}
-		try {
-			Float.parseFloat(str);
-		} catch(NumberFormatException nfe){
-			return false;
+			try {
+				Float.parseFloat(str);
+			} catch(NumberFormatException nfe){
+				return false;
+			}
 		}
 		return true;
 	}
@@ -70,11 +70,11 @@ public class InterpreterUtil {
 	public static boolean validaInteiro(String str) {
 		if(str != null) {
 			str = str.replaceAll(" ", "");
-		}
-		try {
-			Integer.parseInt(str);
-		} catch(NumberFormatException nfe){
-			return false;
+			try {
+				Integer.parseInt(str);
+			} catch(NumberFormatException nfe){
+				return false;
+			}
 		}
 		return true;
 	}
