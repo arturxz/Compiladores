@@ -235,6 +235,33 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 	
+	public void caseACommEnquanto(ACommEnquanto node) {
+		/*
+		 * 	Neste caso o procedimento é semelhante ao "se" pois só precisamos verificar
+		 * se há erros na de escrita
+		 * 
+		 */
+		boolean r = aplicaLogica(node.getExpLogica());
+		
+		if ( r ) {
+			node.getComms();
+		}
+	}
+	
+	public void caseAAlgoCommLeia(AAlgoCommLeia node) {
+		String var = node.getVar().toString();
+		if (!InterpreterUtil.existeVariavel(var)) {
+			InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " não declarada");
+		}
+	}
+	
+	public void caseANadaCommLeia(ANadaCommLeia node) {
+		/*
+		 * Sempre está entrando neste caso. -.-
+		 */
+		//System.out.println("Caso Nada Leia");
+	}
+	
 	
 	
 	// OPERACOES ARITMETICAS
@@ -265,7 +292,7 @@ public class Interpreter extends DepthFirstAdapter {
 					return  "" +(termo1+termo2);
 				}
 			} else if( InterpreterUtil.validaReal(valL.replaceAll(",", ".")) ) {
-				// PRIMEIRO TERMO EH INTEIRO
+				// PRIMEIRO TERMO EH REAL
 				float termo1 = Float.parseFloat(valL.replaceAll(",", "."));
 				if( InterpreterUtil.validaInteiro(valR) ) {
 					// SEGUNDO TERMO EH TIPO INTEIRO
