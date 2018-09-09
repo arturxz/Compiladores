@@ -26,5 +26,14 @@ public class HashTable {
 			return true;
 		}
 	}
+	
+	public static boolean existeVariavel(String id) {
+		/** APENAS VERIFICA SE ENTRADA EXISTE NO HASHTABLE A PARTIR DA ID **/
+		if ( retornaEntrada(id) == null ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 }

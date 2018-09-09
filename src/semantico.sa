@@ -1,14 +1,14 @@
 programa
 exemplo
 inicio
-	inteiro : inta, vtr1[12];
+	inteiro : inta, vtr1[6];
 	inteiro : intb;
 	
 	real : reala;
-	real : vtr2[42], realb;
+	real : vtr2[7], realb;
 	
-	caractere : stra, vtr3[99], strb; 
-	caractere : vtr4[50];
+	caractere : stra, vtr3[8], strb; 
+	caractere : vtr4[9];
 	
 	const pi 3,14159;
 	
@@ -18,8 +18,12 @@ inicio
 	stra := 'a';
 	strb := stra;
 	
-	vtr1[2] := 20;
-	vtr1[55] := 22;
-	vtr4[1] := 'a';
-	vtr2[41] := 1,1;
+	vtr1[0] := 1;
+	vtr1[1] := vtr1[0];
+	
+	vtr2[0] := 1,1;
+	vtr2[1] := vtr2[0];
+	
+	vtr3[0] := 'a';
+	vtr3[1] := vtr3[0];
 fim.

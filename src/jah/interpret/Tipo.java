@@ -22,7 +22,7 @@ public class Tipo {
 		String[] nome = this.tipo.split(" ");
 		if(nome.length > 1) {
 			this.array = true;
-			this.valor = new String[ Integer.parseInt(nome[1].replaceAll(" ", "")) ];
+			this.valor = new String[ getTamanhoArray() ];
 		} else {
 			this.array = false;
 			this.valor = new String[1];
@@ -31,7 +31,7 @@ public class Tipo {
 	
 	public int getTamanhoArray() {
 		if(array) {
-			return Integer.parseInt( tipo.split(" ")[1] );
+			return Integer.parseInt( tipo.split(" ")[1].replaceAll(" ", "") );
 		} else {
 			return -1;
 		}

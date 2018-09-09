@@ -120,7 +120,53 @@ public class Interpreter extends DepthFirstAdapter {
 			}
 		}
 	}
-
+	
+	public void caseASimplesComm(ASimplesComm node) {
+		String[] idL = node.getVar().toString().split(" ");
+		
+		if( InterpreterUtil.existeVariavel(idL[0]) ) {
+			// ENTAO A VARIAVEL EXISTE
+			Tipo tL = InterpreterUtil.retornaEntrada(idL[0]);
+			if( tL.verificaArray() ) {
+				// ENTAO A VARIAVEL EH UM ARRAY
+				InterpreterUtil.adicionaMensagem("Atribuicao com array");
+			} else {
+				// ENTAO ESSA E UMA VARIAVEL NORMAL
+				if( tL.getTipo().equals("inteiro") ) {
+					// EH UMA VARIAVEL DE INTEIRO
+					String r = node.getExp().toString();
+					if( InterpreterUtil.validaInteiro(r) ) {
+						tL.setValor(new String[] {r});
+					} else {
+						InterpreterUtil.adicionaMensagem("Erro! Expressao atribuida a " +tL.getTipo() +" nao e do tipo inteiro.");
+					}
+				} else if( tL.getTipo().equals("real") ) {
+					// EH UMA VARIAVEL DE REAL
+					String r = node.getExp().toString();
+					if( InterpreterUtil.validaReal(r) ) {
+						tL.setValor(new String[] {r});
+					} else {
+						InterpreterUtil.adicionaMensagem("Erro! Expressao atribuida a " +tL.getTipo() +" nao e do tipo real.");
+					}
+				} else if( tL.getTipo().equals("string") ) {
+					// EH UMA VARIAVEL DE STRING
+					String r = node.getExp().toString();
+					if( r.replaceAll("'", "").replaceAll(" ", "").length() == 1 ) {
+						tL.setValor(new String[] {r});
+					} else {
+						InterpreterUtil.adicionaMensagem("Erro! tentou-se atribuir mais de um caractere na variavel " +tL.getTipo() +".");
+					}
+				}
+			}
+		} else {
+			// ENTAO A VARIAVEL NAO EXISTE
+			InterpreterUtil.adicionaMensagem("Erro! Variavel " +idL[0] +" inexistente!");
+		}
+	}
+	
+	
+	/**
+	
 	// ATRIBUICAO SIMPLES NAO ESTA COMPLETA
 	public void caseASimplesComm(ASimplesComm node) {
 		String[] id = node.getVar().toString().split(" ");
@@ -169,50 +215,106 @@ public class Interpreter extends DepthFirstAdapter {
 				// A VARIAVEL E UMA VARIAVEL NORMAL
 				if( var.getTipo().replaceAll(" ", "").equals("inteiro") ) {
 					String ret = aplicaOperacao(node.getExp());
-					if( InterpreterUtil.validaInteiro(ret) ) {
-						String[] vet = new String[]{ret};
-						var.setValor(vet);
+					if( ret != null ) {
+						if( InterpreterUtil.validaInteiro(ret) ) {
+							// ENTAO EH VALOR
+							String[] vet = new String[]{ret};
+							var.setValor(vet);
+						} else if( InterpreterUtil.existeVariavel(ret.split(" ")[0]) ){
+							// ENTAO EH VAR
+							Tipo t = InterpreterUtil.retornaEntrada(ret.split(" ")[0]);
+							if(t.verificaArray()) {
+								// EH ARRAY
+								String valor = t.getValor()[ Integer.parseInt(ret.split(" ")[1]) ];
+								var.setValor(new String[] {valor});
+							} else {
+								// NAO EH ARRAY
+								String valor = t.getValor()[0];
+								var.setValor(new String[] {valor});
+							}
+						} else {
+							InterpreterUtil.adicionaMensagem("Erro! Tipos incompatíveis. Atribuído valor " +ret +" a variavel do tipo " +var.getTipo());
+						}
 					} else {
-						InterpreterUtil.adicionaMensagem("Erro! Tipos incompatíveis. Atribuído valor " +ret +" a variavel do tipo " +var.getTipo());
+						InterpreterUtil.adicionaMensagem("Atribuicao impossivel. ");
 					}
 				} else if( var.getTipo().replaceAll(" ", "").equals("real") ) {
 					String ret = aplicaOperacao(node.getExp());
-					if( InterpreterUtil.validaReal(ret) ) {
-						String[] vet = new String[]{ret};
-						var.setValor(vet);
+					if( ret != null ) {
+						if( InterpreterUtil.validaReal(ret) ) {
+							// ENTAO EH VALOR
+							String[] vet = new String[]{ret};
+							var.setValor(vet);
+						} else if( InterpreterUtil.existeVariavel(ret.split(" ")[0]) ){
+							// ENTAO EH VAR
+							Tipo t = InterpreterUtil.retornaEntrada(ret.split(" ")[0]);
+							if(t.verificaArray()) {
+								// EH ARRAY
+								String valor = t.getValor()[ Integer.parseInt(ret.split(" ")[1]) ];
+								var.setValor(new String[] {valor});
+							} else {
+								// NAO EH ARRAY
+								String valor = t.getValor()[0];
+								var.setValor(new String[] {valor});
+							}
+						} else {
+							InterpreterUtil.adicionaMensagem("Erro! Tipos incompatíveis. Atribuído valor " +ret +" a variavel do tipo " +var.getTipo());
+						}
 					} else {
-						InterpreterUtil.adicionaMensagem("Erro! Tipos incompatíveis. Atribuído valor " +ret +" a variavel do tipo " +var.getTipo());
+						InterpreterUtil.adicionaMensagem("Atribuicao impossivel. ");
 					}
 				} else if( var.getTipo().replaceAll(" ", "").equals("string") ) {
 					String ret = aplicaOperacao(node.getExp());
-					ret = ret.replaceAll("'", "").replaceAll(" ", "");
-					if( ret.length() == 1 ) {
-						String[] vet = new String[]{ret};
-						var.setValor(vet);
+					if( ret != null ) {
+						ret = ret.replaceAll("'", "").replaceAll(" ", "");
+						if( ret.length() == 1 ) {
+							// EH VALOR
+							String[] vet = new String[]{ret};
+							var.setValor(vet);
+						} else {
+							// EH VAR
+							if( InterpreterUtil.existeVariavel( node.getExp().toString().replaceAll(" ", "")) ) {
+								Tipo t = InterpreterUtil.retornaEntrada( node.getExp().toString().replaceAll(" ", ""));
+								if( t.verificaArray() ) {
+									// EH ARRAY
+									String valor = t.getValor()[ Integer.parseInt(ret.split(" ")[1]) ];
+									var.setValor(new String[] {valor});
+								} else {
+									// NAO EH ARRAY
+									String valor = t.getValor()[0];
+									var.setValor(new String[] {valor});
+								}
+								
+							} else {
+								InterpreterUtil.adicionaMensagem("Erro! Variavel " +node.getExp() +" inexistente.");
+							}
+						}
 					} else {
 						InterpreterUtil.adicionaMensagem("Erro! Tipos incompatíveis. Atribuído valor " +ret +" a variavel do tipo " +var.getTipo());
 					}
 				}
 			}
-			System.out.println(var.toString());
+			InterpreterUtil.adicionaMensagem("->" +var.toString());
 		} else {
 			InterpreterUtil.adicionaMensagem("Erro! Variavel " + id + " nao declarada!");
 		}
 	}
 	
-	public String aplicaOperacao(PExp exp) {
+	**/
+
+	private String aplicaOperacao(PExp exp) {
 		
 		if( exp instanceof ASomaExp  ) {
 			ASomaExp e = (ASomaExp) exp;
 			
 			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
-					// entao segundo termo e inteiro tb
+					// ENTAO O SEGUNTO TERMO TAMBEM EH INTEIRO
 					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
 					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l+r);
 				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
-					// entao o segundo termo e real
+					// ENTAO O SEGUNDO TERMO EH REAL
 					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
 					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l+r);
@@ -226,7 +328,7 @@ public class Interpreter extends DepthFirstAdapter {
 					InterpreterUtil.adicionaMensagem("Erro! Soma entre numeral e string.");
 				}
 			} else {
-				// entao eh string
+				// ENTAO EH STRING
 				String str = e.getL().toString().replaceAll("'", "") + e.getR().toString().replaceAll("'", "");
 				str = "'" +str +"'";
 				return str;
@@ -237,12 +339,12 @@ public class Interpreter extends DepthFirstAdapter {
 			
 			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
-					// entao segundo termo e inteiro tb
+					// ENTAO O SEGUNTO TERMO TAMBEM EH INTEIRO
 					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
 					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
 				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
-					// entao o segundo termo e real
+					// ENTAO O SEGUNDO TERMO EH REAL
 					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
 					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
@@ -256,7 +358,7 @@ public class Interpreter extends DepthFirstAdapter {
 					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
 				}
 			} else {
-				// entao eh string
+				// ENTAO EH STRING
 				InterpreterUtil.adicionaMensagem("Erro! Operacao indefinida para o tipo string!.");
 			}
 		} else if( exp instanceof AMultExp  ) {
@@ -264,12 +366,12 @@ public class Interpreter extends DepthFirstAdapter {
 			
 			if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
-					// entao segundo termo e inteiro tb
+					// ENTAO O SEGUNDO TERMO TAMBEM EH INTEIRO
 					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
 					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
 				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
-					// entao o segundo termo e real
+					// ENTAO O SEGUNDO TERMO EH REAL
 					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
 					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
@@ -283,7 +385,7 @@ public class Interpreter extends DepthFirstAdapter {
 					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
 				}
 			} else {
-				// entao eh string
+				// ENTAO EH STRING
 				InterpreterUtil.adicionaMensagem("Erro! Operacao indefinida para o tipo string!.");
 			}
 		} else if( exp instanceof ADiviExp  ) {
@@ -293,12 +395,12 @@ public class Interpreter extends DepthFirstAdapter {
 				InterpreterUtil.adicionaMensagem("Erro! Divisao por zero.");
 			} else if( InterpreterUtil.validaInteiro(e.getL().toString()) ) {
 				if( InterpreterUtil.validaInteiro(e.getR().toString()) ) {
-					// entao segundo termo e inteiro tb
+					// ENTAO O SEGUNDO TERMO EH INTEIRO
 					int l = Integer.parseInt(e.getL().toString().replaceAll(" ", ""));
 					int r = Integer.parseInt(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
 				} else if( InterpreterUtil.validaReal(e.getR().toString()) ) {
-					// entao o segundo termo e real
+					// ENTAO O SEGUNDO TERMO EH REAL
 					float l = Float.parseFloat(e.getL().toString().replaceAll(" ", ""));
 					float r = Float.parseFloat(e.getR().toString().replaceAll(" ", ""));
 					return String.valueOf(l-r);
@@ -312,7 +414,7 @@ public class Interpreter extends DepthFirstAdapter {
 					InterpreterUtil.adicionaMensagem("Erro! Subtracao entre numeral e string.");
 				}
 			} else {
-				// entao eh string
+				// ENTAO EH UMA STRING
 				InterpreterUtil.adicionaMensagem("Erro! Operacao indefinida para o tipo string!.");
 			}
 		} else if( exp instanceof ANegaExp  ) {
@@ -329,29 +431,40 @@ public class Interpreter extends DepthFirstAdapter {
 			}
 			
 		} else if( exp instanceof AVarExp  ) {
-			AVarExp var = (AVarExp) exp;
-			if( InterpreterUtil.existeVariavel( var.getVar().toString()) ) {
-				Tipo t = InterpreterUtil.retornaEntrada(var.getVar().toString());
-				if(t.verificaArray()) {
-					String ret = "";
-					for(int i = 0; i < t.getTamanhoArray(); i++) {
-						if(i == t.getTamanhoArray()-1) {
-							ret = t.getValor()[i];
-						} else {
-							ret = t.getValor()[i] + " ";
-						}
-					}
-				} else{
-					return t.getValor()[0];
-				}
-			}
 			return ((AVarExp) exp).getVar().toString();
 		} else if( exp instanceof AValExp  ) {
 			return ((AValExp) exp).getValor().toString();
 		} 
 		
-		// retorna nulo se ocorrer algum erro.
+		// RETURNA NULO QUANDO ACONTECE ALGUM ERRO
 		return null;
 	}
 	
+	private String encontraValor(String str) {
+		if( InterpreterUtil.validaInteiro(str) ) {
+			// ENTAO EH UM VALOR INTEIRO
+			return str.replaceAll(" ", "");
+		} else if( InterpreterUtil.validaReal(str) ){
+			// ENTAO EH UM VALOR REAL
+			return str.replaceAll(" ", "");
+		} else if( InterpreterUtil.existeVariavel(str.split(" ")[0]) ) {
+			// ENTAO EH UMA VARIAVEL
+			Tipo t = InterpreterUtil.retornaEntrada(str.split(" ")[0]);
+			if( t.verificaArray() ) {
+				// ENTAO A VARIAVEL EH UM ARRAY
+				if( Integer.parseInt(str.split(" ")[1]) >= t.getTamanhoArray() ) {
+					return null;
+				} else {
+					return t.getValor()[ Integer.parseInt(str.split(" ")[1]) ];
+				}
+			} else {
+				// ENTAO A VARIAVEL EH NORMAL
+				return t.getValor()[0];
+			}
+		} else if( str.replaceAll(" ", "").replaceAll("'", "").length() == 1 ) {
+			// ENTAO EH UM VALOR CARACTERE
+			return str.replaceAll(" ", "");
+		}
+		return null;
+	}
 }

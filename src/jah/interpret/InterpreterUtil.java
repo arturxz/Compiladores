@@ -82,6 +82,7 @@ public class InterpreterUtil {
 	public static void imprimeRetornos() {
 		while (!msgs.isEmpty()) {
 			System.out.println( msgs.pop() );
+		
 		}
 	}
 
