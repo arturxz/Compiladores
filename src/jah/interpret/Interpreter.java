@@ -262,6 +262,46 @@ public class Interpreter extends DepthFirstAdapter {
 		//System.out.println("Caso Nada Leia");
 	}
 	
+	// COMANDOS AVALIE
+	public void caseAExpAriCommAvalie(AExpAriCommAvalie node) {
+		String r = aplicaOperacao(node.getExp());
+		if(r != null) {
+			if( InterpreterUtil.validaInteiro( r ) ) {
+				// ENTAO ESTAMOS AVALIANDO UM TIPO INTEIRO
+				node.getCommAvalieCasoParte();
+			} else if( InterpreterUtil.validaReal( r ) ) {
+				// ENTAO ESTAMOS AVALIANDO UM TIPO REAL
+				node.getCommAvalieCasoParte();
+			} else {
+				InterpreterUtil.adicionaMensagem("So se pode avaliar tipos inteiros, reais expressoes logicas!");
+			}
+		}
+	}
+
+	public void caseAExpLogCommAvalie(AExpLogCommAvalie node) {
+		boolean b = aplicaLogica(node.getExpLogica());
+		if( b ) {
+			node.getCommAvalieCasoParte();
+		}
+	}
+
+	public void caseAComCasoCommAvalieCasoParte(AComCasoCommAvalieCasoParte node) {
+		String valor = node.getValor().toString();
+		
+		if( InterpreterUtil.validaInteiro(valor) || InterpreterUtil.validaReal(valor) ) {
+			node.getComms();
+		} else {
+			node.getCommAvalieCasoParte();
+		}
+	}
+	
+	public void caseASemCasoCommAvalieCasoParte(ASemCasoCommAvalieCasoParte node) {
+		node.getCommAvalieSenaoParte();
+	}
+
+	public void caseAComSenaoCommAvalieSenaoParte(AComSenaoCommAvalieSenaoParte node) {
+		node.getComms();
+	}
 	
 	
 	// OPERACOES ARITMETICAS
