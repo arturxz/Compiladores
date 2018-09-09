@@ -237,27 +237,53 @@ public class Interpreter extends DepthFirstAdapter {
 	
 	public void caseACommEnquanto(ACommEnquanto node) {
 		/*
-		 * 	Neste caso o procedimento � semelhante ao "se" pois s� precisamos verificar
-		 * se h� erros na de escrita
+		 * 	Neste caso o procedimento � semelhante ao "se" pois s� precisamos verificar
+		 * se h� erros na de escrita
 		 * 
 		 */
 		boolean r = aplicaLogica(node.getExpLogica());
+		System.out.println("Enquanto");
+		
 		
 		if ( r ) {
 			node.getComms();
 		}
 	}
 	
+	
+	//DEVERIA ENTRAR NESTE NÓ
 	public void caseAAlgoCommLeia(AAlgoCommLeia node) {
+		//System.out.println("Entrou no caso ALGO");
 		String var = node.getVar().toString();
 		if (!InterpreterUtil.existeVariavel(var)) {
-			InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " n�o declarada");
+			InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " nao declarada");
+		}
+	}
+	
+	//DEVERIA ENTRAR NESTE NÓ
+	public void caseAAlgoExpAriCommEscreva(AAlgoExpAriCommEscreva node) {
+		System.out.println("Ari comm escreva");
+		
+		String r = aplicaOperacao(node.getExp());
+		
+		if (!r.equals("")) {
+			node.getCommEscreva();
+		}
+	}
+	
+	//DEVERIA ENTRAR NESTE NÓ
+	public void caseAAlgoExpLogCommEscreva(AAlgoExpLogCommEscreva node) {
+		System.out.println("Log comm escreva");
+		
+		boolean r = aplicaLogica(node.getExpLogica());
+		if (r) {
+			node.getCommEscreva();
 		}
 	}
 	
 	public void caseANadaCommLeia(ANadaCommLeia node) {
 		/*
-		 * Sempre est� entrando neste caso. -.-
+		 * Sempre est� entrando neste caso. -.-
 		 */
 		//System.out.println("Caso Nada Leia");
 	}
@@ -302,6 +328,63 @@ public class Interpreter extends DepthFirstAdapter {
 	public void caseAComSenaoCommAvalieSenaoParte(AComSenaoCommAvalieSenaoParte node) {
 		node.getComms();
 	}
+	
+	public void caseACommRepitaCondicaoParte(ACommRepitaCondicaoParte node) {
+		/*
+		 * 	Basta Usar a função aplicaLogica que ela analiza se uma exp-logica
+		 * contem uma variavel não declarada
+		 */
+		boolean r = aplicaLogica(node.getExpLogica());
+		//if (r) {//Não há necessidade de fazer algo}
+	}
+	
+	
+	//A ARVORE NAO ESTÁ ENTRANDO NESSE CASO
+	public void casoAExpAriCommAvalie(AExpAriCommAvalie node) {
+		System.out.println("Exp Ari avalie");
+		
+		String r = aplicaOperacao(node.getExp());
+		
+		//Verifica se o resultado não foi nulo
+		if (!r.equals("")) {
+			node.getCommAvalieCasoParte();
+		}
+		
+	}
+	
+	//A ARVORE NAO ESTÁ ENTRANDO NESTE CASO
+	public void casoAExpLogCommAvalie(AExpLogCommAvalie node) {
+		System.out.println("Exp Log avalie");
+		
+		boolean r = aplicaLogica(node.getExpLogica());
+		if (r) {
+			node.getCommAvalieCasoParte();
+		}
+		
+	}
+
+	
+	public void caseACommPara(ACommPara node) {
+		/*
+		 * Faz a verificação da variavel passada, se é do tipo inteiro
+		 */
+		String var = node.getVar().toString().replaceAll(" ","");
+		
+		if (InterpreterUtil.existeVariavel(var)) {
+			//Variavel existe
+			Tipo tp = InterpreterUtil.retornaEntrada(var);
+			if (tp.getTipo().equals("inteiro")) {
+				//System.out.println("Variavel do tipo inteiro");
+				node.getCommParaPassa();
+			} else {
+				InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " nao e do tipo inteiro");
+			}
+		} else {
+			InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " nao declarada");
+		}
+		
+	}
+	
 	
 	
 	// OPERACOES ARITMETICAS
