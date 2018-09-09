@@ -217,6 +217,25 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 	
+	// COMANDOS SE
+	public void caseAComSenaoCommSe(AComSenaoCommSe node) {
+		boolean r = aplicaLogica(node.getExpLogica());
+		if( r ) {
+			node.getComms();
+		} else {
+			node.getCommSeSenao();
+		}
+	}
+	
+	public void caseASemSenaoCommSe(ASemSenaoCommSe node) {
+		boolean r = aplicaLogica(node.getExpLogica());
+		
+		if( r ) {
+			node.getComms();
+		}
+	}
+	
+	
 	// OPERACOES ARITMETICAS
 	private String aplicaOperacao(PExp exp) {
 		if( exp instanceof ASomaExp  ) {
