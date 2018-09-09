@@ -1,7 +1,7 @@
 package jah.interpret;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Stack;
 
 import jah.interpret.Tipo;
 
@@ -16,7 +16,7 @@ public class InterpreterUtil {
 	 * NA DECLARACAO DA VARIAVEL, INSIRA NULL COMO O VALOR DA VARIAVEL!
 	 **/
 
-	private static Stack<String> msgs = new Stack<String>();
+	private static ArrayList<String> msgs = new ArrayList<String>();
 
 	/**
 	 * NESSA PILHA ESTAO TODAS AS MENSAGENS RETORNADAS PARA O USUARIO. AS MENSAGENS
@@ -81,7 +81,7 @@ public class InterpreterUtil {
 
 	public static void imprimeRetornos() {
 		while (!msgs.isEmpty()) {
-			System.out.println( msgs.pop() );
+			System.out.println( msgs.remove(0) );
 		
 		}
 	}

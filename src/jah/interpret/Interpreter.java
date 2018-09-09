@@ -129,7 +129,15 @@ public class Interpreter extends DepthFirstAdapter {
 			Tipo tL = InterpreterUtil.retornaEntrada(idL[0]);
 			if( tL.verificaArray() ) {
 				// ENTAO A VARIAVEL EH UM ARRAY
-				InterpreterUtil.adicionaMensagem("Atribuicao com array");
+				String tipoArray = tL.getTipo().split(" ")[0];
+				
+				if( tipoArray.equals("inteiro") ) {
+					InterpreterUtil.adicionaMensagem("Atribuicao com array inteiro");
+				} else if( tipoArray.equals("real") ) {
+					InterpreterUtil.adicionaMensagem("Atribuicao com array real");
+				} else if( tipoArray.equals("string") ) {
+					InterpreterUtil.adicionaMensagem("Atribuicao com array string");
+				}
 			} else {
 				// ENTAO ESSA E UMA VARIAVEL NORMAL
 				if( tL.getTipo().equals("inteiro") ) {
