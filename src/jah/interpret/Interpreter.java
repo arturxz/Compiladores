@@ -132,11 +132,53 @@ public class Interpreter extends DepthFirstAdapter {
 				String tipoArray = tL.getTipo().split(" ")[0];
 				
 				if( tipoArray.equals("inteiro") ) {
-					InterpreterUtil.adicionaMensagem("Atribuicao com array inteiro");
+					String r = aplicaOperacao(node.getExp());
+					if( InterpreterUtil.validaInteiro(r) ) {
+						// VALOR DA EXPRESSAO EH DO TIPO INTEIRO
+						int indice = Integer.parseInt(idL[1]); 
+						if( indice < tL.getTamanhoArray() ) {
+							// INDICE DO ARRAY EH VALIDO
+							String[] val = tL.getValor();
+							val[indice] = r;
+							tL.setValor(val);
+						} else {
+							InterpreterUtil.adicionaMensagem("Erro! Indice indicado (" +indice +") eh invalido para o array " +idL[0]);
+						}
+					} else {
+						InterpreterUtil.adicionaMensagem("Erro! O valor a ser atribuido deve ser inteiro, pois o array " +idL[0] +" eh do tipo inteiro.");
+					}
 				} else if( tipoArray.equals("real") ) {
-					InterpreterUtil.adicionaMensagem("Atribuicao com array real");
+					String r = aplicaOperacao(node.getExp());
+					if( InterpreterUtil.validaReal(r) ) {
+						// VALOR DA EXPRESSAO EH DO TIPO REAL
+						int indice = Integer.parseInt(idL[1]); 
+						if( indice < tL.getTamanhoArray() ) {
+							// INDICE DO ARRAY EH VALIDO
+							String[] val = tL.getValor();
+							val[indice] = r;
+							tL.setValor(val);
+						} else {
+							InterpreterUtil.adicionaMensagem("Erro! Indice indicado (" +indice +") eh invalido para o array " +idL[0]);
+						}
+					} else {
+						InterpreterUtil.adicionaMensagem("Erro! O valor a ser atribuido deve ser real, pois o array " +idL[0] +" eh do tipo real.");
+					}
 				} else if( tipoArray.equals("string") ) {
-					InterpreterUtil.adicionaMensagem("Atribuicao com array string");
+					String r = aplicaOperacao(node.getExp());
+					if( r.replaceAll(" ", "").replaceAll("'", "").length() == 1 ) {
+						// VALOR DA EXPRESSAO EH DO TIPO CARACTERE
+						int indice = Integer.parseInt(idL[1]); 
+						if( indice < tL.getTamanhoArray() ) {
+							// INDICE DO ARRAY EH VALIDO
+							String[] val = tL.getValor();
+							val[indice] = r;
+							tL.setValor(val);
+						} else {
+							InterpreterUtil.adicionaMensagem("Erro! Indice indicado (" +indice +") eh invalido para o array " +idL[0]);
+						}
+					} else {
+						InterpreterUtil.adicionaMensagem("Erro! O valor a ser atribuido deve ser caractere, pois o array " +idL[0] +" eh do tipo caractere.");
+					}
 				}
 			} else {
 				// ENTAO ESSA E UMA VARIAVEL NORMAL
@@ -166,6 +208,7 @@ public class Interpreter extends DepthFirstAdapter {
 					}
 				}
 			}
+			System.out.println(tL);
 		} else {
 			// ENTAO A VARIAVEL NAO EXISTE
 			InterpreterUtil.adicionaMensagem("Erro! Variavel " +idL[0] +" inexistente!");
