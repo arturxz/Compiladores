@@ -52,6 +52,7 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 
+	// DECLARACAO DE VARIAVEIS
 	public void caseAVariaveisDecl(AVariaveisDecl node) {
 		String[] lista = node.getVarList().toString().split(" ");
 
@@ -121,6 +122,7 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 	
+	// COMANDO DE ATRIBUICAO
 	public void caseASimplesComm(ASimplesComm node) {
 		String[] idL = node.getVar().toString().split(" ");
 		
@@ -208,13 +210,14 @@ public class Interpreter extends DepthFirstAdapter {
 					}
 				}
 			}
-			System.out.println(tL);
+			//System.out.println(tL);
 		} else {
 			// ENTAO A VARIAVEL NAO EXISTE
 			InterpreterUtil.adicionaMensagem("Erro! Variavel " +idL[0] +" inexistente!");
 		}
 	}
 	
+	// OPERACOES ARITMETICAS
 	private String aplicaOperacao(PExp exp) {
 		if( exp instanceof ASomaExp  ) {
 			ASomaExp e = (ASomaExp) exp;
@@ -370,5 +373,199 @@ public class Interpreter extends DepthFirstAdapter {
 		// RETURNA NULO QUANDO ACONTECE ALGUM ERRO
 		return null;
 	}
-
+	
+	// OPERACOES LOGICAS
+	private boolean aplicaLogica(PExpLogica exp) {
+		
+		if(exp instanceof ANotExpLogica) {
+			// OPERACAO NOT
+			ANotExpLogica ne = (ANotExpLogica) exp;
+			return !aplicaLogica(ne);
+		} else if(exp instanceof AOuExpLogica) {
+			// OPERACAO OR
+			AOuExpLogica ne =(AOuExpLogica) exp;
+			return  aplicaLogica(ne.getL()) || aplicaLogica(ne.getR());
+		} else if(exp instanceof AAndExpLogica) {
+			AAndExpLogica ne =(AAndExpLogica) exp;
+			return  aplicaLogica(ne.getL()) && aplicaLogica(ne.getR());
+		} else if(exp instanceof AXorExpLogica) {
+			AXorExpLogica ne =(AXorExpLogica) exp;
+			return  aplicaLogica(ne.getL()) ^ aplicaLogica(ne.getR());
+		} else if(exp instanceof ADiferenteExpLogica) {
+			ADiferenteExpLogica ne =(ADiferenteExpLogica) exp;
+			return !aplicaOperacao(ne.getL()).equals( aplicaOperacao(ne.getR()) );
+		} else if(exp instanceof AMaiorqExpLogica) {
+			AMaiorqExpLogica ne =(AMaiorqExpLogica) exp;
+			String opL = aplicaOperacao(ne.getL());
+			String opR = aplicaOperacao(ne.getR());
+			
+			if ( InterpreterUtil.validaInteiro(opL) ) {
+				// ENTAO O NUMERO DA ESQUERDA EH TIPO INTEIRO
+				int numL = Integer.parseInt(opL);
+				if ( InterpreterUtil.validaInteiro(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
+					int numR = Integer.parseInt(opR);
+					return numL >= numR;
+				} else if( InterpreterUtil.validaReal(opL) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
+					float numR = Float.parseFloat(opR);
+					return numL >= numR;
+				} else {
+					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+					InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+					return false;
+				}
+			} else if( InterpreterUtil.validaReal(opL) ) {
+				// ENTAO O NUMERO DA ESQUERDA EH TIPO REAL
+				float numL = Float.parseFloat(opR);
+				if ( InterpreterUtil.validaInteiro(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
+					int numR = Integer.parseInt(opR);
+					return numL >= numR;
+				} else if( InterpreterUtil.validaReal(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
+					float numR = Float.parseFloat(opR);
+					return numL >= numR;
+				} else {
+					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+					InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+					return false;
+				}
+			} else {
+				// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+				InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+				return false;
+			}
+		} else if(exp instanceof AMenorqExpLogica) {
+			AMenorqExpLogica ne =(AMenorqExpLogica) exp;
+			String opL = aplicaOperacao(ne.getL());
+			String opR = aplicaOperacao(ne.getR());
+			
+			if ( InterpreterUtil.validaInteiro(opL) ) {
+				// ENTAO O NUMERO DA ESQUERDA EH TIPO INTEIRO
+				int numL = Integer.parseInt(opL);
+				if ( InterpreterUtil.validaInteiro(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
+					int numR = Integer.parseInt(opR);
+					return numL <= numR;
+				} else if( InterpreterUtil.validaReal(opL) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
+					float numR = Float.parseFloat(opR);
+					return numL <= numR;
+				} else {
+					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+					InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+					return false;
+				}
+			} else if( InterpreterUtil.validaReal(opL) ) {
+				// ENTAO O NUMERO DA ESQUERDA EH TIPO REAL
+				float numL = Float.parseFloat(opR);
+				if ( InterpreterUtil.validaInteiro(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
+					int numR = Integer.parseInt(opR);
+					return numL <= numR;
+				} else if( InterpreterUtil.validaReal(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
+					float numR = Float.parseFloat(opR);
+					return numL <= numR;
+				} else {
+					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+					InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+					return false;
+				}
+			} else {
+				// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+				InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+				return false;
+			}
+		} else if(exp instanceof AMaiorExpLogica) {
+			AMaiorExpLogica ne =(AMaiorExpLogica) exp;
+			String opL = aplicaOperacao(ne.getL());
+			String opR = aplicaOperacao(ne.getR());
+			
+			if ( InterpreterUtil.validaInteiro(opL) ) {
+				// ENTAO O NUMERO DA ESQUERDA EH TIPO INTEIRO
+				int numL = Integer.parseInt(opL);
+				if ( InterpreterUtil.validaInteiro(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
+					int numR = Integer.parseInt(opR);
+					return numL > numR;
+				} else if( InterpreterUtil.validaReal(opL) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
+					float numR = Float.parseFloat(opR);
+					return numL > numR;
+				} else {
+					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+					InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+					return false;
+				}
+			} else if( InterpreterUtil.validaReal(opL) ) {
+				// ENTAO O NUMERO DA ESQUERDA EH TIPO REAL
+				float numL = Float.parseFloat(opR);
+				if ( InterpreterUtil.validaInteiro(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
+					int numR = Integer.parseInt(opR);
+					return numL > numR;
+				} else if( InterpreterUtil.validaReal(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
+					float numR = Float.parseFloat(opR);
+					return numL > numR;
+				} else {
+					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+					InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+					return false;
+				}
+			} else {
+				// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+				InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+				return false;
+			}
+		} else if(exp instanceof AMenorExpLogica) {
+			AMenorExpLogica ne =(AMenorExpLogica) exp;
+			String opL = aplicaOperacao(ne.getL());
+			String opR = aplicaOperacao(ne.getR());
+			
+			if ( InterpreterUtil.validaInteiro(opL) ) {
+				// ENTAO O NUMERO DA ESQUERDA EH TIPO INTEIRO
+				int numL = Integer.parseInt(opL);
+				if ( InterpreterUtil.validaInteiro(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
+					int numR = Integer.parseInt(opR);
+					return numL < numR;
+				} else if( InterpreterUtil.validaReal(opL) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
+					float numR = Float.parseFloat(opR);
+					return numL < numR;
+				} else {
+					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+					InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+					return false;
+				}
+			} else if( InterpreterUtil.validaReal(opL) ) {
+				// ENTAO O NUMERO DA ESQUERDA EH TIPO REAL
+				float numL = Float.parseFloat(opR);
+				if ( InterpreterUtil.validaInteiro(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO INTEIRO
+					int numR = Integer.parseInt(opR);
+					return numL < numR;
+				} else if( InterpreterUtil.validaReal(opR) ) {
+					// ENTAO O NUMERO DA DIREITA EH TIPO REAL
+					float numR = Float.parseFloat(opR);
+					return numL < numR;
+				} else {
+					// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+					InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+					return false;
+				}
+			} else {
+				// ENTAO NAO EH NUMERO. O ARGUMENTO EH INVALIDO
+				InterpreterUtil.adicionaMensagem("Erro! O valor da variavel " +ne.getL() +" eh invalido para operacao logica.");
+				return false;
+			}
+		} else if(exp instanceof AIgualExpLogica) {
+			AIgualExpLogica ne =(AIgualExpLogica) exp;
+			return aplicaOperacao(ne.getL()).equals( aplicaOperacao(ne.getR()) );
+		}
+		return false;
+	}
 }

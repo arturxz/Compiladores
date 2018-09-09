@@ -1,29 +1,23 @@
-programa
-exemplo
+
+programa teste10
 inicio
-	inteiro : inta, vtr1[6];
-	inteiro : intb;
+   
+	inteiro: a, b, c;
+	real: z;
+	a :=  'ss' + 'dd';
 	
-	real : reala;
-	real : vtr2[7], realb;
+	a :=  'ss' + 2;
 	
-	caractere : stra, vtr3[8], strb; 
-	caractere : vtr4[9];
+	x := 2+3;
 	
-	const pi 3,14159;
+	z := 1+3,2;
 	
-	inta := 10;
-	intb := 10 + 10;
+	enquanto (1+2>2+w) faca
+		z:= 's';
+	fim enquanto;
 	
-	stra := 'a';
-	strb := stra;
+	se ( (a = b) e (b = c)) entao
+		leia(a);
+	fim se;
 	
-	vtr1[0] := 1;
-	vtr1[1] := vtr1[0];
-	
-	vtr2[0] := 1,1;
-	vtr2[1] := vtr2[0];
-	
-	vtr3[0] := 'a';
-	vtr3[1] := vtr3[0];
 fim.
