@@ -89,5 +89,39 @@ public class InterpreterUtil {
 	public static boolean adicionaMensagem(String msg) {
 		return msgs.add(msg);
 	}
+	
+	public String encontraValor(String str) {
+		/**
+		 * ESSE METODO ENCONTRA RETORNA O VALOR ENVIADO A ELE
+		 * COMO ARGUMENTO. SE FOR ENVIADO O NOME DE UMA VARIAVEL,
+		 * ELE RETORNA O VALOR DESSA VARIAVEL.
+		 * RETORNA NULO SE NAO HOUVER VALOR VALIDO E VARIAVEL NAO EXISTIR.
+		 **/
+		if( validaInteiro(str) ) {
+			// ENTAO EH UM VALOR INTEIRO
+			return str.replaceAll(" ", "");
+		} else if(validaReal(str) ){
+			// ENTAO EH UM VALOR REAL
+			return str.replaceAll(" ", "");
+		} else if( existeVariavel(str.split(" ")[0]) ) {
+			// ENTAO EH UMA VARIAVEL
+			Tipo t = retornaEntrada(str.split(" ")[0]);
+			if( t.verificaArray() ) {
+				// ENTAO A VARIAVEL EH UM ARRAY
+				if( Integer.parseInt(str.split(" ")[1]) >= t.getTamanhoArray() ) {
+					return null;
+				} else {
+					return t.getValor()[ Integer.parseInt(str.split(" ")[1]) ];
+				}
+			} else {
+				// ENTAO A VARIAVEL EH NORMAL
+				return t.getValor()[0];
+			}
+		} else if( str.replaceAll(" ", "").replaceAll("'", "").length() == 1 ) {
+			// ENTAO EH UM VALOR CARACTERE
+			return str.replaceAll(" ", "");
+		}
+		return null;
+	}
 
 }
