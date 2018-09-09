@@ -109,6 +109,7 @@ public class InterpreterUtil {
 			if( t.verificaArray() ) {
 				// ENTAO A VARIAVEL EH UM ARRAY
 				if( Integer.parseInt(str.split(" ")[1]) >= t.getTamanhoArray() ) {
+					adicionaMensagem("A entrada " +str.split(" ")[1] +" da variavel " +str.split(" ")[0] +" não existe.");
 					return null;
 				} else {
 					return t.getValor()[ Integer.parseInt(str.split(" ")[1]) ];

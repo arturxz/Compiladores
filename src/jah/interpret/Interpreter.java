@@ -134,7 +134,7 @@ public class Interpreter extends DepthFirstAdapter {
 				// ENTAO ESSA E UMA VARIAVEL NORMAL
 				if( tL.getTipo().equals("inteiro") ) {
 					// EH UMA VARIAVEL DE INTEIRO
-					String r = node.getExp().toString();
+					String r = aplicaOperacao( node.getExp() );
 					if( InterpreterUtil.validaInteiro(r) ) {
 						tL.setValor(new String[] {r});
 					} else {
@@ -142,7 +142,7 @@ public class Interpreter extends DepthFirstAdapter {
 					}
 				} else if( tL.getTipo().equals("real") ) {
 					// EH UMA VARIAVEL DE REAL
-					String r = node.getExp().toString();
+					String r = aplicaOperacao( node.getExp() );
 					if( InterpreterUtil.validaReal(r) ) {
 						tL.setValor(new String[] {r});
 					} else {
@@ -150,7 +150,7 @@ public class Interpreter extends DepthFirstAdapter {
 					}
 				} else if( tL.getTipo().equals("string") ) {
 					// EH UMA VARIAVEL DE STRING
-					String r = node.getExp().toString();
+					String r = aplicaOperacao( node.getExp() );
 					if( r.replaceAll("'", "").replaceAll(" ", "").length() == 1 ) {
 						tL.setValor(new String[] {r});
 					} else {
@@ -300,6 +300,7 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 **/
+
 	private String aplicaOperacao(PExp exp) {
 		if( exp instanceof ASomaExp  ) {
 			ASomaExp e = (ASomaExp) exp;
