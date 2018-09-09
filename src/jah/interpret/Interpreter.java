@@ -237,8 +237,8 @@ public class Interpreter extends DepthFirstAdapter {
 	
 	public void caseACommEnquanto(ACommEnquanto node) {
 		/*
-		 * 	Neste caso o procedimento é semelhante ao "se" pois só precisamos verificar
-		 * se há erros na de escrita
+		 * 	Neste caso o procedimento ï¿½ semelhante ao "se" pois sï¿½ precisamos verificar
+		 * se hï¿½ erros na de escrita
 		 * 
 		 */
 		boolean r = aplicaLogica(node.getExpLogica());
@@ -251,15 +251,36 @@ public class Interpreter extends DepthFirstAdapter {
 	public void caseAAlgoCommLeia(AAlgoCommLeia node) {
 		String var = node.getVar().toString();
 		if (!InterpreterUtil.existeVariavel(var)) {
-			InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " não declarada");
+			InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " nao declarada");
 		}
 	}
 	
 	public void caseANadaCommLeia(ANadaCommLeia node) {
 		/*
-		 * Sempre está entrando neste caso. -.-
+		 * Sempre estï¿½ entrando neste caso. -.-
 		 */
 		//System.out.println("Caso Nada Leia");
+	}
+	
+	public void caseACommPara(ACommPara node) {
+		/*
+		 * Faz a verificaÃ§Ã£o da variavel passada, se Ã© do tipo inteiro
+		 */
+		String var = node.getVar().toString().replaceAll(" ","");
+		
+		if (InterpreterUtil.existeVariavel(var)) {
+			//Variavel existe
+			Tipo tp = InterpreterUtil.retornaEntrada(var);
+			if (tp.getTipo().equals("inteiro")) {
+				//System.out.println("Variavel do tipo inteiro");
+				node.getCommParaPassa();
+			} else {
+				InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " nao e do tipo inteiro");
+			}
+		} else {
+			InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " nao declarada");
+		}
+		
 	}
 	
 	
