@@ -241,9 +241,6 @@ public class Interpreter extends DepthFirstAdapter {
 		 * se h� erros na de escrita
 		 * 
 		 */
-		
-		String txt = node.getExpLogica().toString();
-		System.out.println("abc"+txt+"def");
 		boolean r = aplicaLogica(node.getExpLogica());
 		
 		
