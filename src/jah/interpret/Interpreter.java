@@ -241,7 +241,11 @@ public class Interpreter extends DepthFirstAdapter {
 		 * se h� erros na de escrita
 		 * 
 		 */
+		
+		String txt = node.getExpLogica().toString();
+		System.out.println("abc"+txt+"def");
 		boolean r = aplicaLogica(node.getExpLogica());
+		
 		
 		if ( r ) {
 			node.getComms();
@@ -260,6 +264,48 @@ public class Interpreter extends DepthFirstAdapter {
 		 * Sempre est� entrando neste caso. -.-
 		 */
 		//System.out.println("Caso Nada Leia");
+	}
+	
+	
+	public void caseACommRepitaCondicaoParte(ACommRepitaCondicaoParte node) {
+		/*
+		 * 	Basta Usar a função aplicaLogica que ela analiza se uma exp-logica
+		 * contem uma variavel não declarada
+		 */
+		boolean r = aplicaLogica(node.getExpLogica());
+		//if (r) {//Não há necessidade de fazer algo}
+	}
+	
+	
+	//A ARVORE NAO ESTÁ ENTRANDO NESSE CASO
+	public void casoAExpAriCommAvalie(AExpAriCommAvalie node) {
+		System.out.println("Exp Ari avalie");
+		
+		String r = aplicaOperacao(node.getExp());
+		
+		//Verifica se o resultado não foi nulo
+		if (!r.equals("")) {
+			node.getCommAvalieCasoParte();
+		}
+		
+	}
+	
+	//A ARVORE NAO ESTÁ ENTRANDO NESTE CASO
+	public void casoAExpLogCommAvalie(AExpLogCommAvalie node) {
+		System.out.println("Exp Log avalie");
+		
+		boolean r = aplicaLogica(node.getExpLogica());
+		if (r) {
+			node.getCommAvalieCasoParte();
+		}
+		
+	}
+	
+	public void caseASemSenaoCommAvalieSenaoParte(ASemSenaoCommAvalieSenaoParte node) {
+		System.out.println("sem senao ");
+	}
+	public void caseAComSenaoCommAvalieSenaoParte(AComSenaoCommAvalieSenaoParte node) {
+		System.out.println("com senao");
 	}
 	
 	public void caseACommPara(ACommPara node) {
