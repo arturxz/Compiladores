@@ -235,12 +235,8 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 	
+	// COMANDO ENQUANTO
 	public void caseACommEnquanto(ACommEnquanto node) {
-		/*
-		 * 	Neste caso o procedimento � semelhante ao "se" pois s� precisamos verificar
-		 * se h� erros na de escrita
-		 * 
-		 */
 		boolean r = aplicaLogica(node.getExpLogica());
 		System.out.println("Enquanto");
 		
@@ -250,17 +246,20 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 	
-	
-	//DEVERIA ENTRAR NESTE NÓ
+	// COMANDOS LEIA (sem entrar)
 	public void caseAAlgoCommLeia(AAlgoCommLeia node) {
-		//System.out.println("Entrou no caso ALGO");
-		String var = node.getVar().toString();
-		if (!InterpreterUtil.existeVariavel(var)) {
+		String[] var = node.getVar().toString().split(" ");
+		if (!InterpreterUtil.existeVariavel(var[0])) {
 			InterpreterUtil.adicionaMensagem("Erro! Variavel " + var + " nao declarada");
 		}
+		System.out.println("-> leia algo");
+	}
+
+	public void caseANadaCommLeia(ANadaCommLeia node) {
+		System.out.println("-> leia nada");
 	}
 	
-	//DEVERIA ENTRAR NESTE NÓ
+	// COMANDOS ESCREVA
 	public void caseAAlgoExpAriCommEscreva(AAlgoExpAriCommEscreva node) {
 		System.out.println("Ari comm escreva");
 		
@@ -271,7 +270,6 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 	
-	//DEVERIA ENTRAR NESTE NÓ
 	public void caseAAlgoExpLogCommEscreva(AAlgoExpLogCommEscreva node) {
 		System.out.println("Log comm escreva");
 		
@@ -279,13 +277,6 @@ public class Interpreter extends DepthFirstAdapter {
 		if (r) {
 			node.getCommEscreva();
 		}
-	}
-	
-	public void caseANadaCommLeia(ANadaCommLeia node) {
-		/*
-		 * Sempre est� entrando neste caso. -.-
-		 */
-		//System.out.println("Caso Nada Leia");
 	}
 	
 	// COMANDOS AVALIE
@@ -330,29 +321,24 @@ public class Interpreter extends DepthFirstAdapter {
 	}
 	
 	public void caseACommRepitaCondicaoParte(ACommRepitaCondicaoParte node) {
-		/*
-		 * 	Basta Usar a função aplicaLogica que ela analiza se uma exp-logica
-		 * contem uma variavel não declarada
-		 */
 		boolean r = aplicaLogica(node.getExpLogica());
-		//if (r) {//Não há necessidade de fazer algo}
 	}
 	
 	
-	//A ARVORE NAO ESTÁ ENTRANDO NESSE CASO
+	//A ARVORE NAO ESTÃO ENTRANDO NESSE CASO
 	public void casoAExpAriCommAvalie(AExpAriCommAvalie node) {
 		System.out.println("Exp Ari avalie");
 		
 		String r = aplicaOperacao(node.getExp());
 		
-		//Verifica se o resultado não foi nulo
+		//Verifica se o resultado nÃ£o foi nulo
 		if (!r.equals("")) {
 			node.getCommAvalieCasoParte();
 		}
 		
 	}
 	
-	//A ARVORE NAO ESTÁ ENTRANDO NESTE CASO
+	//A ARVORE NAO ESTÃo ENTRANDO NESTE CASO
 	public void casoAExpLogCommAvalie(AExpLogCommAvalie node) {
 		System.out.println("Exp Log avalie");
 		
@@ -363,10 +349,10 @@ public class Interpreter extends DepthFirstAdapter {
 		
 	}
 
-	
+	// COMANDO PARA
 	public void caseACommPara(ACommPara node) {
 		/*
-		 * Faz a verificação da variavel passada, se é do tipo inteiro
+		 * Faz a verificacao da variavel passada, se eh do tipo inteiro
 		 */
 		String var = node.getVar().toString().replaceAll(" ","");
 		
@@ -385,8 +371,6 @@ public class Interpreter extends DepthFirstAdapter {
 		
 	}
 	
-	
-	
 	// OPERACOES ARITMETICAS
 	private String aplicaOperacao(PExp exp) {
 		if( exp instanceof ASomaExp  ) {
@@ -396,7 +380,6 @@ public class Interpreter extends DepthFirstAdapter {
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
 			if(valL == null) {
-				
 				return "";
 			} else if(valR == null) {
 				return "";
@@ -436,7 +419,6 @@ public class Interpreter extends DepthFirstAdapter {
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
 			if(valL == null) {
-				
 				return "";
 			} else if(valR == null) {
 				return "";
@@ -476,7 +458,6 @@ public class Interpreter extends DepthFirstAdapter {
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
 			if(valL == null) {
-				
 				return "";
 			} else if(valR == null) {
 				return "";
@@ -515,7 +496,6 @@ public class Interpreter extends DepthFirstAdapter {
 			String valR = InterpreterUtil.encontraValor( e.getR().toString() );
 			
 			if(valL == null) {
-				
 				return "";
 			} else if(valR == null) {
 				return "";
@@ -599,8 +579,13 @@ public class Interpreter extends DepthFirstAdapter {
 			return !aplicaOperacao(ne.getL()).equals( aplicaOperacao(ne.getR()) );
 		} else if(exp instanceof AMaiorqExpLogica) {
 			AMaiorqExpLogica ne =(AMaiorqExpLogica) exp;
+			
 			String opL = aplicaOperacao(ne.getL());
 			String opR = aplicaOperacao(ne.getR());
+			
+			if( opL == null || opR == null ) {
+				return false;
+			}
 			
 			if ( InterpreterUtil.validaInteiro(opL) ) {
 				// ENTAO O NUMERO DA ESQUERDA EH TIPO INTEIRO
@@ -641,8 +626,13 @@ public class Interpreter extends DepthFirstAdapter {
 			}
 		} else if(exp instanceof AMenorqExpLogica) {
 			AMenorqExpLogica ne =(AMenorqExpLogica) exp;
+			
 			String opL = aplicaOperacao(ne.getL());
 			String opR = aplicaOperacao(ne.getR());
+			
+			if( opL == null || opR == null ) {
+				return false;
+			}
 			
 			if ( InterpreterUtil.validaInteiro(opL) ) {
 				// ENTAO O NUMERO DA ESQUERDA EH TIPO INTEIRO
@@ -683,8 +673,13 @@ public class Interpreter extends DepthFirstAdapter {
 			}
 		} else if(exp instanceof AMaiorExpLogica) {
 			AMaiorExpLogica ne =(AMaiorExpLogica) exp;
+			
 			String opL = aplicaOperacao(ne.getL());
 			String opR = aplicaOperacao(ne.getR());
+			
+			if( opL == null || opR == null ) {
+				return false;
+			}
 			
 			if ( InterpreterUtil.validaInteiro(opL) ) {
 				// ENTAO O NUMERO DA ESQUERDA EH TIPO INTEIRO
@@ -725,8 +720,13 @@ public class Interpreter extends DepthFirstAdapter {
 			}
 		} else if(exp instanceof AMenorExpLogica) {
 			AMenorExpLogica ne =(AMenorExpLogica) exp;
+			
 			String opL = aplicaOperacao(ne.getL());
 			String opR = aplicaOperacao(ne.getR());
+			
+			if( opL == null || opR == null ) {
+				return false;
+			}
 			
 			if ( InterpreterUtil.validaInteiro(opL) ) {
 				// ENTAO O NUMERO DA ESQUERDA EH TIPO INTEIRO

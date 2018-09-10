@@ -1,5 +1,4 @@
-
-programa teste10
+programa teste
 inicio
    
 	inteiro: a, b, c;
@@ -11,6 +10,15 @@ inicio
 	x := 2+3;
 	
 	z := 1+3,2;
+	
+	leia(d);
+	
+	avalie( a > x )
+	caso 10:
+		leia(a);
+	senao :
+		leia(x);
+	fim avalie;
 
 	
 fim.
