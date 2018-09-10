@@ -10,22 +10,18 @@ public class Interpreter extends DepthFirstAdapter {
 
 	// PRODUCOES PARA PROGRAMA GERAL
 	public void outASemTudoPgr(ASemTudoPgr node) {
-		InterpreterUtil.adicionaMensagem("Executando programa: " + node.getId() + "sem declaracoes e comandos.");
 		InterpreterUtil.imprimeRetornos();
 	}
 
 	public void outAComDeclPgr(AComDeclPgr node) {
-		InterpreterUtil.adicionaMensagem("Executando programa: " + node.getId() + "apenas com declaracoes");
 		InterpreterUtil.imprimeRetornos();
 	}
 
 	public void outAComCommPgr(AComCommPgr node) {
-		InterpreterUtil.adicionaMensagem("Executando programa: " + node.getId() + "apenas com comandos.");
 		InterpreterUtil.imprimeRetornos();
 	}
 
 	public void outAComTudoPgr(AComTudoPgr node) {
-		InterpreterUtil.adicionaMensagem("Executando programa: " + node.getId() + "com declaracoes e comandos.");
 		InterpreterUtil.imprimeRetornos();
 	}
 
@@ -190,7 +186,7 @@ public class Interpreter extends DepthFirstAdapter {
 					if( InterpreterUtil.validaInteiro(r) ) {
 						tL.setValor(new String[] {r});
 					} else {
-						InterpreterUtil.adicionaMensagem("Erro! Expressao atribuida a " +tL.getTipo() +" nao e do tipo inteiro.");
+						InterpreterUtil.adicionaMensagem("Erro! Expressao atribuida a variavel de tipo '" +tL.getTipo() +"' nao eh do tipo inteiro (" +node.getExp() +").");
 					}
 				} else if( tL.getTipo().equals("real") ) {
 					// EH UMA VARIAVEL DE REAL
@@ -198,7 +194,7 @@ public class Interpreter extends DepthFirstAdapter {
 					if( InterpreterUtil.validaReal(r) ) {
 						tL.setValor(new String[] {r});
 					} else {
-						InterpreterUtil.adicionaMensagem("Erro! Expressao atribuida a " +tL.getTipo() +" nao e do tipo real.");
+						InterpreterUtil.adicionaMensagem("Erro! Expressao atribuida a variavel de tipo '" +tL.getTipo() +"' nao eh do tipo real (" +node.getExp() +").");
 					}
 				} else if( tL.getTipo().equals("string") ) {
 					// EH UMA VARIAVEL DE STRING
@@ -206,11 +202,11 @@ public class Interpreter extends DepthFirstAdapter {
 					if( r.replaceAll("'", "").replaceAll(" ", "").length() == 1 ) {
 						tL.setValor(new String[] {r});
 					} else {
-						InterpreterUtil.adicionaMensagem("Erro! tentou-se atribuir mais de um caractere na variavel " +tL.getTipo() +".");
+						InterpreterUtil.adicionaMensagem("Erro! Tentou-se atribuir mais de um caractere na variavel " +tL.getTipo() +".");
 					}
 				}
 			}
-			//System.out.println(tL);
+			System.out.println("id: " +idL[0] +"\n" +tL +"\n----------");
 		} else {
 			// ENTAO A VARIAVEL NAO EXISTE
 			InterpreterUtil.adicionaMensagem("Erro! Variavel " +idL[0] +" inexistente!");
@@ -320,7 +316,7 @@ public class Interpreter extends DepthFirstAdapter {
 		node.getComms();
 	}
 		
-	//A ARVORE NAO ESTÃO ENTRANDO NESSE CASO
+	//A ARVORE NAO ESTA ENTRANDO NESSE CASO
 	public void casoAExpAriCommAvalie(AExpAriCommAvalie node) {
 		System.out.println("Exp Ari avalie");
 		
@@ -333,7 +329,7 @@ public class Interpreter extends DepthFirstAdapter {
 		
 	}
 	
-	//A ARVORE NAO ESTÃo ENTRANDO NESTE CASO
+	//A ARVORE NAO ESTA ENTRANDO NESTE CASO
 	public void casoAExpLogCommAvalie(AExpLogCommAvalie node) {
 		System.out.println("Exp Log avalie");
 		
@@ -362,7 +358,6 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 
-	
 	// COMANDO PARA
 	public void caseACommPara(ACommPara node) {
 		/*
@@ -590,14 +585,21 @@ public class Interpreter extends DepthFirstAdapter {
 			return  aplicaLogica(ne.getL()) ^ aplicaLogica(ne.getR());
 		} else if(exp instanceof ADiferenteExpLogica) {
 			ADiferenteExpLogica ne =(ADiferenteExpLogica) exp;
-			return !aplicaOperacao(ne.getL()).equals( aplicaOperacao(ne.getR()) );
+			String res = aplicaOperacao(ne.getR());
+			
+			if(res != null) {
+				return !aplicaOperacao(ne.getL()).equals( res );
+			} else {
+				return false;
+			}
+			
 		} else if(exp instanceof AMaiorqExpLogica) {
 			AMaiorqExpLogica ne =(AMaiorqExpLogica) exp;
 			
 			String opL = aplicaOperacao(ne.getL());
 			String opR = aplicaOperacao(ne.getR());
 			
-			if( opL == null || opR == null ) {
+			if( opL == null || opR == null || opL.equals("") || opR.equals("")) {
 				return false;
 			}
 			
@@ -644,7 +646,7 @@ public class Interpreter extends DepthFirstAdapter {
 			String opL = aplicaOperacao(ne.getL());
 			String opR = aplicaOperacao(ne.getR());
 			
-			if( opL == null || opR == null ) {
+			if( opL == null || opR == null || opL.equals("") || opR.equals("")) {
 				return false;
 			}
 			
@@ -691,7 +693,7 @@ public class Interpreter extends DepthFirstAdapter {
 			String opL = aplicaOperacao(ne.getL());
 			String opR = aplicaOperacao(ne.getR());
 			
-			if( opL == null || opR == null ) {
+			if( opL == null || opR == null || opL.equals("") || opR.equals("")) {
 				return false;
 			}
 			
@@ -738,7 +740,7 @@ public class Interpreter extends DepthFirstAdapter {
 			String opL = aplicaOperacao(ne.getL());
 			String opR = aplicaOperacao(ne.getR());
 			
-			if( opL == null || opR == null ) {
+			if( opL == null || opR == null || opL.equals("") || opR.equals("")) {
 				return false;
 			}
 			
@@ -781,7 +783,13 @@ public class Interpreter extends DepthFirstAdapter {
 			}
 		} else if(exp instanceof AIgualExpLogica) {
 			AIgualExpLogica ne =(AIgualExpLogica) exp;
-			return aplicaOperacao(ne.getL()).equals( aplicaOperacao(ne.getR()) );
+			String res = aplicaOperacao(ne.getR());
+			
+			if(res != null) {
+				return aplicaOperacao(ne.getL()).equals( res );
+			} else {
+				return false;
+			}
 		}
 		return false;
 	}

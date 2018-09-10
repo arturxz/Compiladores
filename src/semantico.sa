@@ -1,4 +1,4 @@
-programa teste
+programa teste10
 inicio
    
 	inteiro: a, b, c;
@@ -11,22 +11,12 @@ inicio
 	
 	z := 1+3,2;
 	
-	leia(d);
-	escreva(d);
+	enquanto ((1+2)>(2+w)) faca
+		z:= 's';
+	fim enquanto;
 	
-	avalie( a > x )
-	caso 10:
+	se ( (a = b) e (b = c)) entao
 		leia(a);
-	senao :
-		leia(x);
-	fim avalie;
-
-	avalie( a )
-	caso 10:
-		leia(a);
-	senao :
-		leia(x);
-	fim avalie;
-
+	fim se;
 	
 fim.
