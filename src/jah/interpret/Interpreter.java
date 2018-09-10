@@ -11,6 +11,7 @@ public class Interpreter extends DepthFirstAdapter {
 	// PRODUCOES PARA PROGRAMA GERAL
 	public void outASemTudoPgr(ASemTudoPgr node) {
 		InterpreterUtil.imprimeRetornos();
+		InterpreterUtil.finaliza();
 	}
 
 	public void outAComDeclPgr(AComDeclPgr node) {
@@ -118,6 +119,7 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 	}
 	
+	
 	// COMANDO DE ATRIBUICAO
 	public void caseASimplesComm(ASimplesComm node) {
 		String[] idL = node.getVar().toString().split(" ");
@@ -162,6 +164,8 @@ public class Interpreter extends DepthFirstAdapter {
 						InterpreterUtil.adicionaMensagem("Erro! O valor a ser atribuido deve ser real, pois o array " +idL[0] +" eh do tipo real.");
 					}
 				} else if( tipoArray.equals("string") ) {
+					InterpreterUtil.adicionaMensagem("Impossivel realizar operacoes aritmeticas com caracteres!");
+					/**
 					String r = aplicaOperacao(node.getExp());
 					if( r.replaceAll(" ", "").replaceAll("'", "").length() == 1 ) {
 						// VALOR DA EXPRESSAO EH DO TIPO CARACTERE
@@ -176,7 +180,7 @@ public class Interpreter extends DepthFirstAdapter {
 						}
 					} else {
 						InterpreterUtil.adicionaMensagem("Erro! O valor a ser atribuido deve ser caractere, pois o array " +idL[0] +" eh do tipo caractere.");
-					}
+					}**/
 				}
 			} else {
 				// ENTAO ESSA E UMA VARIAVEL NORMAL
@@ -198,12 +202,14 @@ public class Interpreter extends DepthFirstAdapter {
 					}
 				} else if( tL.getTipo().equals("string") ) {
 					// EH UMA VARIAVEL DE STRING
+					InterpreterUtil.adicionaMensagem("Impossivel realizar operacoes aritmeticas com caracteres!");
+					/***
 					String r = aplicaOperacao( node.getExp() );
 					if( r.replaceAll("'", "").replaceAll(" ", "").length() == 1 ) {
 						tL.setValor(new String[] {r});
 					} else {
 						InterpreterUtil.adicionaMensagem("Erro! Tentou-se atribuir mais de um caractere na variavel " +tL.getTipo() +".");
-					}
+					} **/
 				}
 			}
 			System.out.println("id: " +idL[0] +"\n" +tL +"\n----------");
@@ -234,11 +240,12 @@ public class Interpreter extends DepthFirstAdapter {
 	// COMANDO ENQUANTO
 	public void caseACommEnquanto(ACommEnquanto node) {
 		boolean r = aplicaLogica(node.getExpLogica());
-		System.out.println("Enquanto");
-		
 		
 		if ( r ) {
+			System.out.println("enquanto ok");
 			node.getComms();
+		} else {
+			System.out.println("enquanto n");
 		}
 	}
 	

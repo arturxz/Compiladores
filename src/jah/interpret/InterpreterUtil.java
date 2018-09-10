@@ -22,7 +22,15 @@ public class InterpreterUtil {
 	 * NESSA PILHA ESTAO TODAS AS MENSAGENS RETORNADAS PARA O USUARIO. AS MENSAGENS
 	 * SAO COLOCADAS EM PILHA PARA QUE SEJAM MOSTRADAS NA ORDEM CORRETA.
 	 **/
-
+	
+	public static void finaliza() {
+		/**
+		 * ESSE METODO ESVAZIA AS ESTRUTURAS DE DADOS
+		**/
+		ht.clear();
+		msgs.clear();
+	}
+	
 	public static boolean incluiEntrada(String tipo, String id, String valor) {
 		/**
 		 * INCLUI ENTRADA NO HASHTABLE. SUBTENDE-SE QUE O VALOR JA FOI VALIDADO! NA
