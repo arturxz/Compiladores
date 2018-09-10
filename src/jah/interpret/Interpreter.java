@@ -259,7 +259,7 @@ public class Interpreter extends DepthFirstAdapter {
 		System.out.println("-> leia nada");
 	}
 	
-	// COMANDOS ESCREVA
+	// COMANDOS ESCREVA (sem entrar)
 	public void caseAAlgoExpAriCommEscreva(AAlgoExpAriCommEscreva node) {
 		System.out.println("Ari comm escreva");
 		
@@ -319,12 +319,7 @@ public class Interpreter extends DepthFirstAdapter {
 	public void caseAComSenaoCommAvalieSenaoParte(AComSenaoCommAvalieSenaoParte node) {
 		node.getComms();
 	}
-	
-	public void caseACommRepitaCondicaoParte(ACommRepitaCondicaoParte node) {
-		boolean r = aplicaLogica(node.getExpLogica());
-	}
-	
-	
+		
 	//A ARVORE NAO ESTÃO ENTRANDO NESSE CASO
 	public void casoAExpAriCommAvalie(AExpAriCommAvalie node) {
 		System.out.println("Exp Ari avalie");
@@ -348,7 +343,26 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 		
 	}
+	
+	// COMANDO REPITA
+	public void caseACommRepita(ACommRepita node) {
+		node.getCommRepitaCommsParte();
+	}
+	
+	public void caseACommRepitaCommsParte(ACommRepitaCommsParte node) {
+		node.getComms();
+		node.getCommRepitaCondicaoParte();
+	}
+	
+	public void caseACommRepitaCondicaoParte(ACommRepitaCondicaoParte node) {
+		boolean r = aplicaLogica(node.getExpLogica());
+		
+		if( !r ) {
+			return;
+		}
+	}
 
+	
 	// COMANDO PARA
 	public void caseACommPara(ACommPara node) {
 		/*
@@ -771,4 +785,5 @@ public class Interpreter extends DepthFirstAdapter {
 		}
 		return false;
 	}
+
 }
